@@ -20,7 +20,11 @@
         </li>
       <% else %>
         <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "Sign in", login_path , class: "nav_text" %></li>
+          <% unless current_page?(login_path) %>
+            <li><%= link_to "Sign in", login_path , class: "nav_text" %></li>
+          <% else %>
+            <li><%= link_to "Sign up", signup_path , class: "nav_text" %></li>
+          <% end %>
         </ul>
       <% end %>
     </ul>
