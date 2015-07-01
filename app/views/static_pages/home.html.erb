@@ -1,0 +1,24 @@
+<% if logged_in? %>
+
+  <div class="row">
+  	<div class="text-center">
+  	  <h2> Welcome, <%= current_user.name %> </h2>
+  	  <h4> This is your homepage. Where you will able to view your recent activities and sales summary. </h4>
+  	  <h4> To start managing your database, go to 'My Panel' at the top navigation bar. </h4>
+  	  <h4> To change your account information: name or password, go to Account at the upper right. </h4>
+  	  <h4> To report any issues, bugs, please use the Contact link at the bottom corner. </h4>
+  	  <h4> Thank you. </h4>
+  	</div>
+  </div>
+
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to Gotato!</h1>
+    <h3>Your online sales database</h3>
+  
+    <div class="button_div">
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-default" %>
+    </div>
+
+  </div>
+<% end %>
