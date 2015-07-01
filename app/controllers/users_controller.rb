@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
-  
+
   def edit
   end
 
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in(@user)
       flash[:success] = "Thank you for signing up, #{@user.name}."
-      redirect_to user_path(@user)
+      redirect_to root_path
     else
       render 'new'
     end
