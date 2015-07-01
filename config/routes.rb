@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
-  resources :users, :except => [:index]
+  #patch 'users/:id' => 'users#account_password_update'
+
+  resources :users, :except => [:index, :edit] do
+    member do
+      get :account
+      get :account_password
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

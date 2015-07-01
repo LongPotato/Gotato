@@ -36,6 +36,7 @@
   border-left: 1px solid #eaeaea;
 }
 
+
 footer {
   margin-top: 45px;
   padding-top: 10px;
@@ -66,14 +67,23 @@ footer {
 
 
 h1 {
+  line-height: 1;
   text-align: center;
+  margin-bottom: 15px;
 }
+
 
 #login_btn {
   width: 100px !important;
 }
 
+
 .button_div {
   margin-top: 20px;
+}
+
+
+.p_account {
+  font-size: 18px;
 }
 
