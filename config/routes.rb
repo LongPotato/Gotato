@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   #patch 'users/:id' => 'users#account_password_update'
 
   resources :users, :except => [:index, :edit] do
+    resources :orders
     member do
       get :account
       get :account_password

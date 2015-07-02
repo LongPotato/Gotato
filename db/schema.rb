@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150701073026) do
+ActiveRecord::Schema.define(version: 20150702042340) do
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "quantity"
+    t.text     "description"
+    t.text     "note"
+    t.string   "store"
+    t.string   "image_link"
+    t.date     "order_date"
+    t.date     "receive_us"
+    t.date     "ship_vn"
+    t.decimal  "web_price"
+    t.decimal  "tax"
+    t.decimal  "shipping_us"
+    t.decimal  "reward"
+    t.decimal  "shipping_vn"
+    t.decimal  "total"
+    t.decimal  "total_cost"
+    t.decimal  "vnd"
+    t.decimal  "profit"
+    t.decimal  "deposit"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.decimal  "selling_price"
+    t.integer  "user_id"
+  end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

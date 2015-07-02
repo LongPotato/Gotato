@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   #Filters:
   before_save { self.email = email.downcase }
 
+  #Relation:
+  has_many :orders, dependent: :destroy
+
   #Returns a random token.
   def User.new_token
     SecureRandom.urlsafe_base64
@@ -41,8 +44,5 @@ class User < ActiveRecord::Base
   def forget
     update_attribute(:remember_digest, nil)
   end
-
-  
-
 
 end
