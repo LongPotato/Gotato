@@ -58,12 +58,7 @@
 
 .container {
   white-space: nowrap;
-  .full-width-div {
-    display: inline-block;
-  }
 }
-
-
 
 footer {
   margin-top: 45px;
@@ -125,6 +120,7 @@ h1 {
 }
 
 .full-width-div {
+  padding-top: 20px;
   width:100%;
   overflow-x: scroll;
 }  

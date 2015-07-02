@@ -37,6 +37,7 @@
       <th width ="150">Selling price</th>
       <th width ="150">Deposit</th>
       <th width ="150">Profit</th>
+      <th width ="150">Action</th>
     </tr>
     </thead>
 
@@ -63,6 +64,18 @@
           <td><%= number_with_delimiter(order.selling_price.to_f, :delimiter => ',') %></td>
           <td><%= number_with_delimiter(order.deposit.to_f, :delimiter => ',') %></td>
           <td><%= number_with_delimiter(order.profit.to_f, :delimiter => ',') %></td>
+          <td>
+           <div class="btn-group dropup">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to "Edit", "" %></li>
+              <li><%= link_to "Delete", "" %></li>
+            </ul>
+            </div>
+           </td>
         </tr>      
     </tbody>
     <% end %>
