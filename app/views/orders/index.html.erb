@@ -53,6 +53,15 @@
           <td><%= order.order_date.strftime("%B %d, %Y")  %></td>
           <td><%= order.receive_us.strftime("%B %d, %Y")  %></td>
           <td><%= order.ship_vn.strftime("%B %d, %Y")  %></td>
+          <td>$<%= order.web_price.to_f %></td>
+          <td>$<%= order.tax.to_f %></td>
+          <td>$<%= order.reward.to_f %></td>
+          <td>$<%= order.shipping_us.to_f %></td>
+          <td>$<%= order.total.to_f %></td>
+          <td><%= order.shipping_vn.to_f %></td>
+          
+
+
         </tr>      
     </tbody>
     <% end %>
