@@ -58,10 +58,11 @@
           <td>$<%= order.reward.to_f %></td>
           <td>$<%= order.shipping_us.to_f %></td>
           <td>$<%= order.total.to_f %></td>
-          <td><%= order.shipping_vn.to_f %></td>
-          
-
-
+          <td>$<%= order.shipping_vn.to_f %></td>
+          <td>$<%= order.total_cost.to_f %></td>
+          <td><%= number_with_delimiter(order.selling_price.to_f, :delimiter => ',') %></td>
+          <td><%= number_with_delimiter(order.deposit.to_f, :delimiter => ',') %></td>
+          <td><%= number_with_delimiter(order.profit.to_f, :delimiter => ',') %></td>
         </tr>      
     </tbody>
     <% end %>
