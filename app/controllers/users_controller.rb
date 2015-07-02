@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :account, :account_password]
-  before_action :correct_user,   only: [:edit, :update, :show, :account, :account_password]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :account_password]
+  before_action :correct_user,   only: [:edit, :update, :show, :account_password]
 
   def new
     @user = User.new
   end
 
-  def account
+  def show
     @user = User.find(params[:id])
   end
 

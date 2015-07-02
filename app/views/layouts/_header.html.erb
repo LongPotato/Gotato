@@ -3,7 +3,7 @@
     <%= link_to "gotato", root_path, id: "logo" %>
     <% if logged_in? %>
       <ul class="nav navbar-nav navbar-left">
-        <li><%= link_to "Orders", current_user, id: "first_nav" %></li>
+        <li><%= link_to "Orders", user_orders_path(current_user) , id: "first_nav" %></li>
         <li><%= link_to "Inventory", "", id: "next_nav" %></li>
         <li><%= link_to "Shipping", "", id: "last_nav" %></li>
       </ul>
@@ -13,7 +13,7 @@
             <%= current_user.name %><b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Account", account_user_path(current_user) %></li>
+            <li><%= link_to "Account", user_path(current_user) %></li>
             <li class="divider"></li>
             <li>
               <%= link_to "Log out", logout_path, method: "delete" %>
