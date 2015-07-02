@@ -1,0 +1,54 @@
+<%= provide(:title, 'Order detail') %>
+
+<h1>Order #<%=@order.id%></h1>
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">
+
+ <fieldset class="field">
+   <legend></legend>
+
+   <p class="p_order"><b>Name:</b>  <%= @order.name %></p>
+   <p class="p_order"><b>Quantity:</b> <%= @order.quantity %></p>
+   <p class="p_order"><b>Customer:</b></p>
+   <p class="p_order"><b>Description:</b> <%= @order.description %></p>
+   <p class="p_order"><b>Note:</b> <%= @order.note %></p>
+   <p class="p_order"><b>Store:</b> <%= @order.store %></p>
+
+   <legend class="field"></legend>
+   
+   <img src="<%= @order.image_link %>" alt="Order image" height="200" width="300">
+
+   <legend class="field"></legend>
+
+   <p class="p_order"><b>Order date:</b>  <%= @order.order_date.strftime("%B %d, %Y") %></p>
+   <p class="p_order"><b>Receive US:</b>  <%= @order.receive_us.strftime("%B %d, %Y") %></p>
+   <p class="p_order"><b>Ship VN:</b>  <%= @order.ship_vn.strftime("%B %d, %Y") %></p>
+   <p class="p_order"><b>Ship ID:</b></p>
+
+   <legend class="field"></legend>
+
+   <p class="p_order"><b>Web price:</b> $<%= @order.web_price.to_f %></p>
+   <p class="p_order"><b>Tax:</b> $<%= @order.tax.to_f %></p>
+   <p class="p_order"><b>Shipping US:</b> $<%= @order.shipping_us.to_f %></p>
+   <p class="p_order"><b>Reward:</b> $<%= @order.reward.to_f %></p>
+   <p class="p_order"><b>Total: </b><%= @order.web_price.to_f %> + <%= @order.tax.to_f %> + <%= @order.shipping_us.to_f %> - <%= @order.reward.to_f %> = $<%= @order.total.to_f %>
+   </p>
+   <p class="p_order"><b>Shipping VN:</b> $<%= @order.shipping_vn.to_f %></p>
+   <p class="p_order"><b>Total cost:</b> <%= @order.total.to_f %> - <%= @order.shipping_vn.to_f %> = $<%= @order.total_cost.to_f %></p>
+
+   <legend class="field"></legend>
+
+   <p class="p_order"><b>Selling price:</b> <%= number_with_delimiter(@order.selling_price.to_f, :delimiter => ',') %></p>
+   <p class="p_order"><b>Deposit:</b> <%= number_with_delimiter(@order.deposit.to_f, :delimiter => ',') %></p>
+   <p class="p_order"><b>Profit:</b> <%= number_with_delimiter(@order.profit.to_f, :delimiter => ',') %></p>
+
+   <legend class="field"></legend>
+
+   <%= link_to "Edit", "", class: "btn btn-lg btn-default" %>
+   <%= link_to "Delete", "", class: "btn btn-lg btn-danger" %>
+
+ </fieldset>
+
+ </div>
+</div>

@@ -40,8 +40,17 @@ class UsersController < ApplicationController
 
 
   private
-  
+
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    # Confirms the correct user.
+    def correct_user
+      @user = User.find(params[:id])
+      unless current_user?(@user)
+        flash[:danger] = "You don't have permission for that action."
+        redirect_to(root_url)
+      end
     end
 end
