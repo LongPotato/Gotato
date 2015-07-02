@@ -1,0 +1,61 @@
+<% provide(:title, 'Orders') %>
+
+<div class="row">
+  <div class="btn-group" role="group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      New order
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#">New direct order</a></li>
+      <li><a href="#">From inventory</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="full-width-div">
+<table class="table table-hover">
+    <thead>
+    <tr>
+      <th width = "50">Order #</th>
+      <th width ="400">Name</th>
+      <th width = "100">Quantity</th>
+      <th width ="300">Description</th>
+      <th width ="300">Note</th>
+      <th width ="300">Store</th>
+      <th width ="50">Image</th>
+      <th width ="110">Order date</th>
+      <th width ="110">Receive US</th>
+      <th width ="110">Ship VN</th>
+      <th width ="50">Web price</th>
+      <th width ="150">Tax</th>
+      <th width ="150">Reward</th>
+      <th width ="150">Shipping US</th>
+      <th width ="150">Total</th>
+      <th width ="150">Shipping VN</th>
+      <th width ="150">Total cost</th>
+      <th width ="150">Selling price</th>
+      <th width ="150">Deposit</th>
+      <th width ="150">Profit</th>
+    </tr>
+    </thead>
+
+    <% @orders.each do |order| %>
+    <tbody>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.name %></td>
+          <td><%= order.quantity %></td>
+          <td><%= order.description %></td>
+          <td><%= order.note %></td>
+          <td><%= order.store %></td>
+          <td><%= link_to "Image", "" %></td>
+          <td><%= order.order_date.strftime("%B %d, %Y")  %></td>
+          <td><%= order.receive_us.strftime("%B %d, %Y")  %></td>
+          <td><%= order.ship_vn.strftime("%B %d, %Y")  %></td>
+        </tr>      
+    </tbody>
+    <% end %>
+
+  </table>
+</div>

@@ -56,6 +56,14 @@
   border-right: 1px solid #eaeaea;
 }
 
+.container {
+  white-space: nowrap;
+  .full-width-div {
+    display: inline-block;
+  }
+}
+
+
 
 footer {
   margin-top: 45px;
@@ -107,3 +115,11 @@ h1 {
   font-size: 18px;
 }
 
+
+.order_btn {
+  color: gray;
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
+}

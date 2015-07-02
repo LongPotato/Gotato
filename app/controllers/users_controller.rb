@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :show, :account_password]
+  before_action :logged_in_user, except: [:new, :create]
   before_action :correct_user,   only: [:edit, :update, :show, :account_password]
 
   def new
@@ -40,16 +40,8 @@ class UsersController < ApplicationController
 
 
   private
+  
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    # Confirms the correct user.
-    def correct_user
-      @user = User.find(params[:id])
-      unless current_user?(@user)
-        flash[:danger] = "You don't have permission for that action."
-        redirect_to(root_url)
-      end
     end
 end
