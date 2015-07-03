@@ -20,9 +20,9 @@ customer_array = []
   customer_array << new_customer.id
 end
 
-10.times do
+20.times do
   s = rand(100)
-  quan = rand(10)
+  quan = rand(20)
   Order.create(name: "RandomOrder_#{s}", quantity: quan, description: "Very good", note: "#{quan} items", 
                store: "Store ##{s}", image_link: "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/9/24/1411574454561/03085543-87de-47ab-a4eb-58e7e39d022e-620x372.jpeg", 
                order_date: Time.now, receive_us: 2.days.from_now, ship_vn: 3.days.from_now, 
