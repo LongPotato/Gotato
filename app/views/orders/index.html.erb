@@ -3,7 +3,8 @@
 <div class="row">
   <div class="btn-group" role="group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      New order
+      <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+      <b>New order</b>
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -47,16 +48,18 @@
     <tbody>
         <tr>
           <td><%= order.id %></td>
-          <td><%= order.name %></td>
+          <td><%= order.name.capitalize %></td>
           <td><%= order.quantity %></td>
-          <td><%= order.customer.name %></td>
+          <td><%= order.customer.try(:name).try(:capitalize) %></td>
           <td><%= order.description %></td>
           <td><%= order.note %></td>
-          <td><%= order.store %></td>
-          <td><%= link_to "View", "#{order.image_link}",:target => "_blank" %></td>
-          <td><%= order.order_date.strftime("%B %d, %Y")  %></td>
-          <td><%= order.receive_us.strftime("%B %d, %Y")  %></td>
-          <td><%= order.ship_vn.strftime("%B %d, %Y")  %></td>
+          <td><%= order.store.try(:capitalize) %></td>
+          <td>
+            <%= (link_to "View", "#{order.image_link}",:target => "_blank") if order.image_link.present? %>
+          </td>
+          <td><%= order.order_date.try(:strftime, "%B %d, %Y") %></td>
+          <td><%= order.receive_us.try(:strftime, "%B %d, %Y") %></td>
+          <td><%= order.ship_vn.try(:strftime, "%B %d, %Y") %></td>
           <td>$<%= order.web_price.to_f %></td>
           <td>$<%= order.tax.to_f %></td>
           <td>$<%= order.reward.to_f %></td>
