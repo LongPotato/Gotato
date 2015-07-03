@@ -1,6 +1,19 @@
 <%= provide(:title, 'Order detail') %>
 
+<div class="row">
+<nav id="back_next">
+  <ul class="pager">
+    <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Back'), 
+                             :back, class: "order_btn" %>
+    </li>
+    <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
+                         user_order_path(current_user,@order.next), class: "order_btn" %>
+    </li>
+  </ul>
+</nav>
 <h1>Order #<%=@order.id%></h1>
+</div>
+
 
 <div class="row">
  <div class="col-md-6 col-md-offset-3">
@@ -10,7 +23,7 @@
 
    <p class="p_order"><b>Name:</b>  <%= @order.name %></p>
    <p class="p_order"><b>Quantity:</b> <%= @order.quantity %></p>
-   <p class="p_order"><b>Customer:</b></p>
+   <p class="p_order"><b>Customer:</b> <%= @order.customer.name %> </p>
    <p class="p_order"><b>Description:</b> <%= @order.description %></p>
    <p class="p_order"><b>Note:</b> <%= @order.note %></p>
    <p class="p_order"><b>Store:</b> <%= @order.store %></p>
@@ -45,7 +58,7 @@
 
    <legend class="field"></legend>
 
-   <%= link_to "Edit", "", class: "btn btn-lg btn-default" %>
+   <%= link_to "Edit", "", class: "btn btn-lg btn-warning" %>
    <%= link_to "Delete", "", class: "btn btn-lg btn-danger" %>
 
  </fieldset>

@@ -7,4 +7,9 @@ class Order < ActiveRecord::Base
   validates :name, presence: true
   validates :user, presence: true
 
+  #get next available order
+  def next
+    self.class.where("id > ?", id).first
+  end
+
 end
