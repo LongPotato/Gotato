@@ -7,7 +7,7 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li><a href="#">New direct order</a></li>
+      <li><%= link_to "New direct order", new_user_order_path(current_user) %></a></li>
       <li><a href="#">From inventory</a></li>
     </ul>
   </div>
@@ -49,11 +49,11 @@
           <td><%= order.id %></td>
           <td><%= order.name %></td>
           <td><%= order.quantity %></td>
-          <td></td>
+          <td><%= order.customer.name %></td>
           <td><%= order.description %></td>
           <td><%= order.note %></td>
           <td><%= order.store %></td>
-          <td><%= link_to "Image", "#{order.image_link}",:target => "_blank" %></td>
+          <td><%= link_to "View", "#{order.image_link}",:target => "_blank" %></td>
           <td><%= order.order_date.strftime("%B %d, %Y")  %></td>
           <td><%= order.receive_us.strftime("%B %d, %Y")  %></td>
           <td><%= order.ship_vn.strftime("%B %d, %Y")  %></td>

@@ -1,0 +1,21 @@
+<%= provide(:title, 'New order') %>
+
+<h1>New Order</h1>
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">
+
+ 	<%= bootstrap_form_for([@user, @order]) do |f| %>
+ 	  <%= f.hidden_field :user_id, :value => @user.id %>
+
+      <%= f.text_field :name %>
+
+      <%= f.number_field :quantity %>
+
+      <%= f.text_field :order_date, icon: "calendar", 'data-provide' => 'datepicker' %>
+      
+      <%= f.submit "Create new", class: "btn btn-success" %>
+ 	<% end %>
+
+ </div>
+</div>

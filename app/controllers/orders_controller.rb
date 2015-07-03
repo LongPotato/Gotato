@@ -10,6 +10,15 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def new
+    @user = current_user
+    @order = Order.new
+  end
+
+  def create
+
+  end
+
   private
     # Confirms the correct user.
     def correct_user
