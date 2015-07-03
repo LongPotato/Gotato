@@ -12,10 +12,55 @@
 
       <%= f.number_field :quantity %>
 
+      <%= f.text_field :customer %>
+
+      <%= f.text_field :store %>
+
+      <%= f.url_field :image_link, label: "Image URL" %>
+
+      <%= f.text_area :description, label: "Product description" %>
+
+      <%= f.text_area :note %>
+
+      <legend class="field"></legend>
+
       <%= f.text_field :order_date, icon: "calendar", 'data-provide' => 'datepicker' %>
+
+      <%= f.text_field :receive_us, icon: "calendar", 'data-provide' => 'datepicker', label: "Receive US" %>
+
+      <%= f.text_field :ship_vn, icon: "calendar", 'data-provide' => 'datepicker', label: "Ship VN" %>
+
+      <legend class="field"></legend>
       
-      <%= f.submit "Create new", class: "btn btn-success" %>
+      <%= f.text_field :web_price, prepend: "$" %>
+
+      <%= f.text_field :tax, prepend: "$" %>
+
+      <%= f.text_field :reward, prepend: "$" %>
+
+      <%= f.text_field :shipping_us, prepend: "$" %>
+
+      <legend class="field"></legend>
+
+      <%= f.text_field :vnd, prepend: "VND", label: "VND to USD exchange rate", help: "Enter today exchange rate or use your predefined value in setting"  %>
+
+      <%= f.check_box :use_user_rate, label: "Use my setting exchange rate" %>
+
+      <legend class="field"></legend>
+
+      <%= f.text_field :selling_price, prepend: "VND" %>
+
+      <%= f.text_field :deposit, prepend: "VND" %>
+
+      <legend class="field"></legend>
+      
+      <%= f.submit "Create new", class: "btn btn-lg btn-success" %>
+
+      <%= link_to "Cancel", user_orders_path(current_user), class: "btn btn-lg btn-default" %>
+
  	<% end %>
+
+
 
  </div>
 </div>
