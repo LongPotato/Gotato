@@ -34,6 +34,10 @@ class OrdersController < ApplicationController
         @order.customer_id = custom.id
       end
     end
+    
+    @order.order_date = Date.strptime(params[:order][:order_date], '%m/%d/%Y') unless params[:order][:order_date].empty?
+    @order.receive_us = Date.strptime(params[:order][:receive_us], '%m/%d/%Y') unless params[:order][:receive_us].empty?
+    @order.ship_vn = Date.strptime(params[:order][:ship_vn], '%m/%d/%Y') unless params[:order][:ship_vn].empty?
 
     if @order.save
       redirect_to user_orders_path(@order.user)
@@ -56,7 +60,7 @@ class OrdersController < ApplicationController
     #White list parameters
     def order_params
       params.require(:order).permit(:user_id, :name, :quantity, :store, :image_link, :description, :note,
-                                    :order_date, :receive_us, :ship_vn, :web_price, :tax, :reward, :shipping_us,
+                                    :web_price, :tax, :reward, :shipping_us,
                                     :selling_price, :deposit)
     end
 
