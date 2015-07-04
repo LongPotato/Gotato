@@ -50,20 +50,56 @@
 
    <legend class="field"></legend>
 
-   <p class="p_order"><b>Web price:</b><span class="tab-space">$<%= @order.web_price.to_f %></p>
-   <p class="p_order"><b>Tax:</b><span class="tab-space">$<%= @order.tax.to_f %></p>
-   <p class="p_order"><b>Shipping US: </b><span class="tab-space">$<%= @order.shipping_us.to_f %></p>
-   <p class="p_order"><b>Reward:</b><span class="tab-space">$<%= @order.reward.to_f %></p>
-   <p class="p_order"><b>Total:</b><span class="tab-space"><%= @order.web_price.to_f %> + <%= @order.tax.to_f %> + <%= @order.shipping_us.to_f %> - <%= @order.reward.to_f %> = $<%= @order.total.to_f %>
-   </p>
-   <p class="p_order"><b>Shipping VN:</b><span class="tab-space">$<%= @order.shipping_vn.to_f %></p>
-   <p class="p_order"><b>Total cost:</b><span class="tab-space"><%= @order.total.to_f %> - <%= @order.shipping_vn.to_f %> = $<%= @order.total_cost.to_f %></p>
+   <table class="table">
+   <tbody class="p_order">
+   <tr>
+      <td><b>Web price:</b></td>
+      <td><%= @order.web_price.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Tax:</b></td>
+      <td><%= @order.tax.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Shipping US:</b></td>
+      <td><%= @order.shipping_us.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Reward:</b></td>
+      <td><%= @order.reward.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Total:</b></td>
+      <td><%= @order.total.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Shipping VN:</b></td>
+      <td><%= @order.shipping_vn.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Total cost:</b></td>
+      <td><%= @order.total_cost.to_f %></td>
+   </tr>
+   </tbody>
+   </table>
 
-   <legend class="field"></legend>
 
-   <p class="p_order"><b>Selling price:</b><span class="tab-space"><%= number_with_delimiter(@order.selling_price.to_f, :delimiter => ',') %></p>
-   <p class="p_order"><b>Deposit:</b><span class="tab-space"><%= number_with_delimiter(@order.deposit.to_f, :delimiter => ',') %></p>
-   <p class="p_order"><b>Profit:</b><span class="tab-space"><%= number_with_delimiter(@order.profit.to_f, :delimiter => ',') %></p>
+   <table class="table table-striped">
+   <tbody class="p_order">
+   <tr>
+      <td><b>Selling price:</b></td>
+      <td><%= number_with_delimiter(@order.selling_price.to_f, :delimiter => ',') %></td>
+   </tr>
+   <tr>
+      <td><b>Deposit:</b></td>
+      <td><%= number_with_delimiter(@order.deposit.to_f, :delimiter => ',') %></td>
+   </tr>
+   <tr>
+      <td><b>Profit:</b></td>
+      <td><%= number_with_delimiter(@order.profit.to_f, :delimiter => ',') %></td>
+   </tr>
+   </tbody>
+   </table>
 
    <legend class="field"></legend>
 
