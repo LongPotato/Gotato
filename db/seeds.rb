@@ -17,8 +17,8 @@ store_name = ['macy', 'express', 'michael kors', 'blooming dales', 'apple', 'bes
 
 order_name = ['Urinal', 'da sound machince', "Another long orderrrrr", 'ugly shirt', 'creamy white fishing sauce', 'negerito', 'plopp']
 
-note_list = ['Very good', 'lul this suck', "that bitch wants a fast delivery but she doesn't even want to deposit money",
-            'this product is very good', 'for relative', '4 items', "", "deposited", "from inventory"]
+note_list = ['Very gooddddddddddddddddddddddddddd', 'lul this suck', "that bitch wants a fast delivery but she doesn't even want to deposit money",
+            'this product is very goodddddddddddddddddddddddd', 'for relative', '4 items', "", "deposited", "from inventory"]
 
 image = ["http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/9/24/1411574454561/03085543-87de-47ab-a4eb-58e7e39d022e-620x372.jpeg", ""]
 
@@ -35,7 +35,7 @@ end
 
 20.times do
   s = rand(100)
-  quan = rand(20)
+  quan = rand(1..20)
   price = price_list[rand(0..12)]
   vn = vn_price[rand(0..10)]
   Order.create(name: order_name[rand(0..6)], quantity: quan, description: note_list[rand(0..8)], note: note_list[rand(0..8)], 

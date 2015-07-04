@@ -57,13 +57,17 @@
   border-right: 1px solid #eaeaea;
 }
 
-.container {
+
+.nowrap {
   white-space: nowrap;
 }
+
 
 footer {
   margin-top: 45px;
   padding-top: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
   border-top: 1px solid #eaeaea;
   color: gray;
   a {
@@ -156,6 +160,20 @@ h1 {
   width:100%;
   overflow-x: scroll;
 }
+
+.nav-show {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+
+.nav-order {
+  padding-left: 20px;
+}
+
+
+
+
 
 
 

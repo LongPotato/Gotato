@@ -1,6 +1,6 @@
 <% provide(:title, 'Orders') %>
 
-<div class="row">
+<div class="row nav-order">
   <div class="btn-group" role="group">
     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -14,7 +14,8 @@
   </div>
 </div>
 
-<div class="full-width-div">
+<div class="nowrap">
+<div class="full-width-div white-space:">
 <table class="table table-hover">
     <thead>
     <tr>
@@ -51,17 +52,19 @@
           <td><%= order.name.capitalize %></td>
           <td><%= order.quantity %></td>
           <td><%= order.customer.try(:name).try(:capitalize) %></td>
-          <% if order.description.split.length > 3 %>
-            <td><%= order.description.split[0..2].join(' ') %>
+
+          <% if order.description.length > 9 %>
+            <td><%= order.description[0..9] %>
               <%= link_to user_order_path(current_user,order.id) do %>
                  <i class="glyphicon glyphicon-triangle-right"></i>
               <% end %>
             </td>
           <% else %>
-            <td><%= order.description %></td>
+              <td><%= order.description %></td>
           <% end %>
-          <% if order.note.split.length > 3 %>
-            <td><%= order.note.split[0..2].join(' ') %>
+
+          <% if order.note.length > 9 %>
+            <td><%= order.note[0..9] %>
               <%= link_to user_order_path(current_user,order.id) do %>
                  <i class="glyphicon glyphicon-triangle-right"></i>
               <% end %>
@@ -69,6 +72,7 @@
           <% else %>
             <td><%= order.note %></td>
           <% end %>
+
           <td><%= order.store.try(:capitalize) %></td>
           <td>
             <%= (link_to "View", "#{order.image_link}",:target => "_blank") if order.image_link.present? %>
@@ -106,4 +110,5 @@
     <% end %>
 
   </table>
+</div>
 </div>
