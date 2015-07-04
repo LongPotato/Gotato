@@ -24,10 +24,6 @@ class OrdersController < ApplicationController
     else
       @order.vnd = params[:order][:vnd]
     end
-
-    @order.order_date = Date.strptime(params[:order][:order_date], '%m/%d/%Y') unless params[:order][:order_date].empty?
-    @order.receive_us = Date.strptime(params[:order][:receive_us], '%m/%d/%Y') unless params[:order][:receive_us].empty?
-    @order.ship_vn = Date.strptime(params[:order][:ship_vn], '%m/%d/%Y') unless params[:order][:ship_vn].empty?
     
     #Assignt order to existing customer or create new one if not exist
     unless params[:order][:customer_name].empty?
@@ -61,24 +57,6 @@ class OrdersController < ApplicationController
       @order.vnd = params[:order][:vnd]
     end
 
-    if params[:order][:order_date].include?('-')
-      @order.order_date = Date.strptime(params[:order][:order_date], '%Y-%m-%d')
-    else
-      @order.order_date = Date.strptime(params[:order][:order_date], '%m/%d/%Y') unless params[:order][:order_date].empty?
-    end
-
-    if params[:order][:receive_us].include?('-')
-      @order.order_date = Date.strptime(params[:order][:receive_us], '%Y-%m-%d')
-    else
-      @order.order_date = Date.strptime(params[:order][:receive_us], '%m/%d/%Y') unless params[:order][:receive_us].empty?
-    end
-
-    if params[:order][:ship_vn].include?('-')
-      @order.order_date = Date.strptime(params[:order][:ship_vn], '%Y-%m-%d')
-    else
-      @order.order_date = Date.strptime(params[:order][:ship_vn], '%m/%d/%Y') unless params[:order][:ship_vn].empty?
-    end
-
     #Assignt order to existing customer or create new one if not exist
     unless params[:order][:customer_name].empty?
       if @customer = Customer.find_by(name: params[:order][:customer_name].downcase)
@@ -90,7 +68,7 @@ class OrdersController < ApplicationController
     end
     
     if @order.update_attributes(order_params)
-      flash[:success] = "Edited order ##{@order.id}"
+      flash[:warning] = "Edited order ##{@order.id}"
       redirect_to user_orders_path(@order.user)
     else
       render 'new'
@@ -111,7 +89,7 @@ class OrdersController < ApplicationController
     #White list parameters
     def order_params
       params.require(:order).permit(:user_id, :name, :quantity, :store, :image_link, :description, :note,
-                                    :web_price, :tax, :reward, :shipping_us,
+                                    :web_price, :tax, :reward, :shipping_us, :order_date, :receive_us, :ship_vn,
                                     :selling_price, :deposit)
     end
 
