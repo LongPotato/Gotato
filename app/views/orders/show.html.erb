@@ -21,22 +21,31 @@
  <fieldset class="field">
    <legend></legend>
 
-   <p class="p_order"><b>Name:</b><span class="tab-space"><%= @order.name %></p>
+   <p class="p_order"><b>Name:</b><span class="tab-space"><%= @order.name.capitalize %></p>
    <p class="p_order"><b>Quantity:</b></b><span class="tab-space"><%= @order.quantity %></p>
-   <p class="p_order"><b>Customer:</b></b><span class="tab-space"><%= @order.customer.name %> </p>
+   <p class="p_order"><b>Customer:</b></b><span class="tab-space">
+    <%= @order.customer.try(:name).try(:capitalize) %>
+   </p>
    <p class="p_order"><b>Description:</b></b><span class="tab-space"><%= @order.description %></p>
    <p class="p_order"><b>Note:</b></b><span class="tab-space"><%= @order.note %></p>
-   <p class="p_order"><b>Store:</b></b><span class="tab-space"><%= @order.store %></p>
+   <p class="p_order"><b>Store:</b></b><span class="tab-space"><%= @order.store.try(:capitalize) %></p>
 
+   <% if @order.image_link.present? %>
    <legend class="field"></legend>
-   
    <img src="<%= @order.image_link %>" alt="Order image" height="200" width="300">
+   <% end %>
 
    <legend class="field"></legend>
 
-   <p class="p_order"><b>Order date:</b><span class="tab-space"><%= @order.order_date.strftime("%B %d, %Y") %></p>
-   <p class="p_order"><b>Receive US:</b><span class="tab-space"><%= @order.receive_us.strftime("%B %d, %Y") %></p>
-   <p class="p_order"><b>Ship VN:</b><span class="tab-space"><%= @order.ship_vn.strftime("%B %d, %Y") %></p>
+   <p class="p_order"><b>Order date:</b><span class="tab-space">
+    <%= @order.order_date.try(:strftime, "%B %d, %Y") %>
+   </p>
+   <p class="p_order"><b>Receive US:</b><span class="tab-space">
+    <%= @order.receive_us.try(:strftime, "%B %d, %Y") %>
+   </p>
+   <p class="p_order"><b>Ship VN:</b><span class="tab-space">
+    <%= @order.ship_vn.try(:strftime, "%B %d, %Y") %>
+   </p>
    <p class="p_order"><b>Ship ID:</b><span class="tab-space"></p>
 
    <legend class="field"></legend>

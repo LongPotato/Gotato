@@ -24,21 +24,21 @@ class OrdersController < ApplicationController
     else
       @order.vnd = params[:order][:vnd]
     end
-    
-    #Assignt order to existing customer or create new one if not exist
-    unless params[:order][:customer_name].empty?
-      if custom = Customer.find_by(name: params[:order][:customer_name].downcase)
-        @order.customer_id = custom.id
-      elsif
-        custom = Customer.create(name: params[:order][:customer_name])
-        @order.customer_id = custom.id
-      end
-    end
-    
+
     @order.order_date = Date.strptime(params[:order][:order_date], '%m/%d/%Y') unless params[:order][:order_date].empty?
     @order.receive_us = Date.strptime(params[:order][:receive_us], '%m/%d/%Y') unless params[:order][:receive_us].empty?
     @order.ship_vn = Date.strptime(params[:order][:ship_vn], '%m/%d/%Y') unless params[:order][:ship_vn].empty?
-
+    
+    #Assignt order to existing customer or create new one if not exist
+    unless params[:order][:customer_name].empty?
+      if @customer = Customer.find_by(name: params[:order][:customer_name].downcase)
+        @order.customer_id = @customer.id
+      elsif
+        @customer = Customer.create(name: params[:order][:customer_name])
+        @order.customer_id = @customer.id
+      end
+    end
+    
     if @order.save
       redirect_to user_orders_path(@order.user)
     else
