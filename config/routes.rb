@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :orders
     member do
       get :account_password
+      get :setting
+      post :set_vnd
     end
   end
 

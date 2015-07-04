@@ -1,0 +1,35 @@
+<% provide(:title, "Setting") %>
+
+<h1>Setting</h1>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+
+  	<legend class="field"></legend>
+
+  	<samp>Current USD to VND: <%= current_user.setting_vnd %></samp>
+
+  	<legend class="field"></legend>
+
+  	<form accept-charset="UTF-8" action="/users/<%= current_user.id %>/set_vnd" method="post">
+
+  	  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  	  <label class="p_setting">Set exchange rate: </label>
+      <div class="input-group">
+
+      <span class="input-group-addon" id="basic-addon1">VND</span>
+      <input type="text" class="form-control" placeholder="1 USD = ..." name="user[setting_vnd]">
+      <span class="input-group-btn">
+        <button class="btn btn-primary"  type="submit">Set</button>
+      </span>
+    
+      </div>
+
+    </form>
+
+    <legend id="setting-field"></legend>
+
+  </div>
+</div>
+
+

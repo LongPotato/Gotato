@@ -35,14 +35,27 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
+  def setting
+    @user = User.find(params[:id])
+  end
+
+  def set_vnd
+    @user = User.find(params[:id])
+    @user.update_attributes(user_params)
+    if @user.save
+      flash[:success] = "Setting exchange rate has been set to #{@user.setting_vnd}"
+      redirect_to setting_user_path(current_user)
+    else
+      flash.now[:danger] = "Unable to save setting"
+      render 'setting'
+    end
   end
 
 
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :setting_vnd)
     end
 
     # Confirms the correct user.

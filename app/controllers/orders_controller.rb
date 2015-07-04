@@ -42,14 +42,14 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     #Use setting vnd if user choose it
-    if params[:order][:use_user_rate] == 1
-      @order.vnd = @order.user.setting_vnd
+    if params[:order][:use_user_rate] == '1'
+      @order.update_attributes(vnd: current_user.setting_vnd)
     else
-      @order.vnd = params[:order][:vnd]
+      @order.update_attributes(vnd: params[:order][:vnd])
     end
 
     if @order.update_attributes(order_params)
-      flash[:warning] = "Edited order ##{@order.id}"
+      flash[:success] = "Edited order ##{@order.id}"
       redirect_to user_orders_path(@order.user)
     else
       render 'new'

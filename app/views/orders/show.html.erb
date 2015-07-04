@@ -54,36 +54,39 @@
    <tbody class="p_order">
    <tr>
       <td><b>Web price:</b></td>
-      <td><%= @order.web_price.to_f %></td>
+      <td>$<%= @order.web_price.to_f %></td>
    </tr>
    <tr>
       <td><b>Tax:</b></td>
-      <td><%= @order.tax.to_f %></td>
+      <td>$<%= @order.tax.to_f %></td>
    </tr>
    <tr>
       <td><b>Shipping US:</b></td>
-      <td><%= @order.shipping_us.to_f %></td>
+      <td>$<%= @order.shipping_us.to_f %></td>
    </tr>
    <tr>
       <td><b>Reward:</b></td>
-      <td><%= @order.reward.to_f %></td>
+      <td>$<%= @order.reward.to_f %></td>
    </tr>
    <tr>
       <td><b>Total:</b></td>
-      <td><%= @order.total.to_f %></td>
+      <td>$<%= @order.total.to_f %></td>
    </tr>
    <tr>
       <td><b>Shipping VN:</b></td>
-      <td><%= @order.shipping_vn.to_f %></td>
+      <td>$<%= @order.shipping_vn.to_f %></td>
    </tr>
    <tr>
       <td><b>Total cost:</b></td>
-      <td><%= @order.total_cost.to_f %></td>
+      <td>$<%= @order.total_cost.to_f %></td>
    </tr>
    </tbody>
    </table>
 
+   <samp class="verticle-space">USD exchange rate for this order: <%= @order.vnd %></samp>
 
+   <legend class="field"></legend>
+   
    <table class="table table-striped">
    <tbody class="p_order">
    <tr>
