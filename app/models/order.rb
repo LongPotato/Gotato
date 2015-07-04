@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :customer
+  accepts_nested_attributes_for :customer, reject_if: lambda {|attributes| attributes[:name].blank?}
   
   validates :name, presence: true
   validates :user, presence: true

@@ -12,7 +12,9 @@
 
       <%= f.number_field :quantity %>
 
-      <%= f.text_field :customer_name %>
+      <%= f.fields_for :customer do |c| %>
+        <%= c.text_field :name, label: "Customer" %>
+      <% end %>
 
       <%= f.text_field :store %>
 

@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
   def new
     @user = current_user
     @order = Order.new
+    @order.build_customer
   end
 
   def create
@@ -23,16 +24,6 @@ class OrdersController < ApplicationController
       @order.vnd = @order.user.setting_vnd
     else
       @order.vnd = params[:order][:vnd]
-    end
-    
-    #Assignt order to existing customer or create new one if not exist
-    unless params[:order][:customer_name].empty?
-      if @customer = Customer.find_by(name: params[:order][:customer_name].downcase)
-        @order.customer_id = @customer.id
-      elsif
-        @customer = Customer.create(name: params[:order][:customer_name])
-        @order.customer_id = @customer.id
-      end
     end
     
     if @order.save
@@ -57,16 +48,6 @@ class OrdersController < ApplicationController
       @order.vnd = params[:order][:vnd]
     end
 
-    #Assignt order to existing customer or create new one if not exist
-    unless params[:order][:customer_name].empty?
-      if @customer = Customer.find_by(name: params[:order][:customer_name].downcase)
-        @order.customer_id = @customer.id
-      elsif
-        @customer = Customer.create(name: params[:order][:customer_name])
-        @order.customer_id = @customer.id
-      end
-    end
-    
     if @order.update_attributes(order_params)
       flash[:warning] = "Edited order ##{@order.id}"
       redirect_to user_orders_path(@order.user)
@@ -90,7 +71,7 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:user_id, :name, :quantity, :store, :image_link, :description, :note,
                                     :web_price, :tax, :reward, :shipping_us, :order_date, :receive_us, :ship_vn,
-                                    :selling_price, :deposit)
+                                    :selling_price, :deposit, customer_attributes: [:name])
     end
 
 end
