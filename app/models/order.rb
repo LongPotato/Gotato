@@ -20,6 +20,16 @@ class Order < ActiveRecord::Base
     end
   end
 
+  #get previous order
+  def prev
+    order = self.class.where("id < ?", id).first
+    if order
+      order
+    else
+      self.class.last
+    end
+  end
+
   private
 
     def set_default

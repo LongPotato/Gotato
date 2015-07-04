@@ -51,8 +51,24 @@
           <td><%= order.name.capitalize %></td>
           <td><%= order.quantity %></td>
           <td><%= order.customer.try(:name).try(:capitalize) %></td>
-          <td><%= order.description %></td>
-          <td><%= order.note %></td>
+          <% if order.description.split.length > 3 %>
+            <td><%= order.description.split[0..2].join(' ') %>
+              <%= link_to user_order_path(current_user,order.id) do %>
+                 <i class="glyphicon glyphicon-triangle-right"></i>
+              <% end %>
+            </td>
+          <% else %>
+            <td><%= order.description %></td>
+          <% end %>
+          <% if order.note.split.length > 3 %>
+            <td><%= order.note.split[0..2].join(' ') %>
+              <%= link_to user_order_path(current_user,order.id) do %>
+                 <i class="glyphicon glyphicon-triangle-right"></i>
+              <% end %>
+            </td>
+          <% else %>
+            <td><%= order.note %></td>
+          <% end %>
           <td><%= order.store.try(:capitalize) %></td>
           <td>
             <%= (link_to "View", "#{order.image_link}",:target => "_blank") if order.image_link.present? %>
