@@ -98,7 +98,7 @@
             <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li><%= link_to "Edit", "" %></li>
+              <li><%= link_to "Edit", edit_user_order_path(current_user,order.id) %></li>
               <li><%= link_to "Detail", user_order_path(current_user,order.id) %></li>
               <li class="divider"></li>
               <li><%= link_to "Delete", "" %></li>

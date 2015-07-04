@@ -40,6 +40,57 @@ class OrdersController < ApplicationController
     end
     
     if @order.save
+      flash[:success] = "Created order ##{@order.id}"
+      redirect_to user_orders_path(@order.user)
+    else
+      render 'new'
+    end
+  end
+
+  def edit
+    @order = Order.find(params[:id])
+  end
+
+  def update
+    @order = Order.find(params[:id])
+
+    #Use setting vnd if user choose it
+    if params[:order][:use_user_rate] == 1
+      @order.vnd = @order.user.setting_vnd
+    else
+      @order.vnd = params[:order][:vnd]
+    end
+
+    if params[:order][:order_date].include?('-')
+      @order.order_date = Date.strptime(params[:order][:order_date], '%Y-%m-%d')
+    else
+      @order.order_date = Date.strptime(params[:order][:order_date], '%m/%d/%Y') unless params[:order][:order_date].empty?
+    end
+
+    if params[:order][:receive_us].include?('-')
+      @order.order_date = Date.strptime(params[:order][:receive_us], '%Y-%m-%d')
+    else
+      @order.order_date = Date.strptime(params[:order][:receive_us], '%m/%d/%Y') unless params[:order][:receive_us].empty?
+    end
+
+    if params[:order][:ship_vn].include?('-')
+      @order.order_date = Date.strptime(params[:order][:ship_vn], '%Y-%m-%d')
+    else
+      @order.order_date = Date.strptime(params[:order][:ship_vn], '%m/%d/%Y') unless params[:order][:ship_vn].empty?
+    end
+
+    #Assignt order to existing customer or create new one if not exist
+    unless params[:order][:customer_name].empty?
+      if @customer = Customer.find_by(name: params[:order][:customer_name].downcase)
+        @order.customer_id = @customer.id
+      elsif
+        @customer = Customer.create(name: params[:order][:customer_name])
+        @order.customer_id = @customer.id
+      end
+    end
+    
+    if @order.update_attributes(order_params)
+      flash[:success] = "Edited order ##{@order.id}"
       redirect_to user_orders_path(@order.user)
     else
       render 'new'
