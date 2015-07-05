@@ -31,6 +31,18 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def calculate_total
+    self.web_price.to_f + self.tax.to_f + self.shipping_us.to_f - self.reward.to_f
+  end
+
+  def calculate_total_cost
+    self.total.to_f + self.shipping_vn.to_f
+  end
+
+  def calculate_profit
+    self.selling_price.to_f - (self.total_cost.to_f * self.vnd.to_f)
+  end
+
   private
 
     def set_default

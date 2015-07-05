@@ -86,7 +86,7 @@
    </tr>
    <tr>
       <td><b>Total cost in VND:</b></td>
-      <td><%= number_with_delimiter(@order.total_cost * @order.vnd, :delimiter => ',') %></td>
+      <td><%= number_with_delimiter((@order.total_cost * @order.vnd).round(2), :delimiter => ',') %></td>
    </tr>
    </tbody>
    </table>
