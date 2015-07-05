@@ -51,27 +51,11 @@
           <td><%= order.id %></td>
           <td><%= order.name.capitalize %></td>
           <td><%= order.quantity %></td>
-          <td><%= order.customer.try(:name).try(:capitalize) %></td>
+          <td><%= order.customer.try(:name).try(:titleize) %></td>
 
-          <% if order.description.length > 9 %>
-            <td><%= order.description[0..9] %>
-              <%= link_to user_order_path(current_user,order.id) do %>
-                 <i class="glyphicon glyphicon-triangle-right"></i>
-              <% end %>
-            </td>
-          <% else %>
-              <td><%= order.description %></td>
-          <% end %>
+          <td><%= length_control(order, order.description, 9) %></td>
 
-          <% if order.note.length > 9 %>
-            <td><%= order.note[0..9] %>
-              <%= link_to user_order_path(current_user,order.id) do %>
-                 <i class="glyphicon glyphicon-triangle-right"></i>
-              <% end %>
-            </td>
-          <% else %>
-            <td><%= order.note %></td>
-          <% end %>
+          <td><%= length_control(order, order.note, 9) %></td>
 
           <td><%= order.store.try(:capitalize) %></td>
           <td>

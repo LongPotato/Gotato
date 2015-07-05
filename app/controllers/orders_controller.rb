@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
   def destroy
     order_id = params[:id]
     Order.find(params[:id]).destroy
-    flash[:danger] = "Order ##{order_id} deleted"
+    flash[:danger] = "Deleted order ##{order_id}"
     redirect_to user_orders_path(current_user)
   end
 
