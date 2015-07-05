@@ -46,7 +46,7 @@
 
       <%= f.text_field :vnd, prepend: "VND", label: "USD to VND exchange rate", help: "Enter exchange rate or use your predefined value in setting"  %>
 
-      <%= f.check_box :use_user_rate, label: "Use my exchange rate in setting" %>
+      <%= f.check_box :use_user_rate, label: "Use my exchange rate in setting: #{number_with_delimiter(@user.setting_vnd.floor, :delimiter => ',')}" %>
 
       <legend class="field"></legend>
 
