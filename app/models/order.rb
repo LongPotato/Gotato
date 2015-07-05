@@ -57,7 +57,6 @@ class Order < ActiveRecord::Base
       self.total_cost = 0 if self.total_cost.nil?
       self.profit = 0 if self.profit.nil?
       self.deposit = 0 if self.deposit.nil?
-      self.selling_price = 0 if self.selling_price.nil?
     end
 
 end
