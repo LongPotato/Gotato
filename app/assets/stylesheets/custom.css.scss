@@ -193,6 +193,20 @@ h1 {
 }
 
 
+.sort-header {
+  color: inherit;
+  text-decoration: none;
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+
+.sort {
+  color: gray;
+}
+
 
 
 

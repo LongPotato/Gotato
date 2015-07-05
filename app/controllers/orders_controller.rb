@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :correct_user
 
   def index
-    @orders =  current_user.orders.all
+    @orders =  current_user.orders.order(sort_column + " " + sort_direction)
   end
 
   def show

@@ -19,7 +19,7 @@
 <table class="table table-hover">
     <thead>
     <tr>
-      <th width = "50">Order #</th>
+      <th width = "50"><%= sortable "id", "Order# " %> <%= arrow "id" %></th>
       <th width ="400">Name</th>
       <th width = "100">Quantity</th>
       <th width = "400">Customer</th>
@@ -54,7 +54,6 @@
           <td><%= order.customer.try(:name).try(:titleize) %></td>
 
           <td><%= length_control(order, order.description, 9) %></td>
-
           <td><%= length_control(order, order.note, 9) %></td>
 
           <td><%= order.store.try(:capitalize) %></td>
