@@ -72,6 +72,10 @@
       <td><b>Total:</b></td>
       <td>$<%= @order.total.to_f %></td>
    </tr>
+   </tbody>
+
+
+   <tbody class="p_order">
    <tr>
       <td><b>Shipping VN:</b></td>
       <td>$<%= @order.shipping_vn.to_f %></td>
@@ -79,6 +83,10 @@
    <tr>
       <td><b>Total cost:</b></td>
       <td>$<%= @order.total_cost.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Total cost in VND:</b></td>
+      <td><%= number_with_delimiter(@order.total_cost * @order.vnd, :delimiter => ',') %></td>
    </tr>
    </tbody>
    </table>
