@@ -42,5 +42,5 @@ end
                store: store_name[rand(0..9)], image_link: image[rand(0..1)], 
                order_date: Time.now, receive_us: 2.days.from_now, ship_vn: 3.days.from_now, 
                web_price: price, tax: (price * 0.08).round(2), shipping_us: quan, reward: (price * 0.01).round(2), 
-               vnd: 21000, deposit: (vn * 0.1).round(2), selling_price: vn, user_id: 2, customer_id: customer_array[rand(customer_array.size) - 1])
+               vnd: 21000, deposit: (vn * 0.1).round(2), selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1])
 end
