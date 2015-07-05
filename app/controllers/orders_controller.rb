@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
       @order.profit = @order.calculate_profit.round(2) unless @order.selling_price.nil?
       if @order.save
         flash[:success] = "Created order ##{@order.id}"
-        redirect_to user_orders_path(@order.user)
+        redirect_to user_order_path(@order.user, @order)
       else
         render 'new'
       end
@@ -60,7 +60,7 @@ class OrdersController < ApplicationController
       @order.update_attributes(total_cost: @order.calculate_total_cost.round(2))
       @order.update_attributes(profit: @order.calculate_profit.round(2)) unless @order.selling_price.nil?
       flash[:success] = "Edited order ##{@order.id}"
-      redirect_to user_orders_path(@order.user)
+      redirect_to user_order_path(@order.user, @order)
     else
       render 'new'
     end
