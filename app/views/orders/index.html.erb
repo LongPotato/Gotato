@@ -15,8 +15,8 @@
 </div>
 
 <div class="nowrap">
-<div class="full-width-div white-space:">
-<table class="table table-hover">
+<div class="full-width-div">
+<table class="table table-bordered table-hover">
     <thead>
     <tr>
       <th width = "50"><%= sortable "id", "Order# " %> <%= arrow "id" %></th>
@@ -53,8 +53,8 @@
           <td><%= order.quantity %></td>
           <td><%= order.customer.try(:name).try(:titleize) %></td>
 
-          <td><%= length_control(order, order.description, 9) %></td>
-          <td><%= length_control(order, order.note, 9) %></td>
+          <td><%= order.description %></td>
+          <td><%= length_control(order, order.note, 18) %></td>
 
           <td><%= order.store.try(:capitalize) %></td>
           <td>
