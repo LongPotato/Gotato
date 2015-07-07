@@ -5,32 +5,32 @@
 <div class="row">
  <div class="col-md-6 col-md-offset-3">
 
-      <%= bootstrap_form_for([@user, @order]) do |f| %>
-        <%= f.hidden_field :user_id, :value => @user.id %>
-
-      <%= f.text_field :name %>
-
-      <%= f.number_field :quantity %>
-
-      <%= f.fields_for :customer do |c| %>
-        <%= c.text_field :name, label: "Customer" %>
-      <% end %>
-
-      <%= f.text_field :store %>
-
-      <%= f.url_field :image_link, label: "Image URL" %>
-
-      <%= f.text_area :description, label: "Product description" %>
+   <%= bootstrap_form_for([@user, @order]) do |f| %>
+      <%= f.hidden_field :user_id, :value => @user.id %>
 
       <%= f.text_area :note %>
 
       <legend class="field"></legend>
 
+      <%= f.check_box :received_us, label: "Received at U.S." %>
+
+      <%= f.text_field :ship_vn, icon: "calendar", 'data-provide' => 'datepicker', label: "Shipped to VN", :class => "datepicker" %>
+
+      <%= f.text_field :store %>
+
       <%= f.text_field :order_date, icon: "calendar", 'data-provide' => 'datepicker', :class => "datepicker", help: "yyyy-mm-dd", value: Time.now.strftime('%Y-%m-%d') %>
 
-      <%= f.text_field :receive_us, icon: "calendar", 'data-provide' => 'datepicker', label: "Receive US", :class => "datepicker" %>
+      <legend class="field"></legend>
 
-      <%= f.text_field :ship_vn, icon: "calendar", 'data-provide' => 'datepicker', label: "Ship VN", :class => "datepicker" %>
+      <%= f.fields_for :customer do |c| %>
+        <%= c.text_field :name, label: "Customer" %>
+      <% end %>
+
+      <%= f.text_area :description %>
+
+      <%= f.text_field :web_order_id, label: "Web Order #" %>
+
+      <%= f.url_field :image_link, label: "Image URL" %>
 
       <legend class="field"></legend>
       
@@ -38,9 +38,9 @@
 
       <%= f.text_field :tax, prepend: "$" %>
 
-      <%= f.text_field :reward, prepend: "$" %>
-
       <%= f.text_field :shipping_us, prepend: "$" %>
+
+      <%= f.text_field :reward, prepend: "$" %>
 
       <legend class="field"></legend>
 
@@ -60,7 +60,7 @@
 
       <%= link_to "Cancel", user_orders_path(current_user), class: "btn btn-lg btn-default" %>
 
-      <% end %>
+   <% end %>
  </div>
 </div>
 

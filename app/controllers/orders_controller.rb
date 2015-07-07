@@ -29,7 +29,8 @@ class OrdersController < ApplicationController
     if @order.save
       @order.total = @order.calculate_total.round(2)
       @order.total_cost = @order.calculate_total_cost.round(2)
-      @order.profit = @order.calculate_profit.round(2) unless @order.selling_price.nil?
+      @order.profit = @order.calculate_profit.round(2)
+      @order.remain = @order.calculate_remain.round(2)
       if @order.save
         flash[:success] = "Created order ##{@order.id}"
         redirect_to user_order_path(@order.user, @order)
@@ -58,7 +59,8 @@ class OrdersController < ApplicationController
     if @order.update_attributes(order_params)
       @order.update_attributes(total: @order.calculate_total.round(2))
       @order.update_attributes(total_cost: @order.calculate_total_cost.round(2))
-      @order.update_attributes(profit: @order.calculate_profit.round(2)) unless @order.selling_price.nil?
+      @order.update_attributes(profit: @order.calculate_profit.round(2))
+      @order.update_attributes(remain: @order.calculate_remain.round(2))
       flash[:success] = "Edited order ##{@order.id}"
       redirect_to user_order_path(@order.user, @order)
     else
@@ -86,8 +88,8 @@ class OrdersController < ApplicationController
 
     #White list parameters
     def order_params
-      params.require(:order).permit(:user_id, :name, :quantity, :store, :image_link, :description, :note,
-                                    :web_price, :tax, :reward, :shipping_us, :order_date, :receive_us, :ship_vn,
+      params.require(:order).permit(:user_id, :store, :image_link, :description, :note, :web_order_id,
+                                    :web_price, :tax, :reward, :shipping_us, :order_date, :received_us, :ship_vn,
                                     :selling_price, :deposit, customer_attributes: [:name])
     end
 

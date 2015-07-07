@@ -10,8 +10,9 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_secure_password
 
-  #Filters:
+  #Callback:
   before_save { self.email = email.downcase }
+  before_save { self.setting_vnd = 21000 }
 
   #Relation:
   has_many :orders, dependent: :destroy

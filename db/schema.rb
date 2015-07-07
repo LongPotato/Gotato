@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150703134514) do
+ActiveRecord::Schema.define(version: 20150707071153) do
 
   create_table "customers", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,14 +20,11 @@ ActiveRecord::Schema.define(version: 20150703134514) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "quantity"
     t.text     "description"
     t.text     "note"
     t.string   "store"
     t.string   "image_link"
     t.date     "order_date"
-    t.date     "receive_us"
     t.date     "ship_vn"
     t.decimal  "web_price"
     t.decimal  "tax"
@@ -44,6 +41,9 @@ ActiveRecord::Schema.define(version: 20150703134514) do
     t.decimal  "selling_price"
     t.integer  "user_id"
     t.integer  "customer_id"
+    t.boolean  "received_us"
+    t.string   "web_order_id"
+    t.decimal  "remain"
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"

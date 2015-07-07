@@ -35,4 +35,12 @@ module OrdersHelper
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
+  def receive_check(status)
+    if status == true
+      "YES"
+    else
+      ""
+    end
+  end
+
 end

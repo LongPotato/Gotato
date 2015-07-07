@@ -5,11 +5,9 @@ class Order < ActiveRecord::Base
   belongs_to :customer
   accepts_nested_attributes_for :customer, reject_if: lambda {|attributes| attributes[:name].blank?}
   
-  validates :name, presence: true
   validates :user, presence: true
 
   before_save :set_default
-  before_save { self.name = name.downcase }
 
   #get next available order
   def next
@@ -36,17 +34,21 @@ class Order < ActiveRecord::Base
   end
 
   def calculate_total_cost
-    self.total.to_f + self.shipping_vn.to_f
+    (self.total.to_f + self.shipping_vn.to_f) * self.vnd.to_f
   end
 
   def calculate_profit
-    self.selling_price.to_f - (self.total_cost.to_f * self.vnd.to_f)
+    self.selling_price.to_f - self.total_cost.to_f
+  end
+
+  def calculate_remain
+    self.selling_price - self.deposit
   end
 
   private
 
     def set_default
-      self.quantity = 1 if self.quantity.nil?
+      self.received_us = false if self.received_us.nil?
       self.web_price = 0 if self.web_price.nil?
       self.tax = 0 if self.tax.nil?
       self.reward = 0 if self.reward.nil?
@@ -56,7 +58,9 @@ class Order < ActiveRecord::Base
       self.total= 0 if self.total.nil?
       self.total_cost = 0 if self.total_cost.nil?
       self.profit = 0 if self.profit.nil?
+      self.selling_price = 0 if self.selling_price.nil?
       self.deposit = 0 if self.deposit.nil?
+      self.remain = 0 if self.remain.nil?
     end
 
 end
