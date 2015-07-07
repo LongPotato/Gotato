@@ -18,7 +18,7 @@ store_name = ['macy', 'express', 'michael kors', 'blooming dales', 'apple', 'bes
 order_name = ['1 dong ho MK 2280', '11 cai vay size S LOFT #345', "1 tui PL size M Cobalt", '1 tui PL size S Elictric Blue', 
               '1 creamy white fishing sauce', '1 vay ', '1 do va 1 tui nude', '3 cai ao SAVANNAH CUTOUT SKATER DRESS', '2 lo glucosamine', '1 xe oto']
 
-note_list = ['BI CANCEL', 've 9 cai, ship 7/17, 2 ship 7/21', "that bitch wants fast delivery but didn't deposit money",
+note_list = ['BI CANCEL', 've 9 cai, ship 7/17, 2 ship 7/21', "that bitch wants fast delivery but doesn't deposit money",
             've 1 cai nhung ngu quen khong ship', 'for relative', 'de danh ban', "", "deposited", "chuyen tu inventory"]
 
 image = ["http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/9/24/1411574454561/03085543-87de-47ab-a4eb-58e7e39d022e-620x372.jpeg", "", 
@@ -53,11 +53,12 @@ end
   deposit = (vn.to_f * 0.1).round(2)
   total = price + tax + quan - reward
   profit = vn.to_f - (total * 21000)
+  remain = vn.to_f - deposit
   Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)],
                store: store_name[rand(0..11)], image_link: image[rand(0..4)], 
                order_date: time[rand(0..3)], ship_vn: time[rand(0..3)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
                web_price: price, tax: tax, shipping_us: quan, reward: (price * 0.01).round(2), total: total.round(2), total_cost: (total * 2100).round(2),
-               profit: profit.round(2), vnd: 21000, deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1])
+               profit: profit.round(2), vnd: 21000, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1])
 end
 
 
