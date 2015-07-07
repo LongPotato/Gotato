@@ -23,10 +23,10 @@
 
    <p class="p_order"><b>Note:</b><span class="tab-space"><%= @order.note %></p>
 
-   <p class="p_order"><b>Store:</b><span class="tab-space"><%= @order.store.try(:capitalize) %></p>
+   <p class="p_order"><b>Store:</b><span class="tab-space"><%= @order.store.try(:titleize) %></p>
 
    <p class="p_order"><b>Customer:</b><span class="tab-space">
-    <%= @order.customer.try(:name).try(:capitalize) %>
+    <%= @order.customer.try(:name).try(:titleize) %>
    </p>
    <p class="p_order"><b>Description:</b><span class="tab-space"><%= @order.description %></p>
 
@@ -43,7 +43,7 @@
     <%= @order.order_date.try(:strftime, "%B %d, %Y") %>
    </p>
    <p class="p_order"><b>Received US:</b><span class="tab-space">
-    <%= @order.received_us %>
+    <%= receive_check(@order.received_us) %>
    </p>
    <p class="p_order"><b>Shipped to VN:</b><span class="tab-space">
     <%= @order.ship_vn.try(:strftime, "%B %d, %Y") %>
