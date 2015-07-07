@@ -1,3 +1,7 @@
+<% content_for(:body_attributes) do %>
+  data-no-turbolink="true"
+<% end %>
+
 <% provide(:title, 'Orders') %>
 
 <div class="row nav-order">
@@ -16,9 +20,9 @@
 
 <div class="nowrap">
 <div class="full-width-div">
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover table-align">
     <thead>
-    <tr>
+    <tr class="active">
       <th width ="300">Note</th>
       <th width ="110">Received US</th>
       <th width ="110">Shipped to VN</th>
@@ -59,7 +63,15 @@
           <td><%= order.description %></td>
           <td><%= order.web_order_id %></td>
           <td>
-            <strong><%= (link_to "View", "#{order.image_link}",:target => "_blank") if order.image_link.present? %></strong>
+            <% if order.image_link.present? %>
+            <strong>
+              <a href="#" data-toggle="tooltip">View</a>
+            </strong>
+            <script>
+              var img = "<img src='<%= order.image_link %>' height='150' width='150' />";
+              $('[data-toggle="tooltip"]').tooltip({ title: img, html: true });
+            </script>
+            <% end %>
           </td>
           <td>$<%= order.web_price.to_f %></td>
           <td>$<%= order.tax.to_f %></td>

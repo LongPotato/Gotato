@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   #Callback:
   before_save { self.email = email.downcase }
-  before_save { self.setting_vnd = 21000 }
+  before_save { self.setting_vnd = 21000 if self.setting_vnd.nil? }
 
   #Relation:
   has_many :orders, dependent: :destroy
