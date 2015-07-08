@@ -51,7 +51,7 @@
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%B %d, %Y") %></td>
-          <td><%= order.shipping_id %></td>
+          <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank"><%= order.shipping_id %></a></td>
           <td><%= order.store.try(:titleize) %></td>
           <td><%= order.order_date.try(:strftime, "%B %d, %Y") %></td>
           <td><b><%= order.id %></b></td>

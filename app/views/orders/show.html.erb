@@ -1,4 +1,4 @@
-<%= provide(:title, 'Order detail') %>
+<%= provide(:title, 'Order Detail') %>
 
 <div class="row nav-show">
 <nav id="back_next">
@@ -49,7 +49,14 @@
    <p class="p_order"><b>Shipped to VN:</b><span class="tab-space">
     <%= @order.ship_vn.try(:strftime, "%B %d, %Y") %>
    </p>
-   <p class="p_order"><b>Ship ID:</b><span class="tab-space"></p>
+   <p class="p_order"><b>Ship ID:</b><span class="tab-space">
+    <% if @order.shipping_id .present? %>
+      <span>
+        <%= @order.shipping_id %><span class="tab-space">
+        <%= link_to "View shipment", user_shipping_path(current_user, @order.shipping_id), target: "_blank" %>
+      </span>
+    <% end %>
+   </p>
 
    <legend class="field"></legend>
 

@@ -38,6 +38,10 @@ class ShippingsController < ApplicationController
     end
   end
 
+  def show
+    @shipment = Shipping.find(params[:id])
+  end
+
   def edit
     @shipment = Shipping.find(params[:id])
   end

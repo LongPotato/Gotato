@@ -1,0 +1,68 @@
+<%= provide(:title, 'Shipment Detail') %>
+
+<div class="row nav-show">
+<nav id="back_next">
+  <ul class="pager">
+    <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
+                             "", class: "order_btn" %>
+    </li>
+    <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
+                         "", class: "order_btn" %>
+    </li>
+  </ul>
+</nav>
+<h1>Shipment #<%= @shipment.id %></h1>
+</div>
+
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">
+
+ <fieldset class="field">
+   <legend></legend>
+
+   <p class="p_order"><b>Ship date:</b><span class="tab-space">
+    <%= @shipment.ship_date.try(:strftime, "%B %d, %Y") %>
+   </p>
+
+   <p class="p_order"><b>Number of Orders:</b><span class="tab-space"><%= @shipment.orders.count %></p>
+
+   <p class="p_order"><b>Orders:</b><span class="tab-space"><%= @shipment.order_fields %></p>
+
+   <p class="p_order"><b>Note:</b><span class="tab-space"><%= @shipment.description %></p>
+
+   <legend class="field"></legend>
+
+   <table class="table table-striped">
+   <tbody class="p_order">
+   <tr>
+      <td><b>Total Price:</b></td>
+      <td>$ <%= @shipment.price.to_f %></td>
+   </tr>
+   <tr>
+      <td><b>Price per Order:</b></td>
+      <td><b>$ <%= @shipment.orders.first.shipping_vn.to_f %></b></td>
+   </tr>
+   </table>
+
+   <legend class="field">In this shipment:</legend>
+
+   <% @shipment.orders.each do |order| %>
+     <p class="p_order"><b>Order #:</b><span class="tab-space">
+       <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" target="_blank"><%= order.id %></a>
+     </p>
+     <p class="p_order"><b>Customer:</b><span class="tab-space"><%= order.customer.try(:name).try(:titleize) %></p>
+     <p class="p_order"><b>Store:</b><span class="tab-space"><%= order.store.try(:titleize) %></p>
+     <p class="p_order"><b>Description:</b><span class="tab-space"><%= order.description %></p>
+
+     <legend class="field"></legend>
+
+   <% end %>
+
+
+   <%= link_to "Edit", edit_user_shipping_path(current_user, @shipment.id), class: "btn btn-lg btn-warning" %>
+   <%= link_to "Delete", user_shipping_path(current_user, @shipment.id), method: :delete, class: "btn btn-lg btn-danger" %>
+  
+ </fieldset>
+ </div>
+</div>
