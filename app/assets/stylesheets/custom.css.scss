@@ -168,7 +168,7 @@ h1 {
 
 
 .nav-order {
-  padding-left: 20px;
+  padding-left: 15px;
 }
 
 .p_setting {
@@ -239,6 +239,14 @@ h1 {
   font-size: 18px;
 }
 
+
+.shipment_btn {
+  color: white;
+  &:hover {
+    text-decoration: none;
+    color: white;
+  }
+}
 
 
 

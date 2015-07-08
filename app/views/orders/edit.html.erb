@@ -38,7 +38,7 @@
 
       <%= f.text_field :tax, prepend: "$" %>
 
-      <%= f.text_field :shipping_us, prepend: "$" %>
+      <%= f.text_field :shipping_us, prepend: "$", label: "Ship US" %>
 
       <%= f.text_field :reward, prepend: "$" %>
 
@@ -58,7 +58,7 @@
       
       <%= f.submit "Edit order", class: "btn btn-lg btn-warning" %>
 
-      <%= link_to "Cancel", user_orders_path(current_user), class: "btn btn-lg btn-default" %>
+      <%= link_to "Cancel", user_orders_path(current_user), class: "btn btn-lg btn-default", method: :get %>
 
    <% end %>
  </div>

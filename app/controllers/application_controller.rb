@@ -12,4 +12,14 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       end
     end
+
+   #Confirms the correct user.
+    def correct_user
+      @user = User.find(params[:user_id])
+      unless current_user?(@user)
+        flash[:danger] = "You don't have permission for that action."
+        redirect_to(root_url)
+      end
+    end
+    
 end

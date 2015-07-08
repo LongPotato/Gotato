@@ -1,7 +1,3 @@
-<% content_for(:body_attributes) do %>
-  data-no-turbolink="true"
-<% end %>
-
 <% provide(:title, 'Orders') %>
 
 <div class="row nav-order">
@@ -55,7 +51,7 @@
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%B %d, %Y") %></td>
-          <td></td>
+          <td><%= order.shipping_id %></td>
           <td><%= order.store.try(:titleize) %></td>
           <td><%= order.order_date.try(:strftime, "%B %d, %Y") %></td>
           <td><b><%= order.id %></b></td>
@@ -67,10 +63,10 @@
             <strong>
               <a href="#" data-toggle="tooltip">View</a>
             </strong>
-            <script>
+            <%= javascript_tag do %>
               var img = "<img src='<%= order.image_link %>' height='150' width='150' />";
               $('[data-toggle="tooltip"]').tooltip({ title: img, html: true });
-            </script>
+            <% end %>
             <% end %>
           </td>
           <td>$<%= order.web_price.to_f %></td>
@@ -93,10 +89,10 @@
             <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li><%= link_to "Edit", edit_user_order_path(current_user,order.id) %></li>
-              <li><%= link_to "Detail", user_order_path(current_user,order.id) %></li>
+              <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
+              <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
               <li class="divider"></li>
-              <li><%= link_to "Delete", user_order_path(current_user,order.id), method: :delete %></li>
+              <li><%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %></li>
             </ul>
           </div>
           </td>

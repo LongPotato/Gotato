@@ -77,15 +77,6 @@ class OrdersController < ApplicationController
 
   private
 
-    #Confirms the correct user.
-    def correct_user
-      @user = User.find(params[:user_id])
-      unless current_user?(@user)
-        flash[:danger] = "You don't have permission for that action."
-        redirect_to(root_url)
-      end
-    end
-
     #White list parameters
     def order_params
       params.require(:order).permit(:user_id, :store, :image_link, :description, :note, :web_order_id,

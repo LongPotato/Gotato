@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :users, :except => [:index, :edit] do
     resources :orders
+    resources :shippings
     member do
       get :account_password
       get :setting

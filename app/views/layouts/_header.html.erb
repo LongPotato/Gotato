@@ -3,9 +3,9 @@
     <%= link_to "gotato", root_path, id: "logo" %>
     <% if logged_in? %>
       <ul class="nav navbar-nav navbar-left">
-        <li><%= link_to "Orders", user_orders_path(current_user) , id: "first_nav" %></li>
+        <li><%= link_to "Orders", user_orders_path(current_user) , id: "first_nav", method: :get %></li>
         <li><%= link_to "Inventory", "", id: "next_nav" %></li>
-        <li><%= link_to "Shipping", "", id: "last_nav" %></li>
+        <li><%= link_to "Shipping", user_shippings_path(current_user), id: "last_nav" %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">

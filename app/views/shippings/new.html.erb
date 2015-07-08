@@ -1,0 +1,32 @@
+<% provide(:title, 'New Shipment') %>
+
+<h1>New Shipment</h1>
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">
+
+ 	<%= bootstrap_form_for([@user, @shipment]) do |f| %>
+      <%= f.hidden_field :user_id, :value => @user.id %>
+
+      <%= f.text_area :order_fields, help: "Enter Order IDs, separated by commas", label: "Orders" %>
+
+      <%= f.text_area :description, label: "Note" %>
+
+      <legend class="field"></legend>
+
+      <%= f.text_field :ship_date, icon: "calendar", 'data-provide' => 'datepicker', :class => "datepicker", help: "yyyy-mm-dd" %>
+
+      <%= f.text_field :price, prepend: "$", label: "Shipment total" %>
+
+      <legend class="field"></legend>
+
+      <%= f.submit "Create new", class: "btn btn-lg btn-success" %>
+
+      <%= link_to "Cancel", user_shippings_path(current_user), class: "btn btn-lg btn-default" %>
+    <% end %>
+ </div>
+</div>
+
+<script>
+  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+</script>

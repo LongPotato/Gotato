@@ -1,0 +1,51 @@
+<% provide(:title, 'Shipping') %>
+
+<div class="row nav-order">
+  <button type="button" class="btn btn-success">
+    <span class="glyphicon glyphicon-plus-sign" id="plus-new-order" aria-hidden="true"></span>
+    <b><%= link_to "New shipment", new_user_shipping_path(current_user), class: "shipment_btn" %></b>
+  </button>
+</div>
+
+<div class="nowrap">
+<div class="full-width-div">
+<table class="table table-bordered table-hover table-align">
+    <thead>
+    <tr class="active">
+      <th width ="100">Ship ID</th>
+      <th width ="110">Shipped to VN</th>
+      <th width ="300">Note</th>
+      <th width ="150">Number of Orders</th>
+      <th width ="300">Total Price</th>
+      <th width ="110">Price per Orders</th>
+      <th width ="100">Action</th>
+    </tr>
+    </thead>
+
+    <% @shipments.each do |shipment| %>
+    <tbody>
+      <tr>
+        <td><%= shipment.id %></td>
+        <td><%= shipment.ship_date.try(:strftime, "%B %d, %Y") %></td>
+        <td><%= shipment.description %></td>
+        <td><%= shipment.orders.count %></td>
+        <td>$<%= shipment.price.to_f %></td>
+        <td>$<%= shipment.orders.first.shipping_vn.to_f %></td>
+        <td>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to "Edit", edit_user_shipping_path(current_user, shipment.id) %></li>
+              <li><%= link_to "Detail", "" %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Delete", user_shipping_path(current_user, shipment.id), method: :delete %></li>
+            </ul>
+          </div>
+          </td>
+      </tr>
+    </tbody>
+    <% end %>
+</table>

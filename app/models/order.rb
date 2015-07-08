@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   attr_accessor :use_user_rate
-
+  
+  belongs_to :shipping
   belongs_to :user
   belongs_to :customer
   accepts_nested_attributes_for :customer, reject_if: lambda {|attributes| attributes[:name].blank?}

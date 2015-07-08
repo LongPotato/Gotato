@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   #Relation:
   has_many :orders, dependent: :destroy
   has_many :customers, dependent: :destroy
+  has_many :shippings, through: :orders, dependent: :destroy
 
   #Returns a random token.
   def User.new_token
