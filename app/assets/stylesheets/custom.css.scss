@@ -249,5 +249,19 @@ h1 {
 }
 
 
+.view-btn {
+  color: gray;
+  &:hover {
+  text-decoration: none;
+  color: black;
+  }
+}
+
+
+#next-btn {
+  margin-left: 5px;
+}
+
+
 
 
