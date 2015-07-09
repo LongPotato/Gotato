@@ -15,7 +15,12 @@ Rails.application.routes.draw do
   #patch 'users/:id' => 'users#account_password_update'
 
   resources :users, :except => [:index, :edit] do
-    resources :orders
+    resources :orders do
+      collection do
+        get :for_sale
+        get :ordered
+      end
+    end
     resources :shippings
     member do
       get :account_password

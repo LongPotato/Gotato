@@ -3,14 +3,15 @@ class OrdersController < ApplicationController
   before_action :correct_user
 
   def index
-    case params[:view_scope]
-      when "for_sale"
-        @orders = current_user.orders.joins(:customer).where('customers.name = ?', 'for sale').order(sort_column + " " + sort_direction)
-      when 'ordered'
-        @orders = current_user.orders.joins(:customer).where('customers.name != ?', 'for sale').order(sort_column + " " + sort_direction)
-      else
-        @orders = current_user.orders.order(sort_column + " " + sort_direction)
-    end
+    @orders = current_user.orders.order(sort_column + " " + sort_direction)
+  end
+
+  def for_sale
+    @orders = current_user.orders.joins(:customer).where('customers.name = ?', 'for sale').order(sort_column + " " + sort_direction)
+  end
+
+  def ordered
+    @orders = current_user.orders.joins(:customer).where('customers.name != ?', 'for sale').order(sort_column + " " + sort_direction)
   end
 
   def show
