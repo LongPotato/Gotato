@@ -3,7 +3,7 @@ class ShippingsController < ApplicationController
   before_action :correct_user
 
   def index
-    @shipments = current_user.shippings.uniq
+    @shipments = current_user.shippings.order(sort_column + " " + sort_direction).uniq
   end
 
   def new
