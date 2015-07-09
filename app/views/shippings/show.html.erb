@@ -4,10 +4,10 @@
 <nav id="back_next">
   <ul class="pager">
     <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
-                             "", class: "order_btn" %>
+                             user_shipping_path(current_user, @shipment.prev), class: "order_btn" %>
     </li>
     <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
-                         "", class: "order_btn" %>
+                         user_shipping_path(current_user, @shipment.next), class: "order_btn" %>
     </li>
   </ul>
 </nav>
@@ -41,7 +41,7 @@
    </tr>
    <tr>
       <td><b>Price per Order:</b></td>
-      <td><b>$ <%= @shipment.orders.first.shipping_vn.to_f %></b></td>
+      <td><b>$ <%= @shipment.orders.first.try(:shipping_vn).try(:to_f) %></b></td>
    </tr>
    </table>
 

@@ -75,7 +75,12 @@ class ShippingsController < ApplicationController
   end
 
   def destroy
-    Shipping.find(params[:id]).destroy
+    ship_id = params[:id]
+    orders = Order.where(shipping_id: ship_id)
+    orders.each do |order|
+      order.update_attributes(shipping_vn: 0, shipping_id: nil, ship_vn: nil)
+    end
+    Shipping.find(ship_id).destroy
     flash[:danger] = "Deleted shipment ##{params[:id]}"
     redirect_to user_shippings_path(current_user)
   end

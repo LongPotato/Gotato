@@ -25,7 +25,7 @@
     <% @shipments.each do |shipment| %>
     <tbody>
       <tr>
-        <td><%= shipment.id %></td>
+        <td><b><%= shipment.id %></b></td>
         <td><%= shipment.ship_date.try(:strftime, "%B %d, %Y") %></td>
         <td><%= shipment.description %></td>
         <td><%= shipment.orders.count %></td>
