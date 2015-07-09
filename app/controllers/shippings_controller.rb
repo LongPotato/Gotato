@@ -29,6 +29,8 @@ class ShippingsController < ApplicationController
       @valid_order.each do |order|
         item_price = calculate_ship_vn.round(2)
         order.update_attributes(shipping_vn: item_price)
+        order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+        order.update_attributes(profit: order.calculate_profit.round(2))
       end
       
       flash[:success] = "Created new shipment, ship ID: #{@shipment.id}"
@@ -65,9 +67,11 @@ class ShippingsController < ApplicationController
       @valid_order.each do |order|
         item_price = calculate_ship_vn.round(2)
         order.update_attributes(shipping_vn: item_price)
+        order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+        order.update_attributes(profit: order.calculate_profit.round(2))
       end
       
-      flash[:success] = "Edit shipment ##{@shipment.id}"
+      flash[:success] = "Edited shipment ##{@shipment.id}"
       redirect_to user_shippings_path(current_user)
     else
       render 'edit'
