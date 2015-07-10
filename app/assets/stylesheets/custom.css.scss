@@ -223,16 +223,16 @@ h1 {
   font-weight: 800;
 }
 
-
-.table-align td {
-   text-align: center;   
+.table-align {
+  table-layout: fixed;
+  
+  td, th {
+    padding: 5px;
+    text-align: center;
+    white-space: normal;
+    width: 100px;
+  }
 }
-
-
-.table-align th {
-   text-align: center;   
-}
-
 
 #view-image {
   margin-top: 10px;
