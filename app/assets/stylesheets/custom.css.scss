@@ -224,14 +224,12 @@ h1 {
 }
 
 
-.table-align td {
-   text-align: center;   
+.table-align {
+  th, td {
+   text-align: center;
+  }
 }
 
-
-.table-align th {
-   text-align: center;   
-}
 
 
 #view-image {

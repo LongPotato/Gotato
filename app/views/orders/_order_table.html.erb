@@ -29,8 +29,8 @@
     </tr>
     </thead>
 
-    <% @orders.each do |order| %>
     <tbody>
+    <% @orders.each do |order| %>
         <tr>
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
@@ -85,8 +85,8 @@
           </div>
           </td>
         </tr>      
-    </tbody>
     <% end %>
+    </tbody>
 
   </table>
 </div>
