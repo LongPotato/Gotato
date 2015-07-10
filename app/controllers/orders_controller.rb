@@ -83,12 +83,30 @@ class OrdersController < ApplicationController
     redirect_to user_orders_path(current_user)
   end
 
+  def remove
+    @order = Order.find(params[:order_id])
+    ship_id = @order.shipping_id
+    @order.update_attributes(shipping_id: nil, ship_vn: nil, shipping_vn: 0)
+    @order.update_attributes(total_cost: @order.calculate_total_cost.round(2))
+    @order.update_attributes(profit: @order.calculate_profit.round(2))
+    @shipment = Shipping.find(ship_id)
+    @shipment.update_attributes(order_fields: @shipment.order_fields.gsub(/#{@order.id}/, ""))
+    @orders = Order.where(shipping_id: ship_id)
+    @orders.each do |order|
+      order.update_attributes(shipping_vn: @shipment.calculate_ship_vn.round(2))
+      order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+      order.update_attributes(profit: order.calculate_profit.round(2))
+    end
+    flash[:warning] = "Removed order ##{@order.id} from shipment ##{ship_id}"
+    redirect_to user_shipping_path(current_user, ship_id)
+  end
+
   private
 
     #White list parameters
     def order_params
       params.require(:order).permit(:user_id, :store, :image_link, :description, :note, :web_order_id,
-                                    :web_price, :tax, :reward, :shipping_us, :order_date, :received_us, :ship_vn,
+                                    :web_price, :tax, :reward, :shipping_us, :shipping_vn, :order_date, :received_us, :ship_vn,
                                     :selling_price, :deposit, customer_attributes: [:name])
     end
 

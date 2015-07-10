@@ -14,9 +14,6 @@
 
       <%= f.check_box :received_us, label: "Received at U.S." %>
 
-      <%= f.text_field :ship_vn, icon: "calendar", 'data-provide' => 'datepicker', 
-          label: "Shipped to VN", :class => "datepicker", help: "Manually enter the date or create a new shipment in Shipping" %>
-
       <%= f.text_field :store %>
 
       <%= f.text_field :order_date, icon: "calendar", 'data-provide' => 'datepicker', :class => "datepicker", help: "yyyy-mm-dd", value: Time.now.strftime('%Y-%m-%d') %>

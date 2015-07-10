@@ -43,6 +43,8 @@
 
       <%= f.text_field :reward, prepend: "$" %>
 
+      <%= f.text_field :shipping_vn, prepend: "$", label: "Ship VN", help: "Manually enter shipping price or generate it through new shipment" %>
+
       <legend class="field"></legend>
 
       <%= f.text_field :vnd, prepend: "VND", label: "USD to VND exchange rate", help: "Enter today exchange rate or use your predefined value in setting"  %>
@@ -59,7 +61,7 @@
       
       <%= f.submit "Edit order", class: "btn btn-lg btn-warning" %>
 
-      <%= link_to "Cancel", user_orders_path(current_user), class: "btn btn-lg btn-default", method: :get %>
+      <%= link_to "Cancel", :back, class: "btn btn-lg btn-default", method: :get %>
 
    <% end %>
  </div>

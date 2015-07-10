@@ -39,7 +39,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><%= link_to "Edit", edit_user_shipping_path(current_user, shipment.id) %></li>
-              <li><%= link_to "Detail", user_shipping_path(current_user, shipment.id) %></li>
+              <li><%= link_to "Detail", user_shipping_path(current_user, shipment.id), method: :get %></li>
               <li class="divider"></li>
               <li><%= link_to "Delete", user_shipping_path(current_user, shipment.id), method: :delete %></li>
             </ul>

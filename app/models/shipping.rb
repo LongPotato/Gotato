@@ -26,5 +26,9 @@ class Shipping < ActiveRecord::Base
       self.class.last
     end
   end
+
+  def calculate_ship_vn
+    self.price / Order.where(shipping_id: self.id).count
+  end
   
 end
