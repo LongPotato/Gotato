@@ -10,7 +10,7 @@
         <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
         <%= pluralize(current_user.orders.count, "order") %><span class="tab-space">
         <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
-        <%= pluralize(current_user.shippings.count, "shipment") %><span class="tab-space">
+        <%= pluralize(current_user.shippings.uniq.count, "shipment") %><span class="tab-space">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         <%= pluralize(current_user.customers.count, "customer") %>
       </p>
