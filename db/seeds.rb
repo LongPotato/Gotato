@@ -39,7 +39,7 @@ time = [Time.now, 4.weeks.from_now, 2.days.from_now, 2.months.from_now, 6.days.f
 true_false = [true, false]
 
 name_array.each do |name|
-  new_customer = Customer.create(name: name)
+  new_customer = Customer.create(name: name, user_id: 1)
   customer_array << new_customer.id
 end
 

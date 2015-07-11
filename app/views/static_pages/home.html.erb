@@ -2,12 +2,23 @@
 
   <div class="row">
   	<div class="text-center">
-  	  <h2> Welcome, <%= current_user.name.capitalize %> </h2>
-  	  <h4> This is your homepage, where you will be able to view your recent activities and sales summary. </h4>
-  	  <h4> To start managing your database, select an option on the navigation bar. </h4>
-  	  <h4> To view your account information or change your password, go to Account at the upper right. </h4>
-  	  <h4> To report any issues, bugs, please use the Contact link at the bottom corner. </h4>
-  	  <h4> Thank you. </h4>
+
+  	  <h1> Welcome, <%= current_user.name.capitalize %> </h1>
+   
+      <div class="info-panel">
+      <p class="lead">
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+        <%= pluralize(current_user.orders.count, "order") %><span class="tab-space">
+        <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
+        <%= pluralize(current_user.shippings.count, "shipment") %><span class="tab-space">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <%= pluralize(current_user.customers.count, "customer") %>
+      </p>
+      </div>
+
+
+
+
   	</div>
   </div>
 
