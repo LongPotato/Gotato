@@ -1,12 +1,15 @@
 class Order < ActiveRecord::Base
   attr_accessor :use_user_rate
   
+  mount_uploader :image_link, PictureUploader
+
   belongs_to :shipping
   belongs_to :user
   belongs_to :customer
   accepts_nested_attributes_for :customer, reject_if: lambda {|attributes| attributes[:name].blank?}
   
   validates :user, presence: true
+  validate  :picture_size
 
   before_save :set_default
 
@@ -62,6 +65,13 @@ class Order < ActiveRecord::Base
       self.selling_price = 0 if self.selling_price.nil?
       self.deposit = 0 if self.deposit.nil?
       self.remain = 0 if self.remain.nil?
+    end
+
+    # Validates the size of an uploaded picture.
+    def picture_size
+      if image_link.size > 5.megabytes
+        errors.add(:image_link, "should be less than 5MB")
+      end
     end
 
 end

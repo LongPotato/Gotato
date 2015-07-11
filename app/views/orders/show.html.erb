@@ -34,8 +34,7 @@
    
    <% if @order.image_link.present? %>
    <legend class="field"></legend>
-   <img src="<%= @order.image_link %>" alt="Order image" height="300" width="300">
-   <p id="view-image"><%= link_to "View original image", @order.image_link, target: "_blank" %><p>
+   <%= image_tag @order.image_link.url if @order.image_link? %>
    <% end %>
 
    <legend class="field"></legend>

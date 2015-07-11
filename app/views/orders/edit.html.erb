@@ -12,7 +12,10 @@
 
       <legend class="field"></legend>
 
-      <%= f.check_box :received_us, label: "Received at US" %>
+      <label>
+      Received at US
+      <%= f.check_box :received_us, label: "Received" %>
+      </label>
 
       <%= f.text_field :ship_vn, icon: "calendar", 'data-provide' => 'datepicker', 
           label: "Shipped to VN", :class => "datepicker", help: "Manually enter the date or create a new shipment in Shipping" %>
@@ -31,7 +34,9 @@
 
       <%= f.text_field :web_order_id, label: "Web Order #" %>
 
-      <%= f.url_field :image_link, label: "Image URL" %>
+      <%= f.file_field :image_link, label: "Image", accept: 'image/jpeg,image/gif,image/png'%>
+
+      <%= f.check_box :remove_image_link, label: "Remove image" %>
 
       <legend class="field"></legend>
       
