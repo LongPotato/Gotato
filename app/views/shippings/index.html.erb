@@ -22,8 +22,8 @@
     </tr>
     </thead>
 
-    <% @shipments.each do |shipment| %>
     <tbody>
+    <% @shipments.each do |shipment| %>
       <tr>
         <td><b><%= shipment.id %></b></td>
         <td><%= shipment.ship_date.try(:strftime, "%B %d, %Y") %></td>
@@ -46,6 +46,6 @@
           </div>
           </td>
       </tr>
-    </tbody>
     <% end %>
+    </tbody>
 </table>

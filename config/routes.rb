@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       end
     end
     resources :shippings
+    resources :customers
     member do
       get :account_password
       get :setting

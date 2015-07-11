@@ -1,3 +1,37 @@
+<%= provide(:title, 'Customer Profile') %>
+
+<div class="row nav-show">
+<nav id="back_next">
+  <ul class="pager">
+    <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
+                             user_customer_path(current_user, @customer.prev), class: "order_btn" %>
+    </li>
+    <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
+                         user_customer_path(current_user, @customer.next), class: "order_btn" %>
+    </li>
+  </ul>
+</nav>
+<h1>Customer Profile</h1>
+</div>
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">
+
+ <fieldset class="field">
+   <legend></legend>
+
+   <p class="p_order"><b>Customer name:</b><span class="tab-space">
+    <%= @customer.name.try(:titleize) %>
+   </p>
+
+   <p class="p_order"><b>Number of Orders:</b><span class="tab-space"><%= @customer.orders.count %></p>
+
+   <p class="p_order"><b>Member since:</b><span class="tab-space"><%= @customer.created_at.try(:strftime, "%B %d, %Y") %></p>
+
+   <legend class="field">Order history:</legend>
+
+  </div>
+
 <div class="nowrap">
 <div class="full-width-div">
 <table class="table table-bordered table-hover table-align">
@@ -6,7 +40,7 @@
       <th width ="300">Note</th>
       <th width ="110">Received US</th>
       <th width ="110">Shipped to VN</th>
-      <th width ="150">Ship ID</th>
+       <th width ="150">Ship ID</th>
       <th width ="300">Store</th>
       <th width ="110">Order Date</th>
       <th width = "50"><%= sortable("id", "Order# ") %> <%= arrow "id" %></th>
@@ -29,20 +63,20 @@
     </tr>
     </thead>
 
+   <% @customer.orders.each do |order| %>
     <tbody>
-    <% @orders.each do |order| %>
         <tr>
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%B %d, %Y") %></td>
-          <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank"><%= order.shipping_id %></a></td>
+          <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank"><%= order.shipping_id %></a>
           <td><%= order.store.try(:titleize) %></td>
           <td><%= order.order_date.try(:strftime, "%B %d, %Y") %></td>
           <td><b><%= order.id %></b></td>
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
           <% else %>
-            <td><a href="/users/<%= current_user.id %>/customers/<%= order.customer_id %>" target="_blank" class="customer"><%= order.customer.try(:name).try(:titleize) %></a></td>
+            <td><%= order.customer.try(:name).try(:titleize) %></td>
           <% end %>
           <td><%= order.description %></td>
           <td><%= order.web_order_id %></td>
@@ -52,7 +86,7 @@
               <a href="#" data-toggle="tooltip">View</a>
             </strong>
             <%= javascript_tag do %>
-              var img = "<img src='<%= order.image_link.url %>' height='150' width='150' />";
+              var img = "<img src='<%= order.image_link %>' height='150' width='150' />";
               $('[data-toggle="tooltip"]').tooltip({ title: img, html: true });
             <% end %>
             <% end %>
@@ -85,9 +119,19 @@
           </div>
           </td>
         </tr>      
-    <% end %>
     </tbody>
-
+    <% end %>
   </table>
 </div>
+</div>
+
+  <div class="col-md-6 col-md-offset-3">
+
+  <legend class="field"></legend>
+
+  <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
+
+  </div>
+  
+ </fieldset>
 </div>

@@ -1,0 +1,27 @@
+<% provide(:title, 'Customers') %>
+
+<div class="nowrap">
+<div class="full-width-div">
+<table class="table table-hover table-align">
+  <thead>
+    <tr>
+      <th width ="110">Name</th>
+      <th width ="150">Number of Orders</th>
+      <th width ="300">Member since</th>
+      <th width ="100">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.name.try(:titleize) %></td>
+        <td><%= customer.orders.count %></td>
+        <td><%= customer.created_at.try(:strftime, "%B %d, %Y") %></td>
+        <td><%= link_to "View detail", user_customer_path(current_user, customer.id), target: "_blank" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+</table>
+</div>
+</div>

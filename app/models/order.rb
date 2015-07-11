@@ -13,21 +13,21 @@ class Order < ActiveRecord::Base
 
   before_save :set_default
 
-  #get next available order
+  #get next available customer
   def next
-    order = self.class.where("id > ?", id).first
-    if order
-      order
+    customer = self.class.where("id > ?", id).first
+    if customer
+      customer
     else
       self.class.first
     end
   end
 
-  #get previous order
+  #get previous customer
   def prev
-    order = self.class.where("id < ?", id).first
-    if order
-      order
+    customer = self.class.where("id < ?", id).first
+    if customer
+      customer
     else
       self.class.last
     end

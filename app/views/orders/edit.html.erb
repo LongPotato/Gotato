@@ -8,6 +8,10 @@
    <%= bootstrap_form_for([@user, @order]) do |f| %>
       <%= f.hidden_field :user_id, :value => @user.id %>
 
+      <%= f.fields_for :customer do |c| %>
+        <%= c.hidden_field :user_id, :value => @user.id %>
+      <% end %>
+
       <%= f.text_area :note %>
 
       <legend class="field"></legend>

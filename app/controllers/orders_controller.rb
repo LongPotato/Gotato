@@ -107,7 +107,7 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:user_id, :store, :image_link, :description, :note, :web_order_id,
                                     :web_price, :tax, :reward, :shipping_us, :shipping_vn, :order_date, :received_us, :ship_vn,
-                                    :selling_price, :deposit, :remove_image_link, customer_attributes: [:name])
+                                    :selling_price, :deposit, :remove_image_link, customer_attributes: [:name, :user_id])
     end
 
 end

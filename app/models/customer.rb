@@ -4,4 +4,25 @@ class Customer < ActiveRecord::Base
   has_many :shipping, through: :orders
 
   before_save { self.name = name.downcase.strip }
+
+  #get next available order
+  def next
+    order = self.class.where("id > ?", id).first
+    if order
+      order
+    else
+      self.class.first
+    end
+  end
+
+  #get previous order
+  def prev
+    order = self.class.where("id < ?", id).first
+    if order
+      order
+    else
+      self.class.last
+    end
+  end
+
 end

@@ -7,7 +7,7 @@ class Shipping < ActiveRecord::Base
   validates :ship_date, presence: true
   validates :order_fields, presence: true
 
-  #get next available order
+  #get next available shipment
   def next
     shipment = self.class.where("id > ?", id).first
     if shipment
@@ -17,7 +17,7 @@ class Shipping < ActiveRecord::Base
     end
   end
 
-  #get previous order
+  #get previous shipment
   def prev
     shipment = self.class.where("id < ?", id).first
     if shipment
