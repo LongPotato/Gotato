@@ -57,7 +57,7 @@ end
   remain = vn.to_f - deposit
 
   order = Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)],
-               store: store_name[rand(0..11)], image_link: image[rand(0..6)], 
+               store: store_name[rand(0..11)], 
                order_date: time[rand(0..5)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
                web_price: price, tax: tax, shipping_us: quan, reward: (price * 0.01).round(2), total: total.round(2), total_cost: (total * 2100).round(2),
                profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1])
