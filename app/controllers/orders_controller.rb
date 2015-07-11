@@ -26,7 +26,15 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    cus_name = params[:order][:customer_attributes][:name]
 
+    if customer = Customer.find_by_name(cus_name.downcase)
+      @order.customer_id = customer.id
+    else
+      @order.save
+      @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
+    end
+       
     #Use setting vnd if user choose it
     if params[:order][:use_user_rate] == "1"
       @order.vnd = @order.user.setting_vnd
@@ -56,6 +64,13 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    cus_name = params[:order][:customer_attributes][:name]
+
+    if customer = Customer.find_by_name(cus_name.downcase)
+      @order.update_attributes(customer_id: customer.id)
+    else
+      @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
+    end
 
     #Use setting vnd if user choose it
     if params[:order][:use_user_rate] == "1"
@@ -107,7 +122,7 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:user_id, :store, :image_link, :description, :note, :web_order_id,
                                     :web_price, :tax, :reward, :shipping_us, :shipping_vn, :order_date, :received_us, :ship_vn,
-                                    :selling_price, :deposit, :remove_image_link, customer_attributes: [:name, :user_id])
+                                    :selling_price, :deposit, :remove_image_link)
     end
 
 end
