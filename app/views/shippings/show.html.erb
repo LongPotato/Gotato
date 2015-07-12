@@ -91,7 +91,7 @@
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
           <% else %>
-            <td><%= order.customer.try(:name).try(:titleize) %></td>
+             <td><a href="/users/<%= current_user.id %>/customers/<%= order.customer_id %>" target="_blank" class="customer"><%= order.customer.try(:name).try(:titleize) %></a></td>
           <% end %>
           <td><%= order.description %></td>
           <td><%= order.web_order_id %></td>
