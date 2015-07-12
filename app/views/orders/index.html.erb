@@ -7,12 +7,12 @@
   </button>
   <div class="btn-group">
   <button class="btn btn-default dropdown-toggle view-btn" id="next-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     View orders
+     Filter orders
      <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><%= link_to "For Sale", for_sale_user_orders_path(current_user), method: :get  %></li>
-    <li><%= link_to "Ordered", ordered_user_orders_path(current_user), method: :get  %></li>
+    <li><%= link_to "For Sale", {:status => "1"}, method: :get  %></li>
+    <li><%= link_to "Ordered", {:placed => "1"}, method: :get  %></li>
   </ul>
   </div>
 </div>

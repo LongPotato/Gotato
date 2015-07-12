@@ -7,6 +7,9 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :customer
   accepts_nested_attributes_for :customer, reject_if: lambda {|attributes| attributes[:name].blank?}
+
+  scope :status, -> { where('customers.name = ?', 'for sale') }
+  scope :placed, -> { where('customers.name != ?', 'for sale') }
   
   validates :user, presence: true
   validate  :picture_size

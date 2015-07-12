@@ -14,7 +14,7 @@ module OrdersHelper
     title ||= column.capitalize
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    link_to title, {:sort => column, :direction => direction}, {:class => "sort-header", :method => :get}
+    link_to title, params.merge(:sort => column, :direction => direction, :authenticity_token => nil), {:class => "sort-header", :method => :get}
   end
 
   def arrow(column)

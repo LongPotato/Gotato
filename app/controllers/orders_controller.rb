@@ -4,14 +4,8 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders.order(sort_column + " " + sort_direction)
-  end
-
-  def for_sale
-    @orders = current_user.orders.joins(:customer).where('customers.name = ?', 'for sale').order(sort_column + " " + sort_direction)
-  end
-
-  def ordered
-    @orders = current_user.orders.joins(:customer).where('customers.name != ?', 'for sale').order(sort_column + " " + sort_direction)
+    @orders = current_user.orders.joins(:customer).status.order(sort_column + " " + sort_direction) if params[:status].present?
+    @orders = current_user.orders.joins(:customer).placed.order(sort_column + " " + sort_direction) if params[:placed].present?
   end
 
   def show

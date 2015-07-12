@@ -17,10 +17,6 @@ Rails.application.routes.draw do
   resources :users, :except => [:index, :edit] do
     resources :orders do
       get :remove
-      collection do
-        get :for_sale
-        get :ordered
-      end
     end
     resources :shippings
     resources :customers
