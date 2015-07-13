@@ -10,6 +10,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def three_months
+    @orders = current_user.orders.three_months.order(sort_column + " " + sort_direction)
+    @orders = current_user.orders.joins(:customer).three_months.status.order(sort_column + " " + sort_direction) if params[:sale].present?
+    @orders = current_user.orders.joins(:customer).three_months.placed.order(sort_column + " " + sort_direction) if params[:placed].present?
+  end
+
+  def all
+    @orders = current_user.orders.order(sort_column + " " + sort_direction)
+    @orders = current_user.orders.joins(:customer).status.order(sort_column + " " + sort_direction) if params[:sale].present?
+    @orders = current_user.orders.joins(:customer).placed.order(sort_column + " " + sort_direction) if params[:placed].present?
+  end
+
   def account_password
     @user = User.find(params[:id])
   end

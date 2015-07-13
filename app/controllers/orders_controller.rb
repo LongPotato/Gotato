@@ -3,9 +3,9 @@ class OrdersController < ApplicationController
   before_action :correct_user
 
   def index
-    @orders = current_user.orders.order(sort_column + " " + sort_direction)
-    @orders = current_user.orders.joins(:customer).status.order(sort_column + " " + sort_direction) if params[:status].present?
-    @orders = current_user.orders.joins(:customer).placed.order(sort_column + " " + sort_direction) if params[:placed].present?
+    @orders = current_user.orders.this_month.order(sort_column + " " + sort_direction)
+    @orders = current_user.orders.joins(:customer).this_month.status.order(sort_column + " " + sort_direction) if params[:sale].present?
+    @orders = current_user.orders.joins(:customer).this_month.placed.order(sort_column + " " + sort_direction) if params[:placed].present?
   end
 
   def show

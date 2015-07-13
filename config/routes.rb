@@ -15,16 +15,18 @@ Rails.application.routes.draw do
   #patch 'users/:id' => 'users#account_password_update'
 
   resources :users, :except => [:index, :edit] do
+    member do
+      get :three_months
+      get :all
+      get :account_password
+      get :setting
+      post :set_vnd
+    end
     resources :orders do
       get :remove
     end
     resources :shippings
     resources :customers
-    member do
-      get :account_password
-      get :setting
-      post :set_vnd
-    end
   end
 
   # Example of regular route:
