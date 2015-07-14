@@ -4,15 +4,15 @@
     <thead>
     <tr class="active">
       <th width ="300">Note</th>
-      <th width ="110">Received US</th>
-      <th width ="110">Shipped to VN</th>
+      <th width ="110"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> US</th>
+      <th width ="110"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> VN</th>
       <th width ="150">Ship ID</th>
       <th width ="300">Store</th>
       <th width ="110">Order Date</th>
       <th width = "50"><%= sortable("id", "Order# ") %> <%= arrow "id" %></th>
       <th width = "400">Customer</th>
       <th width ="300">Description</th>
-      <th width ="400">Web Order#</th>
+      <th width ="400">Web#</th>
       <th width ="50">Image</th>
       <th width ="50">Web Price</th>
       <th width ="150">Tax</th>
@@ -32,24 +32,63 @@
     <tbody>
     <% @orders.each do |order| %>
         <tr>
-          <td><%= order.note %></td>
+          <% if order.note.present? %>
+            <td><strong>
+              <a href="javascript://" data-toggle="popover" title="Note" data-content="<%= order.note %>">View</a>
+            </strong></td>
+            <%= javascript_tag do %>
+              $(document).ready(function(){
+                $('[data-toggle="popover"]').popover(); 
+              });
+            <% end %>
+          <% else %>
+            <td></td>
+          <% end %>
           <td><%= receive_check(order.received_us) %></td>
-          <td><%= order.ship_vn.try(:strftime, "%B %d, %Y") %></td>
+          <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
           <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank"><%= order.shipping_id %></a></td>
           <td><%= order.store.try(:titleize) %></td>
-          <td><%= order.order_date.try(:strftime, "%B %d, %Y") %></td>
+          <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
           <td><b><%= order.id %></b></td>
+
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
           <% else %>
             <td><a href="/users/<%= current_user.id %>/customers/<%= order.customer_id %>" target="_blank" class="customer"><%= order.customer.try(:name).try(:titleize) %></a></td>
           <% end %>
-          <td><%= order.description %></td>
-          <td><%= order.web_order_id %></td>
+
+          <td>
+          <% if order.description.try(:length) > 10 %>
+            <%= order.description[0..10] %>
+            <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle='tooltip'>
+            <span class='glyphicon glyphicon-triangle-right'></span>
+            </a> 
+            <%= javascript_tag do %>
+              var text = "<%= order.description %>";
+              $('[data-toggle="tooltip"]').tooltip({ title: text, html: true });
+            <% end %>
+          <% else %>
+            <%= order.description %>
+          <% end %>
+          </td>
+
+          <td>
+          <% if order.web_order_id.present? %>
+            <strong>
+              <a href="javascript://" data-toggle="popover" title="Web Order#" data-content="<%= order.web_order_id %>">View</a>
+            </strong>
+            <%= javascript_tag do %>
+              $(document).ready(function(){
+                $('[data-toggle="popover"]').popover(); 
+              });
+            <% end %>
+          <% end %>
+          </td>
+
           <td>
             <% if order.image_link.present? %>
             <strong>
-              <a href="#" data-toggle="tooltip">View</a>
+              <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle="tooltip">View</a>
             </strong>
             <%= javascript_tag do %>
               var img = "<img src='<%= order.image_link.url %>' height='150' width='150' />";

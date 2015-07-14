@@ -124,11 +124,6 @@ h1 {
   }
 }
 
-
-padding-table {
-  padding-top: 10px;
-}
-
 .full-width-div {
   padding-top: 20px;
   width:100%;
@@ -174,7 +169,6 @@ padding-table {
 
 .nav-order {
   padding-left: 15px;
-  padding-right: 15px;
 }
 
 .p_setting {
@@ -229,6 +223,7 @@ padding-table {
   font-weight: 800;
 }
 
+<<<<<<< HEAD
 
 .table-align {
   th, td {
@@ -237,6 +232,20 @@ padding-table {
 }
 
 
+
+=======
+.table-align {
+  table-layout: fixed;
+  
+  td, th {
+    padding: 5px;
+    text-align: center;
+    white-space: normal;
+    vertical-align: middle;
+  }
+}
+
+>>>>>>> 97a9e3abcbc4c1117bcda77589b899dd5f2c6f98
 #view-image {
   margin-top: 10px;
   font-size: 18px;
@@ -265,24 +274,6 @@ padding-table {
   margin-left: 5px;
 }
 
-
-.info-panel {
-  margin-top: 30px;
-  color: gray;
-}
-
-
-.customer {
-  color: black;
-  &:hover {
-    color: black;
-  }
-}
-
-
-.customer-table {
-  margin-top: 30px;
-}
 
 
 

@@ -55,8 +55,8 @@
     <thead>
     <tr class="active">
       <th width ="300">Note</th>
-      <th width ="110">Received US</th>
-      <th width ="110">Shipped to VN</th>
+      <th width ="110"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> US</th>
+      <th width ="110"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> VN</th>
       <th width ="300">Store</th>
       <th width ="110">Order Date</th>
       <th width = "50"><%= sortable("id", "Order# ") %> <%= arrow "id" %></th>
@@ -84,9 +84,9 @@
         <tr>
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
-          <td><%= order.ship_vn.try(:strftime, "%B %d, %Y") %></td>
+          <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
           <td><%= order.store.try(:titleize) %></td>
-          <td><%= order.order_date.try(:strftime, "%B %d, %Y") %></td>
+          <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
           <td><b><%= order.id %></b></td>
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
