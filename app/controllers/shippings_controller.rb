@@ -46,6 +46,7 @@ class ShippingsController < ApplicationController
 
   def show
     @shipment = Shipping.find(params[:id])
+    @orders = @shipment.orders.order(sort_column + " " + sort_direction)
   end
 
   def edit

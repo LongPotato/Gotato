@@ -25,12 +25,13 @@
      <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
+    <li class="disabled"><%= link_to "This month", ""%></li>
     <li><%= link_to "Last 3 months", three_months_user_path(current_user), method: :get  %></li>
     <li><%= link_to "All orders", all_user_path(current_user), method: :get  %></li>
   </ul>
   </div>
 
-  <h5 class="text-muted pull-right">Orders in this month</h5>
+  <h5 class="text-muted pull-right">This month's orders</h5>
 
 </div>
 
