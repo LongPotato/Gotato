@@ -34,7 +34,9 @@
         <tr>
           <% if order.note.present? %>
             <td><strong>
-              <a href="javascript://" data-toggle="popover" title="Note" data-content="<%= order.note %>">View</a>
+              <a href="javascript://" data-toggle="popover" title="Note" data-content="<%= order.note %>" class="expand">
+                <span class='glyphicon glyphicon-option-horizontal'></span>
+              </a>
             </strong></td>
             <%= javascript_tag do %>
               $(document).ready(function(){
@@ -60,8 +62,8 @@
           <td>
           <% if order.description.try(:length) > 10 %>
             <%= order.description[0..10] %>
-            <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle='tooltip'>
-            <span class='glyphicon glyphicon-triangle-right'></span>
+            <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle='tooltip' class="expand">
+            ...
             </a> 
             <%= javascript_tag do %>
               var text = "<%= order.description %>";
@@ -75,7 +77,9 @@
           <td>
           <% if order.web_order_id.present? %>
             <strong>
-              <a href="javascript://" data-toggle="popover" title="Web Order#" data-content="<%= order.web_order_id %>">View</a>
+              <a href="javascript://" data-toggle="popover" title="Web Order#" data-content="<%= order.web_order_id %>" class="expand">
+                <span class='glyphicon glyphicon-option-horizontal'>
+              </a>
             </strong>
             <%= javascript_tag do %>
               $(document).ready(function(){

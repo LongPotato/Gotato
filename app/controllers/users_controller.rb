@@ -14,12 +14,14 @@ class UsersController < ApplicationController
     @orders = current_user.orders.three_months.order(sort_column + " " + sort_direction)
     @orders = current_user.orders.joins(:customer).three_months.status.order(sort_column + " " + sort_direction) if params[:sale].present?
     @orders = current_user.orders.joins(:customer).three_months.placed.order(sort_column + " " + sort_direction) if params[:placed].present?
+    @orders = current_user.orders.three_months.received.order(sort_column + " " + sort_direction) if params[:received].present?
   end
 
   def all
     @orders = current_user.orders.order(sort_column + " " + sort_direction)
     @orders = current_user.orders.joins(:customer).status.order(sort_column + " " + sort_direction) if params[:sale].present?
     @orders = current_user.orders.joins(:customer).placed.order(sort_column + " " + sort_direction) if params[:placed].present?
+    @orders = current_user.orders.received.order(sort_column + " " + sort_direction) if params[:received].present?
   end
 
   def account_password

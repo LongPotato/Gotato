@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
     @orders = current_user.orders.this_month.order(sort_column + " " + sort_direction)
     @orders = current_user.orders.joins(:customer).this_month.status.order(sort_column + " " + sort_direction) if params[:sale].present?
     @orders = current_user.orders.joins(:customer).this_month.placed.order(sort_column + " " + sort_direction) if params[:placed].present?
+    @orders = current_user.orders.this_month.received.order(sort_column + " " + sort_direction) if params[:received].present?
   end
 
   def show
