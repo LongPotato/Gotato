@@ -92,7 +92,9 @@
           <td>
             <% if order.image_link.present? %>
             <strong>
-              <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle="tooltip">View</a>
+              <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle="tooltip" class="expand">
+                <span class='glyphicon glyphicon-picture'>
+              </a>
             </strong>
             <%= javascript_tag do %>
               var img = "<img src='<%= order.image_link.url %>' height='150' width='150' />";
