@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  before_action :logged_in_user
+  before_action :correct_user
 
   def index
     @customers = current_user.customers.search(params[:search])
