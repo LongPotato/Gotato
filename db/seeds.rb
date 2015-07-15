@@ -32,14 +32,17 @@ vn_price = [5000000, 14500500, 10050040, 235000, 42345500, 35030000, 1000000, 36
 
 price_list = [3.99, 345.99, 45, 10.50, 0, 10500, 140.6, 860, 640.99, 550, 40.50, 79.99, 83.40]
 
+address_list = ["A23-BT4 My Dinh, Tu Liem, Hanoi", "Ngo 17, Hong Ha, Hanoi", "132 Cau Giay, Hanoi", "P.3709 Thang Long no.1", "95 Folsom Ave, Suite 600
+                San Francisco", "18 Ngo Hue, Thanh Xuan, Hanoi", "12 Nguyen Phong Sac, Q.1, HCM", "So 554 Ngo 15, Dong Khoi, Q11, HCM", ""]
+
 customer_array = []
 
-time = [Time.now, 4.weeks.from_now, 2.days.from_now, 2.months.from_now, 6.days.from_now, nil]
+time = [Time.now, 4.weeks.ago, 1.month.ago, 2.months.ago, 6.days.from_now, nil]
 
 true_false = [true, false]
 
 name_array.each do |name|
-  new_customer = Customer.create(name: name, user_id: 1)
+  new_customer = Customer.create(name: name, user_id: 1, address: address_list[rand(0..8)], bank: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}")
   customer_array << new_customer.id
 end
 

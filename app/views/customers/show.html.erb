@@ -24,6 +24,18 @@
     <%= @customer.name.try(:titleize) %>
    </p>
 
+   <legend class="field"></legend>
+
+   <p class="p_order"><b>Address:</b><span class="tab-space">
+    <address><%= @customer.address %></address>
+   </p>
+
+   <p class="p_order"><b>Bank Info:</b><span class="tab-space">
+    <address><%= @customer.bank %></address>
+   </p>
+
+   <legend class="field"></legend>
+
    <p class="p_order"><b>Number of Orders:</b><span class="tab-space"><%= @customer.orders.count %></p>
 
    <p class="p_order"><b>Member since:</b><span class="tab-space"><%= @customer.created_at.try(:strftime, "%B %d, %Y") %></p>
@@ -129,6 +141,7 @@
 
   <legend class="field"></legend>
 
+  <%= link_to "Edit Info", edit_user_customer_path(current_user,@customer.id), class: "btn btn-lg btn-info" %>
   <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
 
   </div>

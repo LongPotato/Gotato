@@ -26,7 +26,7 @@
    <p class="p_order"><b>Store:</b><span class="tab-space"><%= @order.store.try(:titleize) %></p>
 
    <p class="p_order"><b>Customer:</b><span class="tab-space">
-    <%= @order.customer.try(:name).try(:titleize) %>
+    <a href="/users/<%= current_user.id %>/customers/<%= @order.customer_id %>" target="_blank"><%= @order.customer.try(:name).try(:titleize) %></a>
    </p>
    <p class="p_order"><b>Description:</b><span class="tab-space"><%= @order.description %></p>
 

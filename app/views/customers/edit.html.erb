@@ -1,0 +1,29 @@
+<% provide(:title, "Edit Customer's Info") %>
+
+<h1>Customer Info</h1>
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">
+
+  <%= bootstrap_form_for([@user, @customer]) do |f| %>
+
+    <legend class="field"></legend>
+
+    <p class="p_order"><b>Customer name:</b><span class="tab-space">
+      <%= @customer.name.try(:titleize) %>
+    </p>
+
+    <legend class="field"></legend>
+
+    <%= f.text_area :address %>
+
+    <%= f.text_area :bank, label: "Bank info", icon: "credit-card" %>
+
+    <legend class="field"></legend>
+
+    <%= f.submit "Submit", class: "btn btn-lg btn-info" %>
+
+    <%= link_to "Cancel", :back, class: "btn btn-lg btn-default" %>
+  <% end %>
+ </div>
+</div>
