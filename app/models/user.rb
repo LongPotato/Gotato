@@ -48,4 +48,13 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
 
+  def User.update_rate
+    User.all.each {|user| user.update_vnd }
+  end
+
+  def update_vnd
+    self.setting_vnd = GoogCurrency.usd_to_vnd(1)
+    self.save!
+  end
+
 end

@@ -53,6 +53,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+=begin
   def set_vnd
     @user = User.find(params[:id])
     @user.update_attributes(user_params)
@@ -64,7 +65,7 @@ class UsersController < ApplicationController
       render 'setting'
     end
   end
-
+=end
 
   private
 

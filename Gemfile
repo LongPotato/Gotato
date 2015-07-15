@@ -21,6 +21,9 @@ gem 'fog',                     '1.23.0'
 
 gem 'bootstrap-datepicker-rails'
 
+gem 'goog_currency'
+gem 'whenever', :require => false
+
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
