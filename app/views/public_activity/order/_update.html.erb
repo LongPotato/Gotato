@@ -1,0 +1,10 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-edit"></span>
+  <p class="text-muted"><%= a.created_at.strftime('%B %d, %Y') %>
+  <% if a.trackable %>
+    Updated order #<%= link_to a.trackable.id, user_order_path(a.trackable.user, a.trackable.id) %>.
+  <% else %>
+    Updated an order that is currently deleted.
+  <% end %>
+  </p>
+</li>
