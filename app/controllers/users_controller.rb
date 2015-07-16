@@ -67,6 +67,13 @@ class UsersController < ApplicationController
   end
 =end
 
+  def set_vnd
+    @user = User.find(params[:id])
+    User.update_rate
+    flash[:success] = "Setting exchange rate has been set to #{@user.setting_vnd}"
+    redirect_to setting_user_path(current_user)
+  end
+
   private
 
     def user_params

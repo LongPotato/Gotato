@@ -267,7 +267,6 @@ padding-table {
 
 
 .info-panel {
-  margin-top: 30px;
   color: gray;
 }
 
@@ -290,6 +289,22 @@ padding-table {
   &:hover {
     color: black;
   }
+}
+
+
+.refresh {
+  margin-top: 10px;
+}
+
+
+.activities {
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+
+.activity-text {
+  font-size: 18px;
 }
 
 

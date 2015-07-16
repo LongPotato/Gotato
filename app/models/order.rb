@@ -1,4 +1,7 @@
 class Order < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked except: [:update], owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
+
   attr_accessor :use_user_rate
   
   mount_uploader :image_link, PictureUploader

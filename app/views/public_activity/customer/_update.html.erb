@@ -1,0 +1,11 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-edit text-muted">
+  <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
+  <p class="activity-text">
+  <% if a.trackable %>
+    Updated customer #<%= link_to a.trackable.name, user_customer_path(a.trackable.user, a.trackable.id) %>'s info.
+  <% else %>
+    Updated customer's info that is currently deleted.
+  <% end %>
+  </p>
+</li>

@@ -1,4 +1,7 @@
 class Customer < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked except: :destroy, owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
+
   belongs_to :user
   has_many :orders
   has_many :shipping, through: :orders

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get :all
       get :account_password
       get :setting
-      #post :set_vnd
+      post :set_vnd
     end
     resources :orders do
       get :remove

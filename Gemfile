@@ -23,6 +23,7 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'goog_currency'
 gem 'whenever', :require => false
+gem 'public_activity'
 
 group :development, :test do
   gem 'sqlite3'
