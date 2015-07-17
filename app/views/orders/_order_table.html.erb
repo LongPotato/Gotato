@@ -60,8 +60,8 @@
           <% end %>
 
           <td>
-          <% if order.description.try(:length) > 10 %>
-            <%= order.description[0..10] %>
+          <% if order.description.try(:length) > 25 %>
+            <%= order.description[0..25] %>
             <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle='tooltip' class="expand">
             ...
             </a> 
