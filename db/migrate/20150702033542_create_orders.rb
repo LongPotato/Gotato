@@ -18,7 +18,6 @@ class CreateOrders < ActiveRecord::Migration
       t.decimal :reward
       t.decimal :shipping_vn
       
-
       t.decimal :total
       t.decimal :total_cost
 

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     end
     resources :shippings
     resources :customers
+    get 'report' => 'reports#show_report'
+    post 'report' => 'reports#generate_report'
   end
 
   # Example of regular route:

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  total_cost: 9.99
+  total_selling: 9.99
+  revenue: 9.99
+  order_sold: 1
+
+two:
+  total_cost: 9.99
+  total_selling: 9.99
+  revenue: 9.99
+  order_sold: 1
