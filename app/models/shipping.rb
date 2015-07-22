@@ -1,6 +1,6 @@
 class Shipping < ActiveRecord::Base
   include PublicActivity::Model
-  #tracked except: [:update], owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
+  tracked except: [:update], owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
 
   has_many :users
   has_many :orders
