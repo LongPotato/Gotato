@@ -24,16 +24,15 @@ gem 'bootstrap-datepicker-rails'
 gem 'goog_currency'
 gem 'whenever', :require => false
 gem 'public_activity'
+gem 'pg'
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 

@@ -7,8 +7,8 @@ class ReportsController < ApplicationController
     @orders_by_month = current_user.orders.all.group_by { |order| order.order_date.beginning_of_month }
     
     @orders_by_month.each do |month, orders|
-      if current_user.data.where("strftime('%m', month_record) + 0 = ?", month.strftime('%m').to_i).present?
-        @report = current_user.data.where("strftime('%m', month_record) + 0 = ?", month.strftime('%m').to_i).first
+      if current_user.data.where("extract(month from month_record) = ?", month.strftime('%m').to_i).present?
+        @report = current_user.data.where("extract(month from month_record) = ?", month.strftime('%m').to_i).first
       else
         @report = Datum.new
       end
