@@ -62,6 +62,7 @@ class Order < ActiveRecord::Base
 
     def set_default
       self.received_us = false if self.received_us.nil?
+      self.order_date = Time.now if self.order_date.nil?
       self.web_price = 0 if self.web_price.nil?
       self.tax = 0 if self.tax.nil?
       self.reward = 0 if self.reward.nil?

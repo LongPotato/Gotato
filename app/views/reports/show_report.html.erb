@@ -26,9 +26,9 @@
     <tr>
       <td><%= report.month_record.try(:strftime, "%B, %Y") %></td>
       <td><%= report.order_sold %></td>
-      <td><%= report.total_cost %></td>
-      <td><%= report.total_selling %></td>
-      <td><%= report.revenue %></td>
+      <td>$<%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
+      <td>$<%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>
+      <td>$<%= number_with_delimiter(report.revenue.to_f, :delimiter => ',') %></td>
     </tr>
     <% end %>
     </tbody>

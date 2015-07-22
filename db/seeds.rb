@@ -37,7 +37,7 @@ address_list = ["A23-BT4 My Dinh, Tu Liem, Hanoi", "Ngo 17, Hong Ha, Hanoi", "13
 
 customer_array = []
 
-time = [Time.now, 4.weeks.ago, 1.month.ago, 2.months.ago, 6.days.from_now, nil]
+time = [Time.now, 4.weeks.ago, 1.month.ago, 2.months.ago, 6.days.from_now, 4.months.ago]
 
 true_false = [true, false]
 
