@@ -8,7 +8,7 @@
         <li><%= link_to "Customers", user_customers_path(current_user), id: "last_nav" %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="nav_text"><%= link_to "Reports", user_report_path(current_user) %></li>
+        <li class="nav_text"><%= link_to "Reports", user_report_path(current_user), method: :post %></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle nav_text"  data-toggle="dropdown">
             <%= current_user.name %><b class="caret"></b>

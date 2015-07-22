@@ -4,11 +4,15 @@ class ReportsController < ApplicationController
   end
 
   def generate_report
+    #@orders_by_year = current_user.orders.all.group_by { |order| order.order_date.beginning_of_year }
     @orders_by_month = current_user.orders.all.group_by { |order| order.order_date.beginning_of_month }
     
     @orders_by_month.each do |month, orders|
-      if current_user.data.where("extract(month from month_record) = ?", month.strftime('%m').to_i).present?
-        @report = current_user.data.where("extract(month from month_record) = ?", month.strftime('%m').to_i).first
+      if current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i).present?
+        this_year = current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i)
+        if this_year.where("extract(month from month_record) = ?", month.strftime('%m').to_i).present?
+          @report = this_year.where("extract(month from month_record) = ?", month.strftime('%m').to_i).first
+        end
       else
         @report = Datum.new
       end
