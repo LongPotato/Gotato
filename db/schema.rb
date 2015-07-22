@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721152730) do
+ActiveRecord::Schema.define(version: 20150722054311) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -41,8 +41,18 @@ ActiveRecord::Schema.define(version: 20150721152730) do
 
   add_index "customers", ["user_id"], name: "index_customers_on_user_id"
 
-# Could not dump table "data" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "data", force: :cascade do |t|
+    t.decimal  "total_cost"
+    t.decimal  "total_selling"
+    t.decimal  "revenue"
+    t.integer  "order_sold"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.date     "month_record"
+    t.integer  "user_id"
+  end
+
+  add_index "data", ["user_id"], name: "index_data_on_user_id"
 
   create_table "orders", force: :cascade do |t|
     t.text     "description"
