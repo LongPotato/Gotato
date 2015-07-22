@@ -25,6 +25,10 @@ class ReportsController < ApplicationController
       @report.user_id = current_user.id
 
       @report.save
+
+      orders.each do |order|
+        order.update_attributes(datum_id: @report.id)
+      end
     end
 
     redirect_to user_report_path(current_user)

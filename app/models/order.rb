@@ -9,6 +9,7 @@ class Order < ActiveRecord::Base
   belongs_to :shipping
   belongs_to :user
   belongs_to :customer
+  belongs_to :datum
   accepts_nested_attributes_for :customer #reject_if: lambda {|attributes| attributes[:name].blank?}
 
   scope :status, -> { where('customers.name = ?', 'for sale') }

@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722054311) do
+ActiveRecord::Schema.define(version: 20150722101825) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -26,9 +29,9 @@ ActiveRecord::Schema.define(version: 20150722054311) do
     t.datetime "updated_at"
   end
 
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150722054311) do
     t.text     "bank"
   end
 
-  add_index "customers", ["user_id"], name: "index_customers_on_user_id"
+  add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
 
   create_table "data", force: :cascade do |t|
     t.decimal  "total_cost"
@@ -52,7 +55,7 @@ ActiveRecord::Schema.define(version: 20150722054311) do
     t.integer  "user_id"
   end
 
-  add_index "data", ["user_id"], name: "index_data_on_user_id"
+  add_index "data", ["user_id"], name: "index_data_on_user_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.text     "description"
@@ -80,11 +83,13 @@ ActiveRecord::Schema.define(version: 20150722054311) do
     t.string   "web_order_id"
     t.decimal  "remain"
     t.integer  "shipping_id"
+    t.integer  "datum_id"
   end
 
-  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id"
-  add_index "orders", ["shipping_id"], name: "index_orders_on_shipping_id"
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+  add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
+  add_index "orders", ["datum_id"], name: "index_orders_on_datum_id", using: :btree
+  add_index "orders", ["shipping_id"], name: "index_orders_on_shipping_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "shippings", force: :cascade do |t|
     t.decimal  "price"
@@ -105,6 +110,7 @@ ActiveRecord::Schema.define(version: 20150722054311) do
     t.decimal  "setting_vnd"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "orders", "data"
 end

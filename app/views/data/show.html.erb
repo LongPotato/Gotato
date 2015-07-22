@@ -1,0 +1,9 @@
+<div class="row nav-order">
+  <button type="button" class="btn btn-default">
+    <span aria-hidden="true" class="order_btn">&larr;</span> <%= link_to "Back", user_report_path(current_user), class: "order_btn" %>
+  </button>
+
+  <h5 class="text-muted pull-right">Showing orders from <%= @report.month_record.try(:strftime, "%B, %Y") %></h5>
+</div>
+
+<%= render 'orders/order_table' %>

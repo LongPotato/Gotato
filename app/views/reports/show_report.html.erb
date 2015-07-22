@@ -24,7 +24,9 @@
     <tbody>
     <% @reports.each do |report| %>
     <tr>
-      <td><%= report.month_record.try(:strftime, "%B, %Y") %></td>
+      <td>
+        <%= link_to "#{report.month_record.try(:strftime, "%B, %Y")}", user_datum_path(current_user, report), class: "customer", method: :get %>
+      </td>
       <td><%= report.order_sold %></td>
       <td>$<%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
       <td>$<%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     end
     resources :shippings
     resources :customers
+    resources :data, :only => [:show]
     get 'report' => 'reports#show_report'
     post 'report' => 'reports#generate_report'
   end
