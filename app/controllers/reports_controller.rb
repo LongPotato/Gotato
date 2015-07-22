@@ -1,5 +1,12 @@
 class ReportsController < ApplicationController
+  before_action :logged_in_user
+  before_action :correct_user
+
   def show_report
+    @reports = current_user.data.order("month_record desc")
+  end
+
+  def monthly_index
     @reports = current_user.data.order("month_record desc")
   end
 

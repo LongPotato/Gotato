@@ -1,40 +1,8 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
-  <button type="button" class="btn btn-default">
-    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-    <%= link_to "Refresh", user_report_path(current_user), class: "sort-header", method: :post %>
-  </button>
-</div>
-</div>
-
-<div class="row">
-<div class="col-md-10 col-md-offset-1">
-
-<table class="table table-hover table-align customer-table">
-  <thead>
-    <tr>
-      <th width="100">Months</th>
-      <th width="100">Orders Sold</th>
-      <th width="100">Total Cost</th>
-      <th width="100">Total Selling</th>
-      <th width="100">Revenue</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @reports.each do |report| %>
-    <tr>
-      <td>
-        <%= link_to "#{report.month_record.try(:strftime, "%B, %Y")}", user_datum_path(current_user, report), class: "customer", method: :get %>
-      </td>
-      <td><%= report.order_sold %></td>
-      <td>$<%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
-      <td>$<%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>
-      <td>$<%= number_with_delimiter(report.revenue.to_f, :delimiter => ',') %></td>
-    </tr>
-    <% end %>
-    </tbody>
-</table>
-
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><%= link_to "Summary", user_report_path(current_user), class: "customer", method: :post %></li>
+    <li role="presentation"><%= link_to "Monthly Index", user_months_path(current_user), class: "customer" %></a></li>
+  </ul>
 </div>
 </div>

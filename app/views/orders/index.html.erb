@@ -28,7 +28,7 @@
   <ul class="dropdown-menu">
     <li class="disabled"><%= link_to "This month", ""%></li>
     <li><%= link_to "Last 3 months", three_months_user_path(current_user), method: :get  %></li>
-    <li><%= link_to "Specific month", user_report_path(current_user), method: :post  %></li>
+    <li><%= link_to "Specific month", user_months_path(current_user) %></li>
     <li><%= link_to "All orders", all_user_path(current_user), method: :get  %></li>
   </ul>
   </div>
