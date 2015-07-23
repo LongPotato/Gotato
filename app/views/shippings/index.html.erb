@@ -13,11 +13,11 @@
     <thead>
     <tr class="active">
       <th width ="100"><%= sortable("id", "Ship ID") %> <%= arrow "id" %></th>
-      <th width ="110">Shipped to VN</th>
+      <th width ="200">Shipped to VN</th>
       <th width ="300">Note</th>
       <th width ="150">Number of Orders</th>
-      <th width ="300">Total Price</th>
-      <th width ="110">Price per Orders</th>
+      <th width ="200">Total Price</th>
+      <th width ="200">Price per Orders</th>
       <th width ="100">Action</th>
     </tr>
     </thead>
@@ -29,8 +29,8 @@
         <td><%= shipment.ship_date.try(:strftime, "%B %d, %Y") %></td>
         <td><%= shipment.description %></td>
         <td><%= shipment.orders.count %></td>
-        <td>$<%= shipment.price.to_f %></td>
-        <td>$<%= shipment.orders.first.shipping_vn.to_f %></td>
+        <td>$ <%= shipment.price.to_f %></td>
+        <td>$ <%= shipment.orders.first.shipping_vn.to_f %></td>
         <td>
         <div class="btn-group">
             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

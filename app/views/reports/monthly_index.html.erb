@@ -3,7 +3,7 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
   <ul class="nav nav-tabs">
-    <li role="presentation"><%= link_to "Summary", user_report_path(current_user), class: "customer", method: :post %></li>
+    <li role="presentation"><%= link_to "This Month", user_report_path(current_user), class: "customer", method: :post %></li>
     <li role="presentation" class="active"><%= link_to "Monthly Index", user_months_path(current_user), class: "customer", method: :post %></a></li>
   </ul>
 </div>
@@ -30,9 +30,9 @@
         <%= link_to "#{report.month_record.try(:strftime, "%B, %Y")}", user_datum_path(current_user, report), class: "customer", method: :get %>
       </td>
       <td><%= report.order_sold %></td>
-      <td>$<%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
-      <td>$<%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>
-      <td>$<%= number_with_delimiter(report.revenue.to_f, :delimiter => ',') %></td>
+      <td>$ <%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
+      <td>$ <%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>
+      <td>$ <%= number_with_delimiter(report.revenue.to_f, :delimiter => ',') %></td>
     </tr>
     <% end %>
     </tbody>

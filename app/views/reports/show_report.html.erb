@@ -3,8 +3,52 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><%= link_to "Summary", user_report_path(current_user), class: "customer", method: :post %></li>
+    <li role="presentation" class="active"><%= link_to "This Month", user_report_path(current_user), class: "customer", method: :post %></li>
     <li role="presentation"><%= link_to "Monthly Index", user_months_path(current_user), class: "customer" %></a></li>
   </ul>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+  <legend style="margin-top: 40px"><h2>This month</h2></legend>
+  <table class="table table-align">
+    <thead>
+    <tr class="active">
+      <th width ="150">Orders</th>
+      <th width ="150">Revenue</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr style="border-bottom: 1px solid #eaeaea">
+      <td style="font-size: 30px"><%= @this_month.order_sold %></td>
+      <td style="font-size: 30px">$ <%= number_with_delimiter(@this_month.revenue.to_f.round, :delimiter => ',') %></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3>Sale summary</h3>
+
+  <table class="table">
+  <tbody class="p_order">
+    <tr>
+    <td><b>Total selling:</b></td>
+    <td></td>
+    <td width="300">$ <%= number_with_delimiter(@this_month.total_selling.to_f, :delimiter => ',') %></td>
+  </tr>
+  <tr>
+    <td><b>Total cost:</b></td>
+    <td></td>
+    <td>$ <%= number_with_delimiter(@this_month.total_cost.to_f, :delimiter => ',') %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>Revenue:</b></td>
+    <td><b>$ <%= number_with_delimiter(@this_month.revenue.to_f, :delimiter => ',') %></b></td>
+  </tr>
+  </tbody>
+  </table>
+
 </div>
 </div>

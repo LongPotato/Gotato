@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   before_action :correct_user
 
   def show_report
-    @reports = current_user.data.order("month_record desc")
+    @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
   end
 
   def monthly_index
