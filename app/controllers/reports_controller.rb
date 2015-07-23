@@ -11,7 +11,6 @@ class ReportsController < ApplicationController
   end
 
   def generate_report
-    #@orders_by_year = current_user.orders.all.group_by { |order| order.order_date.beginning_of_year }
     @orders_by_month = current_user.orders.all.group_by { |order| order.order_date.beginning_of_month }
     
     @orders_by_month.each do |month, orders|
@@ -42,8 +41,20 @@ class ReportsController < ApplicationController
       orders.each do |order|
         order.update_attributes(datum_id: @report.id)
       end
+
+      check_valid_data
     end
 
     redirect_to user_report_path(current_user)
   end
+
+  def check_valid_data
+    data = current_user.data
+    data.each do |datum|
+      if datum.orders.empty?
+        datum.destroy
+      end
+    end
+  end
+
 end
