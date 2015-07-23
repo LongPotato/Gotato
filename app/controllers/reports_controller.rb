@@ -16,9 +16,11 @@ class ReportsController < ApplicationController
     
     @orders_by_month.each do |month, orders|
       if current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i).present?
-        #this_year = current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i)
-        if current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i).where("extract(month from month_record) = ?", month.strftime('%m').to_i).present?
-          @report = current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i).where("extract(month from month_record) = ?", month.strftime('%m').to_i).first
+        this_year = current_user.data.where("extract(year from month_record) = ?", month.strftime('%Y').to_i)
+        if this_year.where("extract(month from month_record) = ?", month.strftime('%m').to_i).present?
+          @report = this_year.where("extract(month from month_record) = ?", month.strftime('%m').to_i).first
+        else
+          @report = Datum.new
         end
       else
         @report = Datum.new
