@@ -1,4 +1,3 @@
-<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <% provide(:title, 'This Year') %>
 
 <div class="row">
@@ -49,7 +48,7 @@
   <tr>
   	<td></td>
     <td></td>
-    <td><b>Profit:</b></td>
+    <td width="300"><b>Profit:</b></td>
     <td><b>$ <%= number_with_delimiter(@profit.round(2), :delimiter => ',') %></b></td>
   </tr>
   <tr>

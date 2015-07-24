@@ -19,7 +19,30 @@
   </div>
 
   <div class="recent">
-    <legend class="field">Recent activities:</legend>
+    <legend class="field">Order status</legend>
+  </div>
+  
+  <div class="row customer-table">
+    <div class="col-md-8 col-md-offset-2">
+
+      <div class="progress">
+        <div class="progress-bar progress-bar-success" style="width: <%= @completed %>%">
+          Completed
+        </div>
+        <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: <%= @received %>%">
+          Pending
+        </div>
+        <div class="progress-bar progress-bar-danger" style="width: <%= @not_received %>%">
+          Not Yet Received
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="recent">
+    <legend class="field">Recent activities</legend>
   </div>
   
   <div class="row">

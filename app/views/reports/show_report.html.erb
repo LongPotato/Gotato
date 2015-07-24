@@ -7,7 +7,7 @@
       <%= link_to "This month", user_report_path(current_user), class: "customer", method: :post %>
     </li>
     <li role="presentation">
-      <%= link_to user_year_path(current_user), class: "customer", method: :get do %>
+      <%= link_to user_year_path(current_user), class: "customer" do %>
         <i class="fa fa-line-chart"></i> This year
       <% end %>
     </li>
