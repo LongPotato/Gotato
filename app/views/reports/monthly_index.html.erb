@@ -3,8 +3,19 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
   <ul class="nav nav-tabs">
-    <li role="presentation"><%= link_to "This Month", user_report_path(current_user), class: "customer", method: :post %></li>
-    <li role="presentation" class="active"><%= link_to "Monthly Index", user_months_path(current_user), class: "customer", method: :post %></a></li>
+    <li role="presentation">
+      <%= link_to "This month", user_report_path(current_user), class: "customer", method: :post %>
+    </li>
+    <li role="presentation">
+      <%= link_to user_year_path(current_user), class: "customer", method: :get do %>
+        <i class="fa fa-line-chart"></i> This year
+      <% end %>
+    </li>
+    <li role="presentation" class="active">
+      <%= link_to user_months_path(current_user), class: "customer" do %>
+        <i class="fa fa-list"></i> Monthly Index
+      <% end %>
+    </li>
   </ul>
 </div>
 </div>
@@ -12,31 +23,7 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 
-<table class="table table-hover table-align customer-table">
-  <thead>
-    <tr>
-      <th width="100">Months</th>
-      <th width="100">Orders Sold</th>
-      <th width="100">Total Cost</th>
-      <th width="100">Total Selling</th>
-      <th width="100">Revenue</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <% @reports.each do |report| %>
-    <tr>
-      <td>
-        <%= link_to "#{report.month_record.try(:strftime, "%B, %Y")}", user_datum_path(current_user, report), class: "customer", method: :get %>
-      </td>
-      <td><%= report.order_sold %></td>
-      <td>$ <%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
-      <td>$ <%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>
-      <td>$ <%= number_with_delimiter(report.revenue.to_f, :delimiter => ',') %></td>
-    </tr>
-    <% end %>
-    </tbody>
-</table>
+  <%= render "months_table" %>
 
 </div>
 </div>

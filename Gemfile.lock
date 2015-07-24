@@ -57,6 +57,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartkick (1.3.2)
     chronic (0.10.2)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -213,6 +214,7 @@ DEPENDENCIES
   bootstrap_form
   byebug
   carrierwave (= 0.10.0)
+  chartkick
   coffee-rails (~> 4.1.0)
   fog (= 1.23.0)
   goog_currency

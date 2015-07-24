@@ -1,0 +1,25 @@
+<table class="table table-hover table-align customer-table">
+  <thead>
+    <tr>
+      <th width="50">Months</th>
+      <th width="50">Orders Sold</th>
+      <th width="100">Total Cost</th>
+      <th width="100">Total Selling</th>
+      <th width="100">Profit</th>
+    </tr>
+    </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+    <tr>
+      <td>
+        <%= link_to "#{report.month_record.try(:strftime, "%B, %Y")}", user_datum_path(current_user, report), class: "customer", method: :get %>
+      </td>
+      <td><%= report.order_sold %></td>
+      <td>$ <%= number_with_delimiter(report.total_cost.to_f, :delimiter => ',') %></td>
+      <td>$ <%= number_with_delimiter(report.total_selling.to_f, :delimiter => ',') %></td>
+      <td>$ <%= number_with_delimiter(report.revenue.to_f, :delimiter => ',') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

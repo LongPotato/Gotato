@@ -3,8 +3,19 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><%= link_to "This Month", user_report_path(current_user), class: "customer", method: :post %></li>
-    <li role="presentation"><%= link_to "Monthly Index", user_months_path(current_user), class: "customer" %></a></li>
+    <li role="presentation" class="active">
+      <%= link_to "This month", user_report_path(current_user), class: "customer", method: :post %>
+    </li>
+    <li role="presentation">
+      <%= link_to user_year_path(current_user), class: "customer", method: :get do %>
+        <i class="fa fa-line-chart"></i> This year
+      <% end %>
+    </li>
+    <li role="presentation">
+      <%= link_to user_months_path(current_user), class: "customer" do %>
+        <i class="fa fa-list"></i> Monthly Index
+      <% end %>
+    </li>
   </ul>
 </div>
 </div>
@@ -18,7 +29,7 @@
     <thead>
     <tr class="active">
       <th width ="150">Orders</th>
-      <th width ="150">Revenue</th>
+      <th width ="150">Profit</th>
     </tr>
     </thead>
 
@@ -35,29 +46,29 @@
   <table class="table">
   <tbody class="p_order">
     <tr>
-    <td><b>Total selling:</b></td>
+    <td><b>Total revenue:</b></td>
     <td></td>
     <td width="300">$ <%= number_with_delimiter(@this_month.total_selling.to_f, :delimiter => ',') %></td>
   </tr>
   <tr>
-    <td><b>Total cost:</b></td>
+    <td><b>Total expenses:</b></td>
     <td></td>
     <td>$ <%= number_with_delimiter(@this_month.total_cost.to_f, :delimiter => ',') %></td>
   </tr>
   <tr>
     <td></td>
-    <td><b>Revenue:</b></td>
+    <td><b>Profit:</b></td>
     <td><b>$ <%= number_with_delimiter(@this_month.revenue.to_f, :delimiter => ',') %></b></td>
   </tr>
   <tr>
     <td><b>Total shipping VN:</b></td>
     <td></td>
-    <td>$ <%= number_with_delimiter(@this_month.total_cost.to_f, :delimiter => ',') %></td>
+    <td>$ <%= number_with_delimiter(@total_shipping.to_f, :delimiter => ',') %></td>
   </tr>
   <tr>
     <td><b>Total reward:</b></td>
     <td></td>
-    <td>$ <%= number_with_delimiter(@this_month.total_cost.to_f, :delimiter => ',') %></td>
+    <td>$ <%= number_with_delimiter(@total_reward.to_f, :delimiter => ',') %></td>
   </tr>
   </tbody>
   </table>

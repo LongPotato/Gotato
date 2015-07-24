@@ -1,0 +1,77 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<% provide(:title, 'This Year') %>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+  <ul class="nav nav-tabs">
+    <li role="presentation">
+      <%= link_to "This month", user_report_path(current_user), class: "customer", method: :post %>
+    </li>
+    <li role="presentation" class="active">
+      <%= link_to user_year_path(current_user), class: "customer" do %>
+        <i class="fa fa-line-chart"></i> This year
+      <% end %>
+    </li>
+    <li role="presentation">
+      <%= link_to user_months_path(current_user), class: "customer" do %>
+        <i class="fa fa-list"></i> Monthly Index
+      <% end %>
+    </li>
+  </ul>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+  <p class="sale-info lead"><%= @this_year.first.month_record.try(:strftime, "%Y") %> Overview</p>
+  <%= line_chart(
+      [ {name: "Total selling", data: generate_chart_selling(@this_year)},
+      	{name: "Total cost", data: generate_chart_cost(@this_year)},
+      	{name: "Profit", data: generate_chart_profit(@this_year)} ],
+      	library: {title: "Sale Report"})
+  %>
+
+  <legend><p class="sale-info lead">Total sales</p></legend>
+  <table class="table">
+  <tbody class="p_order">
+    <tr>
+    <td width="50" style="border-top: none"></td>
+    <td style="border-top: none"><b>Total revenue:</b></td>
+    <td style="border-top: none"></td>
+    <td style="border-top: none">$ <%= number_with_delimiter(@total_selling.round(2), :delimiter => ',') %></td>
+  </tr>
+  <tr>
+  	<td></td>
+    <td><b>Total expenses:</b></td>
+    <td></td>
+    <td>$ <%= number_with_delimiter(@total_cost.round(2), :delimiter => ',') %></td>
+  </tr>
+  <tr>
+  	<td></td>
+    <td></td>
+    <td><b>Profit:</b></td>
+    <td><b>$ <%= number_with_delimiter(@profit.round(2), :delimiter => ',') %></b></td>
+  </tr>
+  <tr>
+  	<td></td>
+    <td><b>Total shipping VN:</b></td>
+    <td></td>
+    <td>$ <%= number_with_delimiter(@total_shipping.round(2), :delimiter => ',') %></td>
+  </tr>
+  <tr>
+  	<td></td>
+    <td><b>Total reward:</b></td>
+    <td></td>
+    <td>$ <%= number_with_delimiter(@total_reward.round(2), :delimiter => ',') %></td>
+  </tr>
+  </tbody>
+  </table>
+
+  <legend><p class="sale-info lead">Sale Data</p></legend>
+
+  <%= render "months_table" %>
+
+  <legend></legend>
+
+</div>
+</div>

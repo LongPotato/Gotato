@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :data, :only => [:show]
     get 'report' => 'reports#show_report'
     post 'report' => 'reports#generate_report'
+    get 'year' => 'reports#show_year'
     get 'months' => 'reports#monthly_index'
   end
 
