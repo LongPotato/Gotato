@@ -4,9 +4,34 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders.this_month.order(sort_column + " " + sort_direction)
-    @orders = current_user.orders.joins(:customer).this_month.status.order(sort_column + " " + sort_direction) if params[:sale].present?
-    @orders = current_user.orders.joins(:customer).this_month.placed.order(sort_column + " " + sort_direction) if params[:placed].present?
-    @orders = current_user.orders.this_month.received.order(sort_column + " " + sort_direction) if params[:received].present?
+
+    if params[:sale].present?
+      sale = current_user.orders.joins(:customer).this_month.status
+      if params[:received].present?
+        @orders = sale.received.order(sort_column + " " + sort_direction)
+      elsif params[:not].present?
+        @orders = sale.not_received.order(sort_column + " " + sort_direction)
+      else
+        @orders = sale.order(sort_column + " " + sort_direction)
+      end
+    elsif params[:placed].present?
+      placed = current_user.orders.joins(:customer).this_month.placed
+      if params[:received].present?
+        @orders = placed.received.order(sort_column + " " + sort_direction)
+      elsif params[:not].present?
+        @orders = placed.not_received.order(sort_column + " " + sort_direction)
+      else
+        @orders = placed.order(sort_column + " " + sort_direction)
+      end
+    else
+      if params[:received].present?
+        @orders = current_user.orders.this_month.received.order(sort_column + " " + sort_direction)
+      end
+      if params[:not].present?
+        @orders = current_user.orders.this_month.not_received.order(sort_column + " " + sort_direction)
+      end
+    end
+    
   end
 
   def show

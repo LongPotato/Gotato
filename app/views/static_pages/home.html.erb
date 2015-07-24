@@ -1,6 +1,7 @@
 <% if logged_in? %>
 
   <div class="row">
+    <div class="col-md-8 col-md-offset-2">
   	<div class="text-center">
 
   	  <h1> Welcome, <%= current_user.name.capitalize %> </h1>
@@ -16,10 +17,11 @@
       </p>
       </div>
     </div>
+    </div>
   </div>
 
   <div class="recent">
-    <legend class="field">Order status</legend>
+    <legend class="field">Order status <small class="pull-right text-muted"><%= @this_month.month_record.strftime("%B, %Y")%></small></legend>
   </div>
   
   <div class="row customer-table">
@@ -33,7 +35,7 @@
           Pending
         </div>
         <div class="progress-bar progress-bar-danger" style="width: <%= @not_received %>%">
-          Not Yet Received
+          Remaining
         </div>
       </div>
 

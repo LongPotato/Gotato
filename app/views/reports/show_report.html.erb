@@ -23,7 +23,7 @@
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
   <legend class="sale-info">
-    <h2>This month <small class="pull-right"><%= @this_month.month_record.try(:strftime, "%B, %Y") %></small></h2>
+    <h2>This month <p class="pull-right text-muted"><%= @this_month.month_record.try(:strftime, "%B, %Y") %></p></h2>
   </legend>
   <table class="table table-align">
     <thead>
@@ -78,12 +78,12 @@
   <table class="table">
   <tbody class="p_order">
     <tr>
-    <td><b>Received at US</b></td>
+    <td><b>Received at US:</b></td>
     <td></td>
     <td width="300"><%= @received %> / <%= @this_month.order_sold %></td>
   </tr>
     <tr>
-    <td><b>Shipped to VN:</b></td>
+    <td><b>Shipped to VN (Completed):</b></td>
     <td></td>
     <td><%= @shipped %> / <%= @this_month.order_sold %></td>
   </tr>
