@@ -4,6 +4,9 @@ class ReportsController < ApplicationController
 
   def show_report
     @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
+    @received = @this_month.orders.received.count
+    @for_sale = @this_month.orders.joins(:customer).status.count
+    @shipped = @this_month.orders.where.not("ship_vn" => nil).count
   end
 
   def monthly_index
