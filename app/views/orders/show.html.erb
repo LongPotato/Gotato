@@ -130,8 +130,8 @@
 
    <legend class="field"></legend>
 
-   <%= link_to "Edit", edit_user_order_path(current_user,@order.id), class: "btn btn-lg btn-warning" %>
-   <%= link_to "Delete", user_order_path(current_user,@order.id), method: :delete, class: "btn btn-lg btn-danger" %>
+   <%= link_to "Edit", edit_user_order_path(current_user, @order.id), class: "btn btn-lg btn-warning" %>
+   <%= link_to "Delete", user_order_path(current_user, @order.id), method: :delete, class: "btn btn-lg btn-danger" %>
    <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
 
  </fieldset>

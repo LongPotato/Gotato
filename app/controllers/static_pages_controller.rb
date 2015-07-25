@@ -6,10 +6,10 @@ class StaticPagesController < ApplicationController
       @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
       completed = @this_month.orders.where.not("ship_vn" => nil).received.count
       total = @this_month.order_sold
-      received = @this_month.orders.received.where("ship_vn" => nil).count
+      received = @this_month.orders.where("ship_vn" => nil).received.count
 
-      @completed = ((completed.to_f / total) * 100).floor
-      @received = ((received.to_f / total) * 100).floor
+      @completed = ((completed.to_f / total) * 100)
+      @received = ((received.to_f / total) * 100)
       @not_received = 100 - @completed - @received
     end
   end

@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
   end
 
   def show_year
-    @this_year = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year)
+    @this_year = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year).order("month_record desc")
     @reports = @this_year
     @total_cost = @this_year.map(&:total_cost).sum.to_f
     @total_selling = @this_year.map(&:total_selling).sum.to_f

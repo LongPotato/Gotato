@@ -99,6 +99,27 @@ class OrdersController < ApplicationController
       @order.update_attributes(vnd: params[:order][:vnd])
     end
 
+    #If user enter shipping_id, recalculate shipping price for each order then update the database
+    if params[:order][:shipping_id].present?
+      ship_id = params[:order][:shipping_id]
+      if shipment = current_user.shippings.find_by_id(ship_id)
+        item_price = shipment.calculate_ship_vn.round(2)
+        @order.update_attributes(shipping_id: ship_id)
+        shipment.orders.each do |order|
+          order.update_attributes(shipping_vn: item_price)
+          order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+          order.update_attributes(profit: order.calculate_profit.round(2))
+        end
+        order_id = shipment.order_fields.split(',')
+        order_id << @order.id
+        shipment.update_attributes(order_fields: order_id.join(','))
+      else
+        flash[:danger] = "Shipment ##{ship_id} does not exist"
+        render 'edit'
+        return
+      end
+    end
+
     if @order.update_attributes(order_params)
       @order.update_attributes(total: @order.calculate_total.round(2))
       @order.update_attributes(total_cost: @order.calculate_total_cost.round(2))
@@ -107,7 +128,7 @@ class OrdersController < ApplicationController
       flash[:success] = "Edited order ##{@order.id}"
       redirect_to user_order_path(@order.user, @order)
     else
-      render 'new'
+      render 'edit'
     end
   end
 
