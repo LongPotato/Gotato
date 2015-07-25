@@ -22,7 +22,7 @@
       </label>
 
       <%= f.text_field :shipping_id, icon: "plane", 
-          label: "Shipment ID", help: "Manually enter ship ID or add through Shipping" %>
+          label: "Shipment ID", help: "Enter ship id for this order or add it through Shipping" %>
 
       <%= f.text_field :store %>
 
@@ -54,7 +54,7 @@
 
       <%= f.text_field :reward, prepend: "$" %>
 
-      <%= f.text_field :shipping_vn, prepend: "$", label: "Ship VN", help: "Manually enter shipping price or generate it through new shipment" %>
+      <%= f.text_field :shipping_vn, prepend: "$", label: "Ship VN", help: "Manually enter shipping price or generate it by adding this order to a shipment" %>
 
       <legend class="field"></legend>
 

@@ -37,7 +37,7 @@ class ShippingsController < ApplicationController
         order.update_attributes(profit: order.calculate_profit.round(2))
       end
       
-      flash[:success] = "Created new shipment, ship ID: #{@shipment.id}"
+      flash[:success] = "Created new shipment, ship ID: #{@shipment.id}."
       redirect_to user_shipping_path(current_user, @shipment.id)
     else
       render 'new'
@@ -92,7 +92,7 @@ class ShippingsController < ApplicationController
         order.update_attributes(profit: order.calculate_profit.round(2))
       end
       
-      flash[:success] = "Edited shipment ##{@shipment.id}"
+      flash[:success] = "Edited shipment ##{@shipment.id}."
       redirect_to user_shipping_path(current_user, @shipment.id)
     else
       render 'edit'
@@ -106,7 +106,7 @@ class ShippingsController < ApplicationController
       order.update_attributes(shipping_vn: 0, shipping_id: nil, ship_vn: nil)
     end
     Shipping.find(ship_id).destroy
-    flash[:danger] = "Deleted shipment ##{params[:id]}"
+    flash[:danger] = "Deleted shipment ##{params[:id]}."
     redirect_to user_shippings_path(current_user)
   end
 

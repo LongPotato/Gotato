@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
       @order.profit = @order.calculate_profit.round(2)
       @order.remain = @order.calculate_remain.round(2)
       if @order.save
-        flash[:success] = "Created order ##{@order.id}"
+        flash[:success] = "Created order ##{@order.id}."
         redirect_to user_order_path(@order.user, @order)
       else
         render 'new'
@@ -114,7 +114,7 @@ class OrdersController < ApplicationController
         order_id << @order.id
         shipment.update_attributes(order_fields: order_id.join(','))
       else
-        flash[:danger] = "Shipment ##{ship_id} does not exist"
+        flash.now[:danger] = "Shipment ##{ship_id} does not exist."
         render 'edit'
         return
       end
@@ -135,7 +135,7 @@ class OrdersController < ApplicationController
   def destroy
     order_id = params[:id]
     Order.find(params[:id]).destroy
-    flash[:danger] = "Deleted order ##{order_id}"
+    flash[:danger] = "Deleted order ##{order_id}."
     redirect_to user_orders_path(current_user)
   end
 
@@ -153,7 +153,7 @@ class OrdersController < ApplicationController
       order.update_attributes(total_cost: order.calculate_total_cost.round(2))
       order.update_attributes(profit: order.calculate_profit.round(2))
     end
-    flash[:warning] = "Removed order ##{@order.id} from shipment ##{ship_id}"
+    flash[:warning] = "Removed order ##{@order.id} from shipment ##{ship_id}."
     redirect_to user_shipping_path(current_user, ship_id)
   end
 
