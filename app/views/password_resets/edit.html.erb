@@ -1,0 +1,15 @@
+<h1>New password</h1>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <%= bootstrap_form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+      <%= f.password_field :password %>
+
+      <%= hidden_field_tag :email, @user.email %>
+
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Update password", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
