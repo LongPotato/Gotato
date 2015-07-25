@@ -55,13 +55,23 @@
     <td></td>
     <td>$ <%= number_with_delimiter(@this_month.total_cost.to_f, :delimiter => ',') %></td>
   </tr>
-  <tr>
+  <tr style="border-bottom: 1px solid #eaeaea">
     <td></td>
     <td><b>Profit:</b></td>
     <td><b>$ <%= number_with_delimiter(@this_month.revenue.to_f, :delimiter => ',') %></b></td>
   </tr>
+  </tbody>
+  </table>
+
+  <table class="table">
+  <tbody class="p_order">
   <tr>
-    <td><b>Total shipping VN:</b></td>
+    <td style="border-top: none"><b>Total shipments:</b></td>
+    <td style="border-top: none"></td>
+    <td style="border-top: none"  width="300"><%= @shipment.count %></td>
+  </tr>
+  <tr>
+    <td><b>Total shipping VN cost:</b></td>
     <td></td>
     <td>$ <%= number_with_delimiter(@total_shipping.to_f, :delimiter => ',') %></td>
   </tr>
@@ -77,7 +87,7 @@
   <h3 class="sale-info">Order statuses</h3>
   <table class="table">
   <tbody class="p_order">
-    <tr>
+  <tr>
     <td><b>Received at US:</b></td>
     <td></td>
     <td width="300"><%= @received %> / <%= @this_month.order_sold %></td>

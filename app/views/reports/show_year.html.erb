@@ -51,9 +51,20 @@
     <td width="300"><b>Total profit:</b></td>
     <td><b>$ <%= number_with_delimiter(@profit.round(2), :delimiter => ',') %></b></td>
   </tr>
+  </tbody>
+  </table>
+
+  <table class="table">
+  <tbody class="p_order">
   <tr>
-  	<td></td>
-    <td><b>Total shipping VN:</b></td>
+  	<td width="50" style="border-top: none"></td>
+    <td style="border-top: none"><b>Total shipments:</b></td>
+    <td style="border-top: none"></td>
+    <td style="border-top: none"><%= @shipment.count %></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><b>Total shipping VN cost:</b></td>
     <td></td>
     <td>$ <%= number_with_delimiter(@total_shipping.round(2), :delimiter => ',') %></td>
   </tr>
