@@ -5,11 +5,22 @@ class ReportsController < ApplicationController
   def show_report
     @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
     @shipment = current_user.shippings.where("ship_date BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).uniq
-    @received = @this_month.orders.received.count
-    @for_sale = @this_month.orders.joins(:customer).status.count
-    @shipped = @this_month.orders.where.not("ship_vn" => nil).count
-    @total_shipping = @shipment.map(&:price).sum.to_f
-    @total_reward = @this_month.orders.map(&:reward).sum.to_f
+    unless @this_month.nil?
+      @received = @this_month.orders.received.count
+      @for_sale = @this_month.orders.joins(:customer).status.count
+      @shipped = @this_month.orders.where.not("ship_vn" => nil).count
+      @total_shipping = @shipment.map(&:price).sum.to_f unless @shipment.nil?
+      @total_reward = @this_month.orders.map(&:reward).sum.to_f
+
+      @order_sold = @this_month.order_sold
+      @revenue = @this_month.revenue.to_f.round
+      @total_selling = @this_month.total_selling.to_f
+      @total_cost = @this_month.total_cost.to_f
+    else
+      @revenue = 0
+      @total_selling = 0
+      @total_cost = 0
+    end
   end
 
   def monthly_index
@@ -19,13 +30,15 @@ class ReportsController < ApplicationController
   def show_year
     @this_year = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year).order("month_record desc")
     @shipment = current_user.shippings.where("ship_date BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year).uniq
-    @reports = @this_year
-    @total_cost = @this_year.map(&:total_cost).sum.to_f
-    @total_selling = @this_year.map(&:total_selling).sum.to_f
-    @profit = @total_selling - @total_cost
-    orders = get_batch_orders(@this_year)
-    @total_shipping = @shipment.map(&:price).sum.to_f
-    @total_reward = orders.map(&:reward).sum.to_f
+    unless @this_year.nil?
+      @reports = @this_year
+      @total_cost = @this_year.map(&:total_cost).sum.to_f.round(2)
+      @total_selling = @this_year.map(&:total_selling).sum.to_f.round(2)
+      @profit = (@total_selling - @total_cost).round(2)
+      orders = get_batch_orders(@this_year)
+      @total_shipping = @shipment.map(&:price).sum.to_f.round(2) unless @shipment.nil?
+      @total_reward = orders.map(&:reward).sum.to_f.round(2)
+    end
   end
 
   def generate_report
