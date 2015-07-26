@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
   #
   def password_reset(user)
     @user = user
-    mail to: user.email, subject: "Reset your Gotato password"
+    mail to: user.email, subject: "Gotato - Reset your password"
   end
 
 end

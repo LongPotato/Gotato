@@ -106,7 +106,7 @@ class OrdersController < ApplicationController
         item_price = shipment.calculate_ship_vn.round(2)
         @order.update_attributes(shipping_id: ship_id)
         shipment.orders.each do |order|
-          order.update_attributes(shipping_vn: item_price)
+          order.update_attributes(shipping_vn: item_price, ship_vn: shipment.ship_date)
           order.update_attributes(total_cost: order.calculate_total_cost.round(2))
           order.update_attributes(profit: order.calculate_profit.round(2))
         end

@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
 
+  def clear_reset_digest
+    update_attribute(:reset_digest, nil)
+  end
+
   def User.update_rate
     User.all.each {|user| user.update_vnd }
   end
