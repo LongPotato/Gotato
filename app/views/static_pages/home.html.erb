@@ -53,13 +53,5 @@
   </div>
 
 <% else %>
-  <div class="center jumbotron">
-    <h1>Welcome to Gotato!</h1>
-    <h3>Your online sales database</h3>
-  
-    <div class="button_div">
-      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-default" %>
-    </div>
-
-  </div>
+  <%= render 'front_page' %>
 <% end %>
