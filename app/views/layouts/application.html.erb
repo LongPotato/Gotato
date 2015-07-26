@@ -10,6 +10,7 @@
 </head>
 <body>
   <%= render 'layouts/header' %>
+  <div class="container-fluid">
   <% flash.each do |message_type, message| %>
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
@@ -21,6 +22,7 @@
   </div>
   <% end %>
   <%= yield %>
+  </end>
   <%= render 'layouts/footer' %>
 </body>
 </html>
