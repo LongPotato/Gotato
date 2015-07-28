@@ -71,6 +71,14 @@ class UsersController < ApplicationController
         @orders = current_user.orders.not_received.order(sort_column + " " + sort_direction)
       end
     end
+
+    respond_to do |format|
+      format.html
+      format.csv do
+      headers['Content-Disposition'] = "attachment; filename=\"all_orders\""
+      headers['Content-Type'] ||= 'text/csv'
+      end
+    end
     
   end
 

@@ -1,0 +1,8 @@
+<%- headers = ['Note', 'Receive_US', 'Ship_VN', 'Store', 'Order_date','ID', 'Customer', 'Description', 'Web#', 'Web_price', 'Tax', 'Ship US', 'Reward', 'Total','Ship VN', 'Total_cost', 'Selling_price', 'Profit', 'Deposit', 'Remain'] -%>
+<%= CSV.generate_line headers %>
+<%- @orders.each do |order| -%>
+  <%= CSV.generate_line([order.note.gsub(',', ' '), receive_check(order.received_us), order.ship_vn,
+  	                     order.store, order.order_date, order.id, order.customer.name, order.description, order.web_order_id, order.web_price,
+  	                     order.tax, order.shipping_us, order.reward, order.total, order.shipping_vn, order.total_cost, order.selling_price,
+  	                     order.profit, order.deposit, order.remain ]).html_safe %>
+<%- end -%>
