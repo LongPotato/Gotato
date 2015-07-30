@@ -104,6 +104,8 @@ class ShippingsController < ApplicationController
     orders = Order.where(shipping_id: ship_id)
     orders.each do |order|
       order.update_attributes(shipping_vn: 0, shipping_id: nil, ship_vn: nil)
+      order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+      order.update_attributes(profit: order.calculate_profit.round(2))
     end
     Shipping.find(ship_id).destroy
     flash[:danger] = "Deleted shipment ##{params[:id]}."
@@ -115,6 +117,5 @@ class ShippingsController < ApplicationController
     def shipment_params
       params.require(:shipping).permit(:description, :ship_date, :price)
     end
-
     
 end

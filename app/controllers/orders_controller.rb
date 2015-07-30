@@ -34,6 +34,44 @@ class OrdersController < ApplicationController
     
   end
 
+  def look_up_range
+    @@time = params[:time].split(' - ') if params[:time].present?
+    @from = @@time.first
+    @to = @@time.second
+    @orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).order(sort_column + " " + sort_direction)
+
+    if params[:sale].present?
+      sale = current_user.orders.joins(:customer).where("order_date BETWEEN ? AND ?", @from, @to).status
+      if params[:received].present?
+        @orders = sale.received.order(sort_column + " " + sort_direction)
+      elsif params[:not].present?
+        @orders = sale.not_received.order(sort_column + " " + sort_direction)
+      else
+        @orders = sale.order(sort_column + " " + sort_direction)
+      end
+    elsif params[:placed].present?
+      placed = current_user.orders.joins(:customer).where("order_date BETWEEN ? AND ?", @from, @to).placed
+      if params[:received].present?
+        @orders = placed.received.order(sort_column + " " + sort_direction)
+      elsif params[:not].present?
+        @orders = placed.not_received.order(sort_column + " " + sort_direction)
+      else
+        @orders = placed.order(sort_column + " " + sort_direction)
+      end
+    else
+      if params[:received].present?
+        @orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).received.order(sort_column + " " + sort_direction)
+      end
+      if params[:not].present?
+        @orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).not_received.order(sort_column + " " + sort_direction)
+      end
+    end
+  end
+
+  def show_timeline
+    @orders = @orders_timeline
+  end
+
   def show
     @order = Order.find(params[:id])
   end

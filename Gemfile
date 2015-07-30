@@ -21,6 +21,8 @@ gem 'mini_magick',             '3.8.0'
 gem 'fog',                     '1.23.0'
 
 gem 'bootstrap-datepicker-rails'
+gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
 gem "chartkick"
 
 gem 'goog_currency'

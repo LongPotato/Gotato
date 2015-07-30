@@ -28,7 +28,7 @@
   <ul class="dropdown-menu">
     <li><%= link_to "This month", user_orders_path(current_user), method: :get %></li>
     <li><%= link_to "Last 3 months", three_months_user_path(current_user), method: :get %></li>
-    <li><%= link_to "Specific month", user_months_path(current_user) %></li>
+    <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#myModal"} %></li>
     <li class="disabled" ><%= link_to "All orders", "" %></li>
   </ul>
   </div>
@@ -37,5 +37,13 @@
 
 </div>
 
-
 <%= render 'orders/order_table' %>
+
+<!-- Modal -->
+<%= render 'orders/time_modal' %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.daterange').daterangepicker({format: 'YYYY-MM-DD'});
+});
+</script>

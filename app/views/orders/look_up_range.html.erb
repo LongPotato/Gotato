@@ -28,14 +28,14 @@
      <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li class="disabled"><%= link_to "This month", ""%></li>
+    <li><%= link_to "This month", user_orders_path(current_user), method: :get %></li>
     <li><%= link_to "Last 3 months", three_months_user_path(current_user), method: :get  %></li>
     <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#myModal"} %></li>
     <li><%= link_to "All orders", all_user_path(current_user), method: :get  %></li>
   </ul>
   </div>
 
-  <h5 class="text-muted pull-right">This month's orders</h5>
+  <h5 class="text-muted pull-right">Showing orders from <%= @from.to_date.strftime("%m/%d/%y") %> to <%= @to.to_date.strftime("%m/%d/%y") %></h5>
 
 <%= render 'order_table' %>
 

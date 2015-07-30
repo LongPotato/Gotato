@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     resources :shippings
     resources :customers
     resources :data, :only => [:show]
+    get 'range_orders' => 'orders#look_up_range'
+    get 'timeline' => 'orders#look_up_range'
     get 'report' => 'reports#show_report'
     post 'report' => 'reports#generate_report'
     get 'year' => 'reports#show_year'
