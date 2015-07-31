@@ -2,7 +2,7 @@
 <%= CSV.generate_line headers %>
 <%- @orders.each do |order| -%>
   <%= CSV.generate_line([order.note.gsub(',', ' '), receive_check(order.received_us), order.ship_vn,
-  	                     order.store, order.order_date, order.id, order.customer.name, order.description, order.web_order_id, order.web_price,
-  	                     order.tax, order.shipping_us, order.reward, order.total, order.shipping_vn, order.total_cost, order.selling_price,
-  	                     order.profit, order.deposit, order.remain ]).html_safe %>
+  	                     order.store, order.order_date, order.id, order.customer.name, order.description, order.web_order_id, order.web_price.to_f,
+  	                     order.tax.to_f, order.shipping_us.to_f, order.reward.to_f, order.total.to_f, order.shipping_vn.to_f, order.total_cost.to_f, order.selling_price.to_f,
+  	                     order.profit.to_f, order.deposit.to_f, order.remain.to_f ]).html_safe %>
 <%- end -%>

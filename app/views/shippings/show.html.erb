@@ -145,7 +145,8 @@
   <legend class="field"></legend>
 
   <%= link_to "Edit", edit_user_shipping_path(current_user, @shipment.id), class: "btn btn-lg btn-warning" %>
-  <%= link_to "Delete", user_shipping_path(current_user, @shipment.id), method: :delete, class: "btn btn-lg btn-danger" %>
+  <%= link_to "Delete", 
+      user_shipping_path(current_user, @shipment.id), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-lg btn-danger" %>
   <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
 
   </div>
