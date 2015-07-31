@@ -6,7 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">Display specific time</h4>
       </div>
       <form accept-charset="UTF-8" action="/users/<%= current_user.id %>/range_orders">
-      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" value="<%= form_authenticity_token %>">
       <div class="modal-body">
         <label class="p_setting">Select time range:</label>
         <div class="input-group">

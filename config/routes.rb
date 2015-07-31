@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       get :account_password
       get :setting
       post :set_vnd
+      patch :set_note
     end
     resources :orders do
       get :remove

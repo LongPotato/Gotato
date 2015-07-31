@@ -6,17 +6,42 @@
 
   	  <h1> Welcome, <%= current_user.name.titleize %> </h1>
    
-      <div class="info-panel">
-      <p class="lead">
-        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-        <%= pluralize(current_user.orders.count, "order") %><span class="tab-space">
-        <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
-        <%= pluralize(current_user.shippings.uniq.count, "shipment") %><span class="tab-space">
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        <%= pluralize(current_user.customers.count, "customer") %>
-      </p>
+    </div>
+    </div>
+  </div>
+
+  <div class="recent">
+    <legend class="field">Today</legend>
+  </div>
+
+  <div class="row customer-table">
+    <div class="col-md-3 col-md-offset-2">
+      <div>
+        <p style="font-size: 18px;">
+          <i class="fa fa-usd"></i> <strong>Exchange rate:</strong><span class="tab-space"></span><%= number_with_delimiter(current_user.setting_vnd.floor, :delimiter => ',') %> VND
+        </p>
       </div>
     </div>
+
+    <div class="col-md-3 col-md-offset-2">
+      <div>
+        <p style="font-size: 18px;"><%= Time.now.strftime("%m/%d/%Y") %></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row customer-table">
+    <div class="col-md-8 col-md-offset-2">
+    <% if current_user.note.empty? %>
+      <button type="button" class="btn btn-small btn-info" data-toggle="modal" data-target="#myModal"><strong><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Create note</strong></button>
+    <% else %>
+      <p style="font-size: 18px;">
+        <strong><%= link_to "", {'data-toggle' => "modal", 'data-target' => "#myModal"} do %>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+          <% end %> Note: </strong><span class="tab-space"></span><%= current_user.note %>
+      </p>
+    <% end %>
     </div>
   </div>
 
@@ -51,6 +76,8 @@
       <%= render_activities @activities %>
     </div>
   </div>
+
+  <%= render 'note_modal' %>
 
 <% else %>
   <%= render 'front_page' %>

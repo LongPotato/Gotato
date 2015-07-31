@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default">
   <div class="container">
-    <%= link_to "gotato", root_path, id: "logo" %>
+    <%= link_to "gotato", root_path, id: "logo", method: :get %>
     <% if logged_in? %>
       <ul class="nav navbar-nav navbar-left">
         <li><%= link_to "Orders", user_orders_path(current_user) , id: "first_nav", method: :get %></li>

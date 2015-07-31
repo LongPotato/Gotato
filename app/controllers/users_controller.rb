@@ -86,6 +86,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def set_note
+    @user = User.find(params[:id])
+    @user.update_attributes(note: params[:user][:note])
+    redirect_to root_path
+  end
+
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
