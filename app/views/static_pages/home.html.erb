@@ -33,7 +33,7 @@
 
   <div class="row customer-table">
     <div class="col-md-8 col-md-offset-2">
-    <% if current_user.note.empty? %>
+    <% if current_user.note.try(:empty?) %>
       <button type="button" class="btn btn-small btn-info" data-toggle="modal" data-target="#myModal"><strong><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Create note</strong></button>
     <% else %>
       <p style="font-size: 18px;">
