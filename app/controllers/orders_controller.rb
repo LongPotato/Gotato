@@ -86,7 +86,7 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     cus_name = params[:order][:customer_attributes][:name]
 
-    if customer = Customer.find_by_name(cus_name.downcase)
+    if customer = current_user.customers.find_by_name(cus_name.downcase)
       @order.customer_id = customer.id
     else
       @order.save
@@ -124,7 +124,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     cus_name = params[:order][:customer_attributes][:name]
 
-    if customer = Customer.find_by_name(cus_name.downcase)
+    if customer = current_user.customers.find_by_name(cus_name.downcase)
       @order.update_attributes(customer_id: customer.id)
     else
       @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
@@ -172,7 +172,9 @@ class OrdersController < ApplicationController
 
   def destroy
     order_id = params[:id]
-    Order.find(params[:id]).destroy
+    @order = Order.find(params[:id])
+    @order.datum.subtract_deleted_order
+    @order.destroy
     flash[:danger] = "Deleted order ##{order_id}."
     redirect_to user_orders_path(current_user)
   end
