@@ -133,7 +133,8 @@ class UsersController < ApplicationController
 
   def set_vnd
     @user = User.find(params[:id])
-    User.update_rate
+    #User.update_rate
+    @user.update_vnd
     flash[:success] = "Setting exchange rate has been set to #{@user.setting_vnd}"
     redirect_to setting_user_path(current_user)
   end
