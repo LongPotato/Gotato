@@ -171,12 +171,14 @@ class OrdersController < ApplicationController
   end
 
   def destroy
+    url = Rails.application.routes.recognize_path(request.referrer)
+    store_location
     order_id = params[:id]
     @order = Order.find(params[:id])
     @order.datum.subtract_deleted_order
     @order.destroy
     flash[:danger] = "Deleted order ##{order_id}."
-    redirect_to user_orders_path(current_user)
+    redirect_back_or(user_orders_path(current_user), url[:controller], url[:action])
   end
 
   def remove
