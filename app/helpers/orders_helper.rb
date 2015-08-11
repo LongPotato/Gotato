@@ -34,12 +34,12 @@ module OrdersHelper
   end
 
   def store_location
-    session[:saved_url] = request.referer
+    session[:saved_url] = request.referer  #Store location of the previous request
   end
 
   def redirect_back_or(default, controller, action)
     if controller == "orders" && action == "show"
-      redirect_to(default)
+      redirect_to(default)  #Return to default views when delete from a show action
     else
       redirect_to(session[:saved_url] || default)
     end

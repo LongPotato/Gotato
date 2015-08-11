@@ -171,7 +171,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    url = Rails.application.routes.recognize_path(request.referrer)
+    url = Rails.application.routes.recognize_path(request.referrer)  #Convert the previous url into a hash of controller and action
     store_location
     order_id = params[:id]
     @order = Order.find(params[:id])

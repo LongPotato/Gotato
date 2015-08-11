@@ -71,7 +71,7 @@ class Order < ActiveRecord::Base
       self.shipping_us = 0 if self.shipping_us.nil?
       self.shipping_vn = 0 if self.shipping_vn.nil?
       self.vnd = 21000 if self.vnd.nil?
-      self.total= 0 if self.total.nil?
+      self.total = 0 if self.total.nil?
       self.total_cost = 0 if self.total_cost.nil?
       self.profit = 0 if self.profit.nil?
       self.selling_price = 0 if self.selling_price.nil?

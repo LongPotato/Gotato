@@ -6,9 +6,10 @@ class Shipping < ActiveRecord::Base
   has_many :orders
   has_many :customers, through: :orders
 
-  validates :price, presence: true
   validates :ship_date, presence: true
   validates :order_fields, presence: true
+
+  before_save :set_default
 
   #get next available shipment
   def next
@@ -33,5 +34,11 @@ class Shipping < ActiveRecord::Base
   def calculate_ship_vn
     self.price / Order.where(shipping_id: self.id).count
   end
+
+  private
+
+    def set_default
+      self.price = 0 if self.price.nil?
+    end
   
 end
