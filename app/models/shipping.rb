@@ -2,7 +2,7 @@ class Shipping < ActiveRecord::Base
   include PublicActivity::Model
   tracked except: [:update], owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
 
-  has_many :users
+  belongs_to :user
   has_many :orders
   has_many :customers, through: :orders
 
@@ -38,6 +38,7 @@ class Shipping < ActiveRecord::Base
   private
 
     def set_default
+      self.ship_date = Time.now if self.ship_date.nil?
       self.price = 0 if self.price.nil?
     end
   

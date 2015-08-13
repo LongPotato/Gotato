@@ -14,6 +14,7 @@ class ShippingsController < ApplicationController
   def create
     @shipment = Shipping.new(shipment_params)
     @shipment.order_fields = params[:shipping][:order_fields]
+    @shipment.user_id = params[:user_id]
     @order_ids = params[:shipping][:order_fields].gsub(/\s+/, "").split(',')
 
     if @shipment.save
@@ -56,6 +57,7 @@ class ShippingsController < ApplicationController
 
   def update
     @shipment = Shipping.find(params[:id])
+    @shipment.user_id = params[:user_id]
     @order_ids = params[:shipping][:order_fields].gsub(/\s+/, "").split(',')
 
     if @shipment.update_attributes(shipment_params)
@@ -113,9 +115,37 @@ class ShippingsController < ApplicationController
   end
 
   def quick_add
+    @orders = current_user.orders.where("ship_vn" => nil).received.order(sort_column + " " + sort_direction)
   end
 
   def update_quick_add
+    @shipment = Shipping.new(shipment_params)
+    @orders = params[:order_ids]
+    @shipment.user_id = params[:user_id]
+    @shipment.order_fields = @orders.join(',')
+    @valid_order = []
+
+    if @shipment.save
+      @orders.each do |id|
+        order = Order.find_by_id(id)
+        order.update_attributes(ship_vn: @shipment.ship_date, shipping_id: @shipment.id)
+        @valid_order << order
+      end
+
+      item_price = @shipment.calculate_ship_vn.round(2)
+
+      @valid_order.each do |order|
+        order.update_attributes(shipping_vn: item_price)
+        order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+        order.update_attributes(profit: order.calculate_profit.round(2))
+      end
+
+      flash[:success] = "Created new shipment, ship ID: #{@shipment.id}."
+      redirect_to user_shipping_path(current_user, @shipment.id)
+    else
+      flash[:danger] = "Unable to create new shipment: #{@shipment.errors.full_messages}."
+      redirect_to user_shippings_path(current_user)
+    end
   end
 
   private

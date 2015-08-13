@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     resources :shippings do
       collection do
         get :quick_add
-        patch :update_quick_add
+        post :update_quick_add
       end
     end
     resources :customers

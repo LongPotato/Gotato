@@ -2,10 +2,12 @@
 
 <div class="nowrap">
 <div class="full-width-div">
+<%= form_tag update_quick_add_user_shippings_path(current_user) do %>
 <table class="table table-bordered table-hover table-align">
     <thead>
     <tr class="active">
-      <th width ="300">Note</th>
+      <th width ="300">Select</th>
+      <th width ="100">Note</th>
       <th width ="110"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> US</th>
       <th width ="110"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> VN</th>
       <th width ="150">Ship ID</th>
@@ -34,6 +36,9 @@
     <tbody>
     <% @orders.each do |order| %>
         <tr>
+          <td>
+            <%= check_box_tag "order_ids[]", order.id %>
+          </td>
           <% if order.note.present? %>
             <td><strong>
               <a href="javascript://" data-toggle="popover" title="Note" data-content="<%= order.note %>" class="expand">
@@ -134,7 +139,38 @@
         </tr>      
     <% end %>
     </tbody>
+</table>
+<%= hidden_field_tag "user_id", "#{current_user.id}" %>
+<%= link_to "Done", "", {'data-toggle' => "modal", 'data-target' => "#myModal", class: "btn btn-primary"} %>
 
-  </table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New shipment</h4>
+      </div>
+      <div class="modal-body">
+      	<%= label_tag 'Ship date' %>
+        <%= text_field_tag "shipping[ship_date]","#{Time.now.strftime('%Y-%m-%d')}", 'data-provide' => 'datepicker', class: "form-control datepicker" %><br>
+      	<%= label_tag 'Total price' %>
+        <%= text_field_tag "shipping[price]","", class: "form-control" %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= submit_tag "Create", class: "btn btn-success" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to "Cancel", :back, class: "btn btn-default" %> 
+<% end %>
 </div>
 </div>
+
+<script>
+  $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+</script>
