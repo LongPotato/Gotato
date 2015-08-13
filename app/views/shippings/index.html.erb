@@ -5,6 +5,10 @@
     <span class="glyphicon glyphicon-plus-sign" id="plus-new-order" aria-hidden="true"></span>
     <b><%= link_to "New shipment", new_user_shipping_path(current_user), class: "shipment_btn" %></b>
   </button>
+  <button type="button" class="btn btn-default">
+    <i class="fa fa-check-square-o view-btn"></i>
+    <%= link_to "Quick add", new_user_shipping_path(current_user), class: "view-btn" %>
+  </button>
 </div>
 
 <div class="nowrap">

@@ -112,6 +112,12 @@ class ShippingsController < ApplicationController
     redirect_to user_shippings_path(current_user)
   end
 
+  def quick_add
+  end
+
+  def update_quick_add
+  end
+
   private
 
     def shipment_params

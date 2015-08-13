@@ -34,12 +34,13 @@
     <li><%= link_to "All orders", all_user_path(current_user), method: :get  %></li>
   </ul>
   </div>
-
-  <h5 class="text-muted pull-right">Showing orders from <%= @from.to_date.strftime("%m/%d/%y") %> to <%= @to.to_date.strftime("%m/%d/%y") %></h5>
+  <% unless @orders.try(:empty?) %>
+  <h5 class="text-muted pull-right">Showing orders from <%= @from.try(:to_date).try(:strftime, "%m/%d/%y") %> to <%= @to.try(:to_date).try(:strftime, "%m/%d/%y") %></h5>
+  <% end %>
 
 </div>
 
-<% if @orders.empty? %>
+<% if @orders.try(:empty?) %>
   <div class="row" style="margin-top: 70px;">
     <p class="lead text-muted text-center" style="font-size: 30px;">No records found</p>
   </div>
