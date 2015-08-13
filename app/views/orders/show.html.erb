@@ -96,6 +96,11 @@
       <td>$ <%= @order.shipping_vn.to_f %></td>
    </tr>
    <tr>
+      <td><b>Total Cost in USD:</b></td>
+      <td></td>
+      <td><b>$ <%= number_with_delimiter((@order.total_cost.to_f / @order.vnd.to_f).round(2), :delimiter => ',') %></b></td>
+   </tr>
+   <tr>
       <td><b>Total Cost in VND:</b></td>
       <td></td>
       <td><b><%= number_with_delimiter(@order.total_cost.to_f, :delimiter => ',') %></b></td>
