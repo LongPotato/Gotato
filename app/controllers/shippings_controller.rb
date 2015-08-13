@@ -120,10 +120,16 @@ class ShippingsController < ApplicationController
 
   def update_quick_add
     @shipment = Shipping.new(shipment_params)
-    @orders = params[:order_ids]
-    @shipment.user_id = params[:user_id]
-    @shipment.order_fields = @orders.join(',')
-    @valid_order = []
+    if params[:order_ids]
+      @orders = params[:order_ids]
+      @shipment.user_id = params[:user_id]
+      @shipment.order_fields = @orders.join(',')
+      @valid_order = []
+    else
+      flash[:danger] = "Unable to create new shipment, please select at least 1 order."
+      redirect_to user_shippings_path(current_user)
+      return
+    end
 
     if @shipment.save
       @orders.each do |id|

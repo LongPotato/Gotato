@@ -12,8 +12,8 @@ class Shipping < ActiveRecord::Base
   before_save :set_default
 
   #get next available shipment
-  def next
-    shipment = self.class.where("id > ?", id).first
+  def next(user_id)
+    shipment = self.class.where(["id > ? and user_id = ?", id, user_id]).first
     if shipment
       shipment
     else
@@ -22,8 +22,8 @@ class Shipping < ActiveRecord::Base
   end
 
   #get previous shipment
-  def prev
-    shipment = self.class.where("id < ?", id).first
+  def prev(user_id)
+    shipment = self.class.where(["id < ? and user_id = ?", id, user_id]).first
     if shipment
       shipment
     else
