@@ -124,7 +124,7 @@
             <ul class="dropdown-menu dropdown-menu-right">
               <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
               <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
-              <li><%= link_to "Mark as Received", user_order_set_received_path(current_user, order.id), method: :patch %></li>
+              <li><%= link_to "Mark as Received", user_order_set_received_path(current_user, order.id), method: :patch unless order.received_us == true%></li>
               <li class="divider"></li>
               <li><%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %></li>
             </ul>
