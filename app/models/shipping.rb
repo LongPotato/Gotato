@@ -41,5 +41,5 @@ class Shipping < ActiveRecord::Base
       self.ship_date = Time.now if self.ship_date.nil?
       self.price = 0 if self.price.nil?
     end
-  
+    
 end
