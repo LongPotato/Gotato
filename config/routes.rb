@@ -30,7 +30,12 @@ Rails.application.routes.draw do
     resources :orders do
       get :remove
     end
-    resources :shippings
+    resources :shippings do
+      collection do
+        get :quick_add
+        patch :update_quick_add
+      end
+    end
     resources :customers
     resources :data, :only => [:show]
     get 'range_orders' => 'orders#look_up_range'

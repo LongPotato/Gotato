@@ -7,7 +7,7 @@
   </button>
   <button type="button" class="btn btn-default">
     <i class="fa fa-check-square-o view-btn"></i>
-    <%= link_to "Quick add", new_user_shipping_path(current_user), class: "view-btn" %>
+    <%= link_to "Quick add", quick_add_user_shippings_path(current_user), class: "view-btn" %>
   </button>
 </div>
 
@@ -21,7 +21,7 @@
       <th width ="300">Note</th>
       <th width ="150">Number of Orders</th>
       <th width ="200">Total Price</th>
-      <th width ="200">Price per Orders</th>
+      <th width ="200">Price per Order</th>
       <th width ="100">Action</th>
     </tr>
     </thead>

@@ -9,9 +9,9 @@ module OrdersHelper
 
   def arrow(column)
     if params[:direction] == "asc"
-      raw("<span class='glyphicon glyphicon-sort-by-order sort' aria-hidden='true'></span>")
+      raw("<span class='glyphicon glyphicon-sort-by-order-alt  sort' aria-hidden='true'></span>")
     elsif params[:direction] == "desc"
-      raw("<span class='glyphicon glyphicon-sort-by-order-alt sort' aria-hidden='true'></span>")
+      raw("<span class='glyphicon glyphicon-sort-by-order sort' aria-hidden='true'></span>")
     else
       raw("<span class='glyphicon glyphicon-sort sort' aria-hidden='true'></span>")
     end

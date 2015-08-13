@@ -1,0 +1,140 @@
+<% provide(:title, 'Quick Add Orders') %>
+
+<div class="nowrap">
+<div class="full-width-div">
+<table class="table table-bordered table-hover table-align">
+    <thead>
+    <tr class="active">
+      <th width ="300">Note</th>
+      <th width ="110"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> US</th>
+      <th width ="110"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> VN</th>
+      <th width ="150">Ship ID</th>
+      <th width ="300">Store</th>
+      <th width ="110">Order Date</th>
+      <th width = "50"><%= sortable("id", "Order# ") %> <%= arrow "id" %></th>
+      <th width = "400">Customer</th>
+      <th width ="300">Description</th>
+      <th width ="400">Web#</th>
+      <th width ="50">Image</th>
+      <th width ="50">Web Price</th>
+      <th width ="150">Tax</th>
+      <th width ="150">Ship US</th>
+      <th width ="150">Reward</th>
+      <th width ="150">Total</th>
+      <th width ="150">Ship VN</th>
+      <th width ="150">Total Cost</th>
+      <th width ="150">Selling Price</th>
+      <th width ="150">Profit</th>
+      <th width ="150">Deposit</th>
+      <th width = "100">Remain</th>
+      <th width ="150">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @orders.each do |order| %>
+        <tr>
+          <% if order.note.present? %>
+            <td><strong>
+              <a href="javascript://" data-toggle="popover" title="Note" data-content="<%= order.note %>" class="expand">
+                <span class='glyphicon glyphicon-option-horizontal'></span>
+              </a>
+            </strong></td>
+            <%= javascript_tag do %>
+              $(document).ready(function() {
+                $('[data-toggle="popover"]').popover();
+              });
+            <% end %>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td><%= receive_check(order.received_us) %></td>
+          <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
+          <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank" class="customer"><%= order.shipping_id %></a></td>
+          <td><%= order.store.try(:titleize) %></td>
+          <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
+          <td><b><%= order.id %></b></td>
+
+          <% if order.customer.try(:name) == "for sale" %>
+            <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
+          <% else %>
+            <td><a href="/users/<%= current_user.id %>/customers/<%= order.customer_id %>" target="_blank" class="customer"><%= order.customer.try(:name).try(:titleize) %></a></td>
+          <% end %>
+
+          <td>
+          <% if order.description.try(:length) > 25 %>
+            <%= order.description[0..25] %>
+            <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle='tooltip' class="expand">
+            ...
+            </a> 
+            <%= javascript_tag do %>
+              var text = "<%= order.description %>";
+              $('[data-toggle="tooltip"]').tooltip({ title: text, html: true });
+            <% end %>
+          <% else %>
+            <%= order.description %>
+          <% end %>
+          </td>
+
+          <td>
+          <% if order.web_order_id.present? %>
+            <strong>
+              <a href="javascript://" data-toggle="popover" title="Web Order#" data-content="<%= order.web_order_id %>" class="expand">
+                <span class='glyphicon glyphicon-option-horizontal'>
+              </a>
+            </strong>
+            <%= javascript_tag do %>
+              $(document).ready(function(){
+                $('[data-toggle="popover"]').popover(); 
+              });
+            <% end %>
+          <% end %>
+          </td>
+
+          <td>
+            <% if order.image_link.present? %>
+            <strong>
+              <a href="/users/<%= current_user.id %>/orders/<%= order.id %>" data-toggle="tooltip" class="expand">
+                <span class='glyphicon glyphicon-picture'>
+              </a>
+            </strong>
+            <%= javascript_tag do %>
+              var img = "<img src='<%= order.image_link.url %>' height='150' width='150' />";
+              $('[data-toggle="tooltip"]').tooltip({ title: img, html: true });
+            <% end %>
+            <% end %>
+          </td>
+          <td>$<%= order.web_price.to_f %></td>
+          <td>$<%= order.tax.to_f %></td>
+          <td>$<%= order.shipping_us.to_f %></td>
+          <td>$<%= order.reward.to_f %></td>
+          <td class="warning"><b>$<%= order.total.to_f %></b></td>
+          <td>$<%= order.shipping_vn.to_f %></td>
+          <td class="warning"><b><%= number_with_delimiter(order.total_cost.to_f.floor, :delimiter => ',') %></b></td>
+          <td><%= number_with_delimiter(order.selling_price.to_f.floor, :delimiter => ',') %></td>
+          <td class=<%= order.profit > 0 ? "success" : "danger" %>>
+            <b><%= number_with_delimiter(order.profit.to_f.floor, :delimiter => ',') %></b>
+          </td>
+          <td><%= number_with_delimiter(order.deposit.to_f.floor, :delimiter => ',') %></td>
+          <td><%= number_with_delimiter(order.remain.to_f.floor, :delimiter => ',') %></td>
+          <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
+              <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %></li>
+            </ul>
+          </div>
+          </td>
+        </tr>      
+    <% end %>
+    </tbody>
+
+  </table>
+</div>
+</div>
