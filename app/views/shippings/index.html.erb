@@ -30,7 +30,7 @@
     <tbody>
     <% @shipments.each do |shipment| %>
       <tr>
-        <td><b><%= shipment.id %></b></td>
+        <td><b><a href="<%=  user_shipping_path(current_user, shipment.id) %>" class="customer" target="_blank"><%= shipment.id %></a></b></td>
         <td><%= shipment.ship_date.try(:strftime, "%B %d, %Y") %></td>
         <td><%= shipment.description %></td>
         <td><%= shipment.orders.count %></td>

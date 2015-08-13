@@ -51,7 +51,7 @@
           <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank" class="customer"><%= order.shipping_id %></a></td>
           <td><%= order.store.try(:titleize) %></td>
           <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
-          <td><b><%= order.id %></b></td>
+          <td><b><a href="<%= user_order_path(current_user, order) %>" target="_blank" class="customer"><%= order.id %></a></b></td>
 
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
@@ -124,6 +124,7 @@
             <ul class="dropdown-menu dropdown-menu-right">
               <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
               <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
+              <li><%= link_to "Mark as Received", user_order_set_received_path(current_user, order.id), method: :patch %></li>
               <li class="divider"></li>
               <li><%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %></li>
             </ul>

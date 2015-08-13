@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     end
     resources :orders do
       get :remove
+      patch :set_received
     end
     resources :shippings do
       collection do

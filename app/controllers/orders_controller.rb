@@ -203,6 +203,16 @@ class OrdersController < ApplicationController
     redirect_to user_shipping_path(current_user, ship_id)
   end
 
+  def set_received
+    url = Rails.application.routes.recognize_path(request.referrer)  #Convert the previous url into a hash of controller and action
+    store_location
+    order_id = params[:order_id]
+    @order = Order.find(order_id)
+    @order.update_attributes(received_us: true)
+    flash[:success] = "Marked order ##{order_id} as received."
+    redirect_back_or(user_orders_path(current_user), url[:controller], url[:action])
+  end
+
   private
 
     #White list parameters
