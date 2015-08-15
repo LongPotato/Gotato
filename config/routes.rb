@@ -30,6 +30,9 @@ Rails.application.routes.draw do
     resources :orders do
       get :remove
       patch :set_received
+      collection do
+        get :look_up_order
+      end
     end
     resources :shippings do
       collection do

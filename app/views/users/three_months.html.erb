@@ -28,8 +28,11 @@
   <ul class="dropdown-menu">
     <li><%= link_to "This month", user_orders_path(current_user), method: :get %></li>
     <li class="disabled" ><%= link_to "Last 3 months", "" %></li>
-    <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#myModal"} %></li>
-    <li><%= link_to "All orders", all_user_path(current_user), method: :get %></li>
+    <li class="divider"></li>
+    <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#timeModal"} %></li>
+    <li><%= link_to "Specific order", "", {'data-toggle' => "modal", 'data-target' => "#orderModal"} %></li>
+    <li class="divider"></li>
+    <li><%= link_to "All orders", all_user_path(current_user), method: :get  %></li> 
   </ul>
   </div>
 
@@ -41,6 +44,7 @@
 
 <!-- Modal -->
 <%= render 'orders/time_modal' %>
+<%= render 'orders/order_modal' %>
 
 <script type="text/javascript">
 $(document).ready(function() {

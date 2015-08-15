@@ -72,6 +72,16 @@ class OrdersController < ApplicationController
     end
   end
 
+  def look_up_order
+    @order = Order.find_by(id: params[:id])
+    if @order
+      redirect_to user_order_path(current_user, @order)
+    else
+      flash[:danger] = "Order ##{params[:id]} not found"
+      redirect_to user_orders_path(current_user)
+    end
+  end
+
   def show_timeline
     @orders = @orders_timeline
   end
