@@ -155,8 +155,8 @@ class OrdersController < ApplicationController
     if params[:order][:shipping_id].present?
       ship_id = params[:order][:shipping_id]
       if shipment = current_user.shippings.find_by_id(ship_id)
-        item_price = shipment.calculate_ship_vn.round(2)
         @order.update_attributes(shipping_id: ship_id)
+        item_price = shipment.calculate_ship_vn.round(2)
         shipment.orders.each do |order|
           order.update_attributes(shipping_vn: item_price, ship_vn: shipment.ship_date)
           order.update_attributes(total_cost: order.calculate_total_cost.round(2))
