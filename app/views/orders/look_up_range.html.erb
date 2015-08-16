@@ -14,8 +14,8 @@
   <ul class="dropdown-menu">
     <li><%= link_to "Clear all", params.merge(:sale => nil, :placed => nil, :received => nil, :not => nil, :authenticity_token => nil), method: :get %></li>
     <li class="divider"></li>
-    <li class="<%= 'active' if params[:sale] %>"><%= link_to "For Sale", {:sale => 1, :authenticity_token => nil}, method: :get %></li>
-    <li class="<%= 'active' if params[:placed] %>"><%= link_to "Ordered", {:placed => 1, :authenticity_token => nil}, method: :get  %></li>
+    <li class="<%= 'active' if params[:sale] %>"><%= link_to "For Sale", params.merge(:sale => 1, :authenticity_token => nil), method: :get %></li>
+    <li class="<%= 'active' if params[:placed] %>"><%= link_to "Ordered", params.merge(:placed => 1, :authenticity_token => nil), method: :get  %></li>
     <li class="divider"></li>
     <li class="<%= 'active' if params[:received] %>"><%= link_to "Received", params.merge(:received => 1, :authenticity_token => nil), method: :get %></li>
     <li class="<%= 'active' if params[:not] %>"><%= link_to "Not Received", params.merge(:not => 1, :authenticity_token => nil), method: :get %></li>
@@ -29,7 +29,14 @@
   </button>
   <ul class="dropdown-menu">
     <li><%= link_to "This month", user_orders_path(current_user), method: :get %></li>
-    <li><%= link_to "Last 3 months", three_months_user_path(current_user), method: :get  %></li>
+    <li class = "
+          <%= if params[:time] == "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"
+            'disabled'
+          end %>"
+    >
+      <%= link_to "Last 3 months",
+      user_range_orders_path(current_user, :time => "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"), method: :get %>
+    </li>
     <li class="divider"></li>
     <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#timeModal"} %></li>
     <li><%= link_to "Specific order", "", {'data-toggle' => "modal", 'data-target' => "#orderModal"} %></li>

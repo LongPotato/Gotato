@@ -10,38 +10,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def three_months
-    @orders = current_user.orders.three_months.order(sort_column + " " + sort_direction)
-
-    if params[:sale].present?
-      sale = current_user.orders.joins(:customer).three_months.status
-      if params[:received].present?
-        @orders = sale.received.order(sort_column + " " + sort_direction)
-      elsif params[:not].present?
-        @orders = sale.not_received.order(sort_column + " " + sort_direction)
-      else
-        @orders = sale.order(sort_column + " " + sort_direction)
-      end
-    elsif params[:placed].present?
-      placed = current_user.orders.joins(:customer).three_month.placed
-      if params[:received].present?
-        @orders = placed.received.order(sort_column + " " + sort_direction)
-      elsif params[:not].present?
-        @orders = placed.not_received.order(sort_column + " " + sort_direction)
-      else
-        @orders = placed.order(sort_column + " " + sort_direction)
-      end
-    else
-      if params[:received].present?
-        @orders = current_user.orders.three_months.received.order(sort_column + " " + sort_direction)
-      end
-      if params[:not].present?
-        @orders = current_user.orders.three_months.not_received.order(sort_column + " " + sort_direction)
-      end
-    end
-
-  end
-
   def all
     @orders = current_user.orders.order(sort_column + " " + sort_direction)
 

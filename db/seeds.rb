@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+PublicActivity.enabled = false
 
 Order.delete_all
 Customer.delete_all
@@ -66,6 +67,8 @@ end
                profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1])
 
 end
+
+PublicActivity.enabled = true
 
 
 

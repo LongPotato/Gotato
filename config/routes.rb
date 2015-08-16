@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :users, :except => [:index, :edit] do
     member do
-      get :three_months
       get :all
       get :account_password
       get :setting

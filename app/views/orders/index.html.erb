@@ -29,7 +29,10 @@
   </button>
   <ul class="dropdown-menu">
     <li class="disabled"><%= link_to "This month", ""%></li>
-    <li><%= link_to "Last 3 months", three_months_user_path(current_user), method: :get  %></li>
+    <li>
+      <%= link_to "Last 3 months",
+      user_range_orders_path(current_user, :time => "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"), method: :get %>
+    </li>
     <li class="divider"></li>
     <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#timeModal"} %></li>
     <li><%= link_to "Specific order", "", {'data-toggle' => "modal", 'data-target' => "#orderModal"} %></li>
