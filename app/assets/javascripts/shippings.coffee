@@ -34,8 +34,8 @@ $.rails.allowAction = (element) ->
       </div>
       <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
       <div class="modal-body">
-        <h3>#{message}</h3>
-        <p>Delete this shipment will also reset all of its orders values.</p>
+        <h3>Are you sure?</h3>
+        <p>#{message}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
