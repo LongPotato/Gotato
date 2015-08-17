@@ -128,7 +128,14 @@
                 <%= link_to "Mark as Received", user_order_set_received_path(current_user, order.id), method: :patch %>
               </li>
               <li class="divider"></li>
-              <li><%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %></li>
+              <li>
+                <% unless order.shipping_id.nil? %>
+                  <%= link_to "Delete", user_order_path(current_user, order.id),
+                  data: {confirm: "This order was shipped. Delete this order will reset all other orders values in the same shipment."}, method: :delete %>
+                <% else %>
+                  <%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %>
+                <% end %>
+              </li>
             </ul>
           </div>
           </td>

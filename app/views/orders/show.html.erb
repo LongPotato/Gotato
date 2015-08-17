@@ -136,7 +136,11 @@
    <legend class="field"></legend>
 
    <%= link_to "Edit", edit_user_order_path(current_user, @order.id), class: "btn btn-lg btn-warning" %>
-   <%= link_to "Delete", user_order_path(current_user, @order.id), method: :delete, class: "btn btn-lg btn-danger" %>
+   <% unless @order.shipping_id.nil? %>
+     <%= link_to "Delete", user_order_path(current_user, @order.id),data: {confirm: "This order was shipped. Delete this order will reset all other orders values in the same shipment."}, method: :delete, class: "btn btn-lg btn-danger" %>
+   <% else %>
+     <%= link_to "Delete", user_order_path(current_user, @order.id), method: :delete, class: "btn btn-lg btn-danger" %>
+   <% end %>
    <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
 
  </fieldset>

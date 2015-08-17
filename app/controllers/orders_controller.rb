@@ -206,6 +206,20 @@ class OrdersController < ApplicationController
     store_location
     order_id = params[:id]
     @order = Order.find(params[:id])
+
+    if @order.shipping_id.present?
+      ship_id = @order.shipping_id
+      @order.update_attributes(shipping_id: nil)
+      @shipment = Shipping.find(ship_id)
+      @shipment.update_attributes(order_fields: @shipment.order_fields.gsub(/#{@order.id}/, ""))
+      @orders = Order.where(shipping_id: ship_id)
+      @orders.each do |order|
+        order.update_attributes(shipping_vn: @shipment.calculate_ship_vn.round(2))
+        order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+        order.update_attributes(profit: order.calculate_profit.round(2))
+      end
+    end
+
     @order.datum.subtract_deleted_order
     @order.destroy
     flash[:danger] = "Deleted order ##{order_id}."
