@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813040947) do
+ActiveRecord::Schema.define(version: 20150817003109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(version: 20150813040947) do
   create_table "orders", force: :cascade do |t|
     t.text     "description"
     t.text     "note"
-    t.string   "store"
     t.string   "image_link"
     t.date     "order_date"
     t.date     "ship_vn"
@@ -84,11 +83,13 @@ ActiveRecord::Schema.define(version: 20150813040947) do
     t.decimal  "remain"
     t.integer  "shipping_id"
     t.integer  "datum_id"
+    t.integer  "store_id"
   end
 
   add_index "orders", ["customer_id"], name: "index_orders_on_customer_id", using: :btree
   add_index "orders", ["datum_id"], name: "index_orders_on_datum_id", using: :btree
   add_index "orders", ["shipping_id"], name: "index_orders_on_shipping_id", using: :btree
+  add_index "orders", ["store_id"], name: "index_orders_on_store_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "shippings", force: :cascade do |t|
@@ -102,6 +103,16 @@ ActiveRecord::Schema.define(version: 20150813040947) do
   end
 
   add_index "shippings", ["user_id"], name: "index_shippings_on_user_id", using: :btree
+
+  create_table "stores", force: :cascade do |t|
+    t.text     "note"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+  end
+
+  add_index "stores", ["user_id"], name: "index_stores_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -118,5 +129,7 @@ ActiveRecord::Schema.define(version: 20150813040947) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "orders", "data"
+  add_foreign_key "orders", "stores"
   add_foreign_key "shippings", "users"
+  add_foreign_key "stores", "users"
 end

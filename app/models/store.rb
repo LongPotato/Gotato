@@ -1,10 +1,6 @@
-class Customer < ActiveRecord::Base
-  include PublicActivity::Model
-  tracked except: :destroy, owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
-
+class Store < ActiveRecord::Base
   belongs_to :user
   has_many :orders
-  has_many :shipping, through: :orders
 
   before_save { self.name = name.downcase.strip }
 
@@ -35,5 +31,4 @@ class Customer < ActiveRecord::Base
       all
     end
   end
-
 end

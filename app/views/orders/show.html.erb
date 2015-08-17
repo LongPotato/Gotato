@@ -23,7 +23,7 @@
 
    <p class="p_order"><b>Note:</b><span class="tab-space"><%= @order.note %></p>
 
-   <p class="p_order"><b>Store:</b><span class="tab-space"><%= @order.store.try(:titleize) %></p>
+   <p class="p_order"><b>Store:</b><span class="tab-space"><%= @order.store.try(:name).try(:titleize) %></p>
 
    <p class="p_order"><b>Customer:</b><span class="tab-space">
     <a href="/users/<%= current_user.id %>/customers/<%= @order.customer_id %>" target="_blank"><%= @order.customer.try(:name).try(:titleize) %></a>

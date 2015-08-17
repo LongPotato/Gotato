@@ -1,0 +1,28 @@
+<% provide(:title, 'Documents') %>
+
+<div class="row">
+ <div class="col-md-6 col-md-offset-3">	
+
+  <legend class="field">My Documents</legend>
+
+  <div class="list-group" style="margin-top: 30px;">
+    <a href="<%= user_stores_path(current_user) %>" class="list-group-item">
+      <h4 class="list-group-item-heading">Stores</h4>
+      <p class="list-group-item-text">View and edit store profiles.</p>
+    </a>
+  </div>
+  <div class="list-group">
+    <a href="<%= user_customers_path(current_user) %>" class="list-group-item" method="get">
+      <h4 class="list-group-item-heading">Customers</h4>
+      <p class="list-group-item-text">View and edit customer profiles.</p>
+    </a>
+  </div>
+  <div class="list-group">
+    <a href="#" class="list-group-item">
+      <h4 class="list-group-item-heading">Cashbacks</h4>
+      <p class="list-group-item-text">Summary of all my cash back rewards.</p>
+    </a>
+  </div>
+
+ </div>
+</div>

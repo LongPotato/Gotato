@@ -1,0 +1,49 @@
+<% provide(:title, 'Stores') %>
+
+<div class="row">
+ <div class="col-md-10 col-md-offset-1">
+
+  <div class="row">
+  <div class="col-lg-6">
+
+  <form accept-charset="UTF-8" action="/users/<%= current_user.id %>/stores" method="get" id="customers_search">
+  <div class="input-group">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default">
+       <span aria-hidden="true" class="order_btn">&larr;</span> <%= link_to "Back", :back, class: "order_btn" %>
+      </button>
+    </span>
+    <input type="text" class="form-control" placeholder="Search store..." name="search">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+    </span>
+  </div>
+  </div>
+  </div>
+
+<table class="table table-hover table-align customer-table">
+  <thead>
+    <tr>
+      <th width="200">Name</th>
+      <th width="300">Note</th>
+      <th width="150">Number of Orders</th>
+      <th width="150">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @stores.each do |store| %>
+      <tr>
+        <td><%= store.name.try(:titleize) %></td>
+
+        <td><%= store.note %></td>
+
+        <td><%= store.orders.count %></td>
+        <td><%= link_to "View detail", user_store_path(current_user, store.id), target: "_blank" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+</table>
+
+</div>
+</div>

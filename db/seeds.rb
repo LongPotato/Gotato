@@ -11,11 +11,12 @@ PublicActivity.enabled = false
 Order.delete_all
 Customer.delete_all
 Shipping.delete_all
+Store.delete_all
 
 name_array = ['thuy duong', 'David The Penis', 'ashey pham', 'vu thuy linh', 'Dog', 'Very long name here', 
               'ho li fuk', 'lul', 'Chuthlu Da Savior', 'sum ting wong', 'le thi b', 'pham hong ngoc', 'nguyen van a', 'For Sale']
 
-store_name = ['macy', 'express', 'michael kors', 'blooming dales', 'apple', 'bestbuy', 'LOFT', 'craiglist', 'ebay', 'Saks Fifth Avenue', 'Amazon', 'Kate Spade']
+store_name = ['macy', 'express', 'michael kors', 'HM', 'Zara', 'Forever 21', 'blooming dales', 'apple', 'bestbuy', 'LOFT', 'craiglist', 'ebay', 'Saks Fifth Avenue', 'Amazon', 'Kate Spade']
 
 order_name = ['1 dong ho MK 2280', '11 cai vay size S LOFT #345', "1 tui PL size M Cobalt", '1 tui PL size S Elictric Blue', 
               '1 creamy white fishing sauce', '1 vay ', '1 do va 1 tui nude', '3 cai ao SAVANNAH CUTOUT SKATER DRESS', '2 lo glucosamine', '1 xe oto']
@@ -37,6 +38,7 @@ address_list = ["A23-BT4 My Dinh, Tu Liem, Hanoi", "Ngo 17, Hong Ha, Hanoi", "13
                 San Francisco", "18 Ngo Hue, Thanh Xuan, Hanoi", "12 Nguyen Phong Sac, Q.1, HCM", "So 554 Ngo 15, Dong Khoi, Q11, HCM", ""]
 
 customer_array = []
+store_array = []
 
 time = [Time.now, 4.weeks.ago, 1.month.ago, 2.months.ago, 6.days.from_now, 4.months.ago]
 
@@ -47,6 +49,10 @@ name_array.each do |name|
   customer_array << new_customer.id
 end
 
+store_name.each do |name|
+  new_store = Store.create(name: name, user_id: 1, note: note_list[rand(0..8)])
+  store_array << new_store.id
+end
 
 100.times do
   s = rand(100)
@@ -60,11 +66,11 @@ end
   profit = vn.to_f - (total * 21000)
   remain = vn.to_f - deposit
 
-  order = Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)],
-               store: store_name[rand(0..11)], 
+  order = Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)], 
                order_date: time[rand(0..5)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
                web_price: price, tax: tax, shipping_us: quan, reward: (price * 0.01).round(2), total: total.round(2), total_cost: (total * 2100).round(2),
-               profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1])
+               profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1],
+               store_id: store_array[rand(store_array.size) - 1])
 
 end
 

@@ -6,7 +6,7 @@
 <div class="row">
  <div class="col-md-6 col-md-offset-3">	
 
-  <legend></legend>
+  <legend class="field"></legend>
   <p class="text-center text-muted" style="font-size: 20px;">
     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
     <%= pluralize(current_user.orders.count, "order") %><span class="tab-space">
@@ -17,14 +17,16 @@
   </p>
   <legend></legend>
 
- <p class="p_account"><b>Name:</b>  <%= @user.name %></p>
- <p class="p_account"><b>Email:</b> <%= @user.email %></p>
- <button type="button" class="btn btn-default verticle-space">
-   <i class="fa fa-lock"></i> <%= link_to "Change my password", account_password_user_path, class: "sort-header" %>
- </button><br>
- <button type="button" class="btn btn-default">
-   <i class="fa fa-cloud-download"></i> <%= link_to "Download my data", all_user_path(current_user, format: :csv), class: "sort-header" %>
- </button>
+  <p class="p_account"><b>Name:</b>  <%= @user.name %></p>
+  <p class="p_account"><b>Email:</b> <%= @user.email %></p>
+  <button type="button" class="btn btn-default verticle-space">
+  <i class="fa fa-lock"></i> <%= link_to "Change my password", account_password_user_path, class: "sort-header" %>
+  </button><br>
+  <button type="button" class="btn btn-default">
+    <i class="fa fa-cloud-download"></i> <%= link_to "Download my data", all_user_path(current_user, format: :csv), class: "sort-header" %>
+   </button>
+
+   <legend class="field"></legend>
 
  </div>
 </div>

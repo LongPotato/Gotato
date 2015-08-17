@@ -12,6 +12,10 @@
         <%= c.hidden_field :user_id, :value => @user.id %>
       <% end %>
 
+      <%= f.fields_for :store do |s| %>
+        <%= s.hidden_field :user_id, :value => @user.id %>
+      <% end %>
+
       <%= f.text_area :note %>
 
       <legend class="field"></legend>
@@ -21,7 +25,9 @@
       <%= f.check_box :received_us, label: "Received" %>
       </label>
 
-      <%= f.text_field :store %>
+      <%= f.fields_for :store do |s| %>
+        <%= s.text_field :name, label: "Store" %>
+      <% end %>
 
       <%= f.text_field :order_date, icon: "calendar", 'data-provide' => 'datepicker', :class => "datepicker", help: "yyyy-mm-dd", value: Time.now.strftime('%Y-%m-%d') %>
 

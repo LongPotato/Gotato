@@ -1,23 +1,21 @@
-<% provide(:title, "Edit Customer Info") %>
+<% provide(:title, "Edit Store Info") %>
 
-<h1>Customer Info</h1>
+<h1>Store Info</h1>
 
 <div class="row">
  <div class="col-md-6 col-md-offset-3">
 
-  <%= bootstrap_form_for([@user, @customer]) do |f| %>
+  <%= bootstrap_form_for([@user, @store]) do |f| %>
 
     <legend class="field"></legend>
 
-    <p class="p_order"><b>Customer name:</b><span class="tab-space">
-      <%= @customer.name.try(:titleize) %>
+    <p class="p_order"><b>Store name:</b><span class="tab-space">
+      <%= @store.name.try(:titleize) %>
     </p>
 
     <legend class="field"></legend>
 
-    <%= f.text_area :address %>
-
-    <%= f.text_area :bank, label: "Bank info", icon: "credit-card" %>
+    <%= f.text_area :note %>
 
     <legend class="field"></legend>
 

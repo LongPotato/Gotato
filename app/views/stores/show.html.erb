@@ -1,19 +1,18 @@
-<%= provide(:title, 'Shipment Detail') %>
+<%= provide(:title, 'Store Profile') %>
 
 <div class="row nav-show">
 <nav id="back_next">
   <ul class="pager">
     <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
-                             user_shipping_path(current_user, @shipment.prev(current_user.id)), class: "order_btn" %>
+                             user_store_path(current_user, @store.prev(current_user.id)), class: "order_btn" %>
     </li>
     <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
-                         user_shipping_path(current_user, @shipment.next(current_user.id)), class: "order_btn" %>
+                         user_store_path(current_user, @store.next(current_user.id)), class: "order_btn" %>
     </li>
   </ul>
 </nav>
-<h1>Shipment #<%= @shipment.id %></h1>
+<h1>Store Profile</h1>
 </div>
-
 
 <div class="row">
  <div class="col-md-6 col-md-offset-3">
@@ -21,31 +20,21 @@
  <fieldset class="field">
    <legend></legend>
 
-   <p class="p_order"><b>Ship date:</b><span class="tab-space">
-    <%= @shipment.ship_date.try(:strftime, "%B %d, %Y") %>
+   <p class="p_order"><b>Store name:</b><span class="tab-space">
+    <%= @store.name.try(:titleize) %>
    </p>
-
-   <p class="p_order"><b>Number of Orders:</b><span class="tab-space"><%= @shipment.orders.count %></p>
-
-   <p class="p_order"><b>Orders:</b><span class="tab-space"><%= @shipment.order_fields %></p>
-
-   <p class="p_order"><b>Note:</b><span class="tab-space"><%= @shipment.description %></p>
 
    <legend class="field"></legend>
 
-   <table class="table table-striped">
-   <tbody class="p_order">
-   <tr>
-      <td><b>Total Price:</b></td>
-      <td>$ <%= @shipment.price.to_f %></td>
-   </tr>
-   <tr>
-      <td><b>Price per Order:</b></td>
-      <td><b>$ <%= @shipment.orders.first.try(:shipping_vn).try(:to_f) %></b></td>
-   </tr>
-   </table>
+   <p class="p_order"><b>Note:</b><span class="tab-space">
+    <address><%= @store.note %></address>
+   </p>
 
-   <legend class="field">In this shipment:</legend>
+   <legend class="field"></legend>
+
+   <p class="p_order"><b>Number of Orders:</b><span class="tab-space"><%= @store.orders.count %></p>
+
+   <legend class="field">Order history:</legend>
 
   </div>
 
@@ -57,6 +46,7 @@
       <th width ="300">Note</th>
       <th width ="110"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> US</th>
       <th width ="110"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> VN</th>
+       <th width ="150">Ship ID</th>
       <th width ="300">Store</th>
       <th width ="110">Order Date</th>
       <th width = "50"><%= sortable("id", "Order# ") %> <%= arrow "id" %></th>
@@ -85,13 +75,14 @@
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
+          <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank"><%= order.shipping_id %></a>
           <td><%= order.store.try(:name).try(:titleize) %></td>
           <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
           <td><b><%= order.id %></b></td>
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
           <% else %>
-             <td><a href="/users/<%= current_user.id %>/customers/<%= order.customer_id %>" target="_blank" class="customer"><%= order.customer.try(:name).try(:titleize) %></a></td>
+            <td><%= order.customer.try(:name).try(:titleize) %></td>
           <% end %>
           <td><%= order.description %></td>
           <td><%= order.web_order_id %></td>
@@ -129,7 +120,7 @@
               <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
               <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
               <li class="divider"></li>
-              <li><%= link_to "Remove", user_order_remove_path(current_user, order.id) %></li>
+              <li><%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %></li>
             </ul>
           </div>
           </td>
@@ -144,11 +135,7 @@
 
   <legend class="field"></legend>
 
-  <%= link_to "Edit", edit_user_shipping_path(current_user, @shipment.id), class: "btn btn-lg btn-warning" %>
-  <%= link_to "Delete", 
-      user_shipping_path(current_user, @shipment.id),
-      method: :delete, data: { confirm: 'Delete this shipment will also reset all of its orders values.'},
-      class: "btn btn-lg btn-danger" %>
+  <%= link_to "Edit Info", edit_user_store_path(current_user,@store.id), class: "btn btn-lg btn-info" %>
   <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
 
   </div>

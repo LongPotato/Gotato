@@ -4,10 +4,10 @@
 <nav id="back_next">
   <ul class="pager">
     <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
-                             user_customer_path(current_user, @customer.prev), class: "order_btn" %>
+                             user_customer_path(current_user, @customer.prev(current_user.id)), class: "order_btn" %>
     </li>
     <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
-                         user_customer_path(current_user, @customer.next), class: "order_btn" %>
+                         user_customer_path(current_user, @customer.next(current_user.id)), class: "order_btn" %>
     </li>
   </ul>
 </nav>
@@ -82,7 +82,7 @@
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
           <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank"><%= order.shipping_id %></a>
-          <td><%= order.store.try(:titleize) %></td>
+          <td><%= order.store.try(:name).try(:titleize) %></td>
           <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
           <td><b><%= order.id %></b></td>
           <% if order.customer.try(:name) == "for sale" %>

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :all
       get :account_password
       get :setting
+      get :documents
       post :set_vnd
       patch :set_note
     end
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
       end
     end
     resources :customers
+    resources :stores
     resources :data, :only => [:show]
     get 'range_orders' => 'orders#look_up_range'
     get 'timeline' => 'orders#look_up_range'

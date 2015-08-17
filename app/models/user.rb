@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   #Relation:
   has_many :orders, dependent: :destroy
+  has_many :stores, dependent: :destroy
   has_many :customers, dependent: :destroy
   has_many :shippings, dependent: :destroy
   has_many :data, dependent: :destroy

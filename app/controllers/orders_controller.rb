@@ -94,11 +94,13 @@ class OrdersController < ApplicationController
     @user = current_user
     @order = Order.new
     @order.build_customer
+    @order.build_store
   end
 
   def create
     @order = Order.new(order_params)
     cus_name = params[:order][:customer_attributes][:name]
+    store_name = params[:order][:store_attributes][:name]
 
     if customer = current_user.customers.find_by_name(cus_name.downcase)
       @order.customer_id = customer.id
@@ -106,7 +108,14 @@ class OrdersController < ApplicationController
       @order.save
       @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
     end
-       
+
+    if store = current_user.stores.find_by_name(store_name.downcase)
+      @order.store_id = store.id
+    else
+      @order.save
+      @order.update_attributes(store_attributes: {name: store_name, user_id: current_user.id})
+    end
+
     #Use setting vnd if user choose it
     if params[:order][:use_user_rate] == "1"
       @order.vnd = @order.user.setting_vnd
@@ -137,11 +146,19 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     cus_name = params[:order][:customer_attributes][:name]
+    store_name = params[:order][:store_attributes][:name]
 
     if customer = current_user.customers.find_by_name(cus_name.downcase)
       @order.update_attributes(customer_id: customer.id)
     else
       @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
+    end
+
+    if store = current_user.stores.find_by_name(store_name.downcase)
+      @order.store_id = store.id
+    else
+      @order.save
+      @order.update_attributes(store_attributes: {name: store_name, user_id: current_user.id})
     end
 
     #Use setting vnd if user choose it
