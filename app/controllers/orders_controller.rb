@@ -19,7 +19,6 @@ class OrdersController < ApplicationController
       all_orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).order(sort_column + " " + sort_direction)
 
       @orders = apply_scopes(all_orders).order(sort_column + " " + sort_direction)
-
     else
       @orders = []
     end
