@@ -13,11 +13,11 @@
   <ul class="dropdown-menu">
     <li><%= link_to "Clear all", params.merge(:sale => nil, :placed => nil, :received => nil, :not => nil, :authenticity_token => nil), method: :get %></li>
     <li class="divider"></li>
-    <li class="<%= 'active' if params[:sale] %>"><%= link_to "For Sale", {:sale => 1, :authenticity_token => nil}, method: :get %></li>
-    <li class="<%= 'active' if params[:placed] %>"><%= link_to "Ordered", {:placed => 1, :authenticity_token => nil}, method: :get  %></li>
+    <li class="<%= 'active' if params[:sale] %>"><%= link_to "For Sale", {:sale => true, :authenticity_token => nil}, method: :get %></li>
+    <li class="<%= 'active' if params[:placed] %>"><%= link_to "Ordered", {:placed => true, :authenticity_token => nil}, method: :get  %></li>
     <li class="divider"></li>
-    <li class="<%= 'active' if params[:received] %>"><%= link_to "Received", params.merge(:received => 1, :authenticity_token => nil), method: :get %></li>
-    <li class="<%= 'active' if params[:not] %>"><%= link_to "Not Received", params.merge(:not => 1, :authenticity_token => nil), method: :get %></li>
+    <li class="<%= 'active' if params[:received] %>"><%= link_to "Received", params.merge(:received => true, :authenticity_token => nil), method: :get %></li>
+    <li class="<%= 'active' if params[:not] %>"><%= link_to "Not Received", params.merge(:not => true, :authenticity_token => nil), method: :get %></li>
   </ul>
   </div>
   <div class="btn-group">

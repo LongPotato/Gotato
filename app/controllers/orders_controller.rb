@@ -2,36 +2,13 @@ class OrdersController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user
 
-  def index
-    @orders = current_user.orders.this_month.order(sort_column + " " + sort_direction)
+  has_scope :sale, :type => :boolean
+  has_scope :placed, :type => :boolean
+  has_scope :received, :type => :boolean
+  has_scope :not, :type => :boolean
 
-    if params[:sale].present?
-      sale = current_user.orders.joins(:customer).this_month.status
-      if params[:received].present?
-        @orders = sale.received.order(sort_column + " " + sort_direction)
-      elsif params[:not].present?
-        @orders = sale.not_received.order(sort_column + " " + sort_direction)
-      else
-        @orders = sale.order(sort_column + " " + sort_direction)
-      end
-    elsif params[:placed].present?
-      placed = current_user.orders.joins(:customer).this_month.placed
-      if params[:received].present?
-        @orders = placed.received.order(sort_column + " " + sort_direction)
-      elsif params[:not].present?
-        @orders = placed.not_received.order(sort_column + " " + sort_direction)
-      else
-        @orders = placed.order(sort_column + " " + sort_direction)
-      end
-    else
-      if params[:received].present?
-        @orders = current_user.orders.this_month.received.order(sort_column + " " + sort_direction)
-      end
-      if params[:not].present?
-        @orders = current_user.orders.this_month.not_received.order(sort_column + " " + sort_direction)
-      end
-    end
-    
+  def index
+    @orders = apply_scopes(current_user.orders).this_month.order(sort_column + " " + sort_direction)
   end
 
   def look_up_range
@@ -39,34 +16,10 @@ class OrdersController < ApplicationController
       @@time = params[:time].split(' - ')
       @from = @@time.first
       @to = @@time.second
-      @orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).order(sort_column + " " + sort_direction)
+      all_orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).order(sort_column + " " + sort_direction)
 
-      if params[:sale].present?
-        sale = current_user.orders.joins(:customer).where("order_date BETWEEN ? AND ?", @from, @to).status
-        if params[:received].present?
-          @orders = sale.received.order(sort_column + " " + sort_direction)
-        elsif params[:not].present?
-          @orders = sale.not_received.order(sort_column + " " + sort_direction)
-        else
-          @orders = sale.order(sort_column + " " + sort_direction)
-        end
-      elsif params[:placed].present?
-        placed = current_user.orders.joins(:customer).where("order_date BETWEEN ? AND ?", @from, @to).placed
-        if params[:received].present?
-          @orders = placed.received.order(sort_column + " " + sort_direction)
-        elsif params[:not].present?
-          @orders = placed.not_received.order(sort_column + " " + sort_direction)
-        else
-          @orders = placed.order(sort_column + " " + sort_direction)
-        end
-      else
-        if params[:received].present?
-          @orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).received.order(sort_column + " " + sort_direction)
-        end
-        if params[:not].present?
-          @orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).not_received.order(sort_column + " " + sort_direction)
-        end
-      end
+      @orders = apply_scopes(all_orders).order(sort_column + " " + sort_direction)
+
     else
       @orders = []
     end

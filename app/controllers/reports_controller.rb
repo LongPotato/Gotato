@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @shipment = current_user.shippings.where("ship_date BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).uniq
     unless @this_month.nil?
       @received = @this_month.orders.received.count
-      @for_sale = @this_month.orders.joins(:customer).status.count
+      @for_sale = @this_month.orders.joins(:customer).sale.count
       @shipped = @this_month.orders.where.not("ship_vn" => nil).count
       @total_shipping = @shipment.map(&:price).sum.to_f unless @shipment.nil?
       @total_reward = @this_month.orders.map(&:reward).sum.to_f
