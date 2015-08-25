@@ -6,7 +6,7 @@
   <% if a.trackable %>
     Added new customer <%= link_to a.trackable.name.try(:titleize), user_customer_path(a.trackable.user, a.trackable.id) %>.
   <% else %>
-    Created a customer that is currently deleted.
+    Added a customer that is currently deleted.
   <% end %>
   </p>
  </div>
