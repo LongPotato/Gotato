@@ -85,9 +85,9 @@
           <td><%= order.note %></td>
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
-          <td><%= order.store.try(:name).try(:titleize) %></td>
+          <td><a href="/users/<%= current_user.id %>/stores/<%= order.store_id %>" target="_blank" class="customer"><%= order.store.try(:name).try(:titleize) %></a></td>
           <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
-          <td><b><%= order.id %></b></td>
+          <td><b><a href="<%= user_order_path(current_user, order) %>" target="_blank" class="customer"><%= order.id %></a></b></td>
           <% if order.customer.try(:name) == "for sale" %>
             <td class="info"><b><%= order.customer.try(:name).try(:upcase) %></b></td>
           <% else %>

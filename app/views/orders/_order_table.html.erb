@@ -49,7 +49,7 @@
           <td><%= receive_check(order.received_us) %></td>
           <td><%= order.ship_vn.try(:strftime, "%m/%d/%y") %></td>
           <td><a href="/users/<%= current_user.id %>/shippings/<%= order.shipping_id %>" target="_blank" class="customer"><%= order.shipping_id %></a></td>
-          <td><%= order.store.try(:name).try(:titleize) %></td>
+          <td><a href="/users/<%= current_user.id %>/stores/<%= order.store_id %>" target="_blank" class="customer"><%= order.store.try(:name).try(:titleize) %></a></td>
           <td><%= order.order_date.try(:strftime, "%m/%d/%y") %></td>
           <td><b><a href="<%= user_order_path(current_user, order) %>" target="_blank" class="customer"><%= order.id %></a></b></td>
 
