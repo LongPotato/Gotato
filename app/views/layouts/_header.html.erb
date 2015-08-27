@@ -4,7 +4,7 @@
     <% if logged_in? %>
       <ul class="nav navbar-nav navbar-left">
         <li><%= link_to "Orders", user_orders_path(current_user) , id: "first_nav", method: :get %></li>
-        <li><%= link_to "Shipping", user_shippings_path(current_user), id: "next_nav" %></li>
+        <li><%= link_to "Shipments", user_shippings_path(current_user), id: "next_nav" %></li>
         <li><%= link_to "Documents", documents_user_path(current_user), id: "last_nav" %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
