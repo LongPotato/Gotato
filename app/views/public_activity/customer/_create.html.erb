@@ -4,7 +4,7 @@
   <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
   <p class="activity-text">
   <% if a.trackable %>
-    Added new customer <%= link_to a.trackable.name.try(:titleize), user_customer_path(a.trackable.user, a.trackable.id) %>.
+    Added new customer <%= link_to a.trackable.name.try(:titleize), user_customer_path(current_user, a.trackable.id) %>.
   <% else %>
     Added a customer that is currently deleted.
   <% end %>

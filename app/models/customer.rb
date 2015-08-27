@@ -2,15 +2,15 @@ class Customer < ActiveRecord::Base
   include PublicActivity::Model
   tracked except: :destroy, owner: Proc.new { |controller, model| controller.current_user ? controller.current_user : nil }
 
-  belongs_to :user
+  has_and_belongs_to_many :users
   has_many :orders
   has_many :shipping, through: :orders
 
   before_save { self.name = name.downcase.strip }
 
   #get next available order
-  def next(user_id)
-    order = self.class.where(["id > ? and user_id = ?", id, user_id]).first
+  def next
+    order = self.class.includes(:users).where("id > ?", id).first
     if order
       order
     else
@@ -19,8 +19,8 @@ class Customer < ActiveRecord::Base
   end
 
   #get previous order
-  def prev(user_id)
-    order = self.class.where(["id < ? and user_id = ?", id, user_id]).first
+  def prev
+    order = self.class.includes(:users).where("id < ?", id).first
     if order
       order
     else

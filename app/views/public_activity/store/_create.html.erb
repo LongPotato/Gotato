@@ -4,7 +4,7 @@
   <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
   <p class="activity-text">
   <% if a.trackable %>
-    Added new store <%= link_to a.trackable.name.try(:titleize), user_store_path(a.trackable.user, a.trackable.id) %>.
+    Added new store <%= link_to a.trackable.name.try(:titleize), user_store_path(current_user, a.trackable.id) %>.
   <% else %>
     Added a store that is currently deleted.
   <% end %>

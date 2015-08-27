@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   has_scope :not, :type => :boolean
 
   def index
-    @orders = apply_scopes(current_user.orders).this_month.order(sort_column + " " + sort_direction)
+    @orders = apply_scopes(current_user.orders).this_month.uniq.order(sort_column + " " + sort_direction)
   end
 
   def look_up_range
@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   end
 
   def look_up_order
-    @order = Order.find_by(id: params[:id])
+    @order = current_user.orders.find_by(id: params[:id])
     if @order
       redirect_to user_order_path(current_user, @order)
     else
@@ -54,23 +54,67 @@ class OrdersController < ApplicationController
     cus_name = params[:order][:customer_attributes][:name]
     store_name = params[:order][:store_attributes][:name]
 
-    if customer = current_user.customers.find_by_name(cus_name.downcase)
-      @order.customer_id = customer.id
-    else
-      @order.save
-      @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
+    #Add users to order
+    if current_user.role == "manager"
+      @order.users << current_user
+      @order.users << current_user.seller if current_user.seller.present?
     end
 
-    if store = current_user.stores.find_by_name(store_name.downcase)
-      @order.store_id = store.id
+    #Add users to customers
+    if customer = current_user.customers.find_by_name(cus_name.downcase)
+      @order.customer_id = customer.id
+
+      customer.users << current_user
+
+      if current_user.role == "manager"
+        customer.users << current_user.seller if current_user.seller.present?
+      else
+        customer.users << current_user.manager if current_user.manager.present?
+      end
     else
       @order.save
-      @order.update_attributes(store_attributes: {name: store_name, user_id: current_user.id})
+      @order.update_attributes(customer_attributes: {name: cus_name})
+
+      customer = Customer.find_by_name(cus_name.downcase)
+
+      customer.users << current_user
+
+      if current_user.role == "manager"
+        customer.users << current_user.seller if current_user.seller.present?
+      else
+        customer.users << current_user.manager if current_user.manager.present?
+      end
+    end
+
+    #Add users to stores
+    if store = current_user.stores.find_by_name(store_name.downcase)
+      @order.store_id = store.id
+
+      store.users << current_user
+
+      if current_user.role == "manager"
+        store.users << current_user.seller if current_user.seller.present?
+      else
+        store.users << current_user.manager if current_user.manager.present?
+      end
+    else
+      @order.save
+      @order.update_attributes(store_attributes: {name: store_name})
+
+      store = Store.find_by_name(store_name.downcase)
+
+      store.users << current_user
+
+      if current_user.role == "manager"
+        store.users << current_user.seller if current_user.seller.present?
+      else
+        store.users << current_user.manager if current_user.manager.present?
+      end
     end
 
     #Use setting vnd if user choose it
     if params[:order][:use_user_rate] == "1"
-      @order.vnd = @order.user.setting_vnd
+      @order.vnd = current_user.setting_vnd
     else
       @order.vnd = params[:order][:vnd]
     end
@@ -82,7 +126,7 @@ class OrdersController < ApplicationController
       @order.remain = @order.calculate_remain.round(2)
       if @order.save
         flash[:success] = "Created order ##{@order.id}."
-        redirect_to user_order_path(@order.user, @order)
+        redirect_to user_order_path(params[:order][:user_id], @order)
       else
         render 'new'
       end
@@ -100,17 +144,61 @@ class OrdersController < ApplicationController
     cus_name = params[:order][:customer_attributes][:name]
     store_name = params[:order][:store_attributes][:name]
 
-    if customer = current_user.customers.find_by_name(cus_name.downcase)
-      @order.update_attributes(customer_id: customer.id)
-    else
-      @order.update_attributes(customer_attributes: {name: cus_name, user_id: current_user.id})
+    #Add users to orders
+    if current_user.role == "manager"
+      @order.users << current_user
+      @order.users << current_user.seller if current_user.seller.present?
     end
 
+    #Add users to customers
+    if customer = current_user.customers.find_by_name(cus_name.downcase)
+      @order.update_attributes(customer_id: customer.id)
+
+      customer.users << current_user
+
+      if current_user.role == "manager"
+        customer.users << current_user.seller if current_user.seller.present?
+      else
+        customer.users << current_user.manager if current_user.manager.present?
+      end
+    else
+      @order.update_attributes(customer_attributes: {name: cus_name})
+
+      customer = Customer.find_by_name(cus_name.downcase)
+
+      customer.users << current_user
+
+      if current_user.role == "manager"
+        customer.users << current_user.seller if current_user.seller.present?
+      else
+        customer.users << current_user.manager if current_user.manager.present?
+      end
+    end
+
+    #Add users to stores
     if store = current_user.stores.find_by_name(store_name.downcase)
       @order.store_id = store.id
+
+      store.users << current_user
+
+      if current_user.role == "manager"
+        store.users << current_user.seller if current_user.seller.present?
+      else
+        store.users << current_user.manager if current_user.manager.present?
+      end
     else
       @order.save
-      @order.update_attributes(store_attributes: {name: store_name, user_id: current_user.id})
+      @order.update_attributes(store_attributes: {name: store_name})
+
+      store = Store.find_by_name(store_name.downcase)
+
+      store.users << current_user
+
+      if current_user.role == "manager"
+        store.users << current_user.seller if current_user.seller.present?
+      else
+        store.users << current_user.manager if current_user.manager.present?
+      end
     end
 
     #Use setting vnd if user choose it
@@ -147,7 +235,7 @@ class OrdersController < ApplicationController
       @order.update_attributes(profit: @order.calculate_profit.round(2))
       @order.update_attributes(remain: @order.calculate_remain.round(2))
       flash[:success] = "Edited order ##{@order.id}"
-      redirect_to user_order_path(@order.user, @order)
+      redirect_to user_order_path(params[:order][:user_id], @order)
     else
       render 'edit'
     end
@@ -210,7 +298,7 @@ class OrdersController < ApplicationController
 
     #White list parameters
     def order_params
-      params.require(:order).permit(:user_id, :store, :image_link, :description, :note, :web_order_id,
+      params.require(:order).permit(:store, :image_link, :description, :note, :web_order_id,
                                     :web_price, :tax, :reward, :shipping_us, :shipping_vn, :order_date, :received_us, :ship_vn,
                                     :selling_price, :deposit, :remove_image_link)
     end

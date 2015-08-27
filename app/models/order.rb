@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   mount_uploader :image_link, PictureUploader
 
   belongs_to :shipping
-  belongs_to :user
+  has_and_belongs_to_many :users
   belongs_to :customer
   belongs_to :store
   belongs_to :datum
@@ -21,14 +21,14 @@ class Order < ActiveRecord::Base
   scope :received, -> { where('received_us = ?', true) }
   scope :not, -> { where('received_us != ?', true) }
   
-  validates :user, presence: true
+  #validates :user, presence: true
   validate  :picture_size
 
   before_save :set_default
 
   #get next available order
-  def next(user_id)
-    order = self.class.where(["id > ? and user_id = ?", id, user_id]).first
+  def next
+    order = self.class.includes(:users).where("id > ?", id).first
     if order
       order
     else
@@ -37,8 +37,8 @@ class Order < ActiveRecord::Base
   end
 
   #get previous order
-  def prev(user_id)
-    order = self.class.where(["id < ? and user_id = ?", id, user_id]).first
+  def prev
+    order = self.class.includes(:users).where("id < ?", id).first
     if order
       order
     else

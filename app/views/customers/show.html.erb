@@ -4,10 +4,10 @@
 <nav id="back_next">
   <ul class="pager">
     <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
-                             user_customer_path(current_user, @customer.prev(current_user.id)), class: "order_btn" %>
+                             user_customer_path(current_user, @customer.prev), class: "order_btn" %>
     </li>
     <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
-                         user_customer_path(current_user, @customer.next(current_user.id)), class: "order_btn" %>
+                         user_customer_path(current_user, @customer.next), class: "order_btn" %>
     </li>
   </ul>
 </nav>

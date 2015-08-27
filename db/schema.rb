@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826211313) do
+ActiveRecord::Schema.define(version: 20150827222038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 20150826211313) do
   end
 
   add_index "customers", ["user_id"], name: "index_customers_on_user_id", using: :btree
+
+  create_table "customers_users", id: false, force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "user_id"
+  end
 
   create_table "data", force: :cascade do |t|
     t.decimal  "total_cost"
@@ -92,6 +97,11 @@ ActiveRecord::Schema.define(version: 20150826211313) do
   add_index "orders", ["store_id"], name: "index_orders_on_store_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
+  create_table "orders_users", id: false, force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "user_id"
+  end
+
   create_table "shippings", force: :cascade do |t|
     t.decimal  "price"
     t.date     "ship_date"
@@ -113,6 +123,11 @@ ActiveRecord::Schema.define(version: 20150826211313) do
   end
 
   add_index "stores", ["user_id"], name: "index_stores_on_user_id", using: :btree
+
+  create_table "stores_users", id: false, force: :cascade do |t|
+    t.integer "store_id"
+    t.integer "user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

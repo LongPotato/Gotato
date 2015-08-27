@@ -4,10 +4,10 @@
 <nav id="back_next">
   <ul class="pager">
     <li class="previous"><%= link_to raw('<span aria-hidden="true">&larr;</span> Previous'), 
-                             user_order_path(current_user, @order.prev(current_user.id)), class: "order_btn" %>
+                             user_order_path(current_user, @order.prev), class: "order_btn" %>
     </li>
     <li class="next"><%= link_to raw('Next <span aria-hidden="true">&rarr;</span>'),
-                         user_order_path(current_user, @order.next(current_user.id)), class: "order_btn" %>
+                         user_order_path(current_user, @order.next), class: "order_btn" %>
     </li>
   </ul>
 </nav>
@@ -23,7 +23,9 @@
 
    <p class="p_order"><b>Note:</b><span class="tab-space"><%= @order.note %></p>
 
-   <p class="p_order"><b>Store:</b><span class="tab-space"><%= @order.store.try(:name).try(:titleize) %></p>
+   <p class="p_order"><b>Store:</b><span class="tab-space">
+    <a href="/users/<%= current_user.id %>/stores/<%= @order.store_id %>" target="_blank"><%= @order.store.try(:name).try(:titleize) %></a>
+   </p>
 
    <p class="p_order"><b>Customer:</b><span class="tab-space">
     <a href="/users/<%= current_user.id %>/customers/<%= @order.customer_id %>" target="_blank"><%= @order.customer.try(:name).try(:titleize) %></a>

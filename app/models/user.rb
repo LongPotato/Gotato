@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   has_one :seller, class_name: "User", foreign_key: :manager_id
   belongs_to :manager, class_name: "User", foreign_key: :manager_id
 
+  scope :manager, -> { where('role == ?', 'manager') }
+
   #Callback:
   before_save { self.email = email.downcase }
   before_save { self.setting_vnd = 21000 if self.setting_vnd.nil? }
@@ -20,9 +22,9 @@ class User < ActiveRecord::Base
   ROLES = %w[manager seller]
 
   #Relation:
-  has_many :orders, dependent: :destroy
-  has_many :stores, dependent: :destroy
-  has_many :customers, dependent: :destroy
+  has_and_belongs_to_many :orders
+  has_and_belongs_to_many :stores
+  has_and_belongs_to_many :customers
   has_many :shippings, dependent: :destroy
   has_many :data, dependent: :destroy
 
