@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       get :setting
       get :documents
       post :set_vnd
+      post :remove_seller
+      post :add_seller
+      post :remove_manager
       patch :set_note
     end
     resources :orders do

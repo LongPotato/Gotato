@@ -8,10 +8,11 @@
 
 PublicActivity.enabled = false
 
-Order.delete_all
-Customer.delete_all
-Shipping.delete_all
-Store.delete_all
+User.destroy_all
+Order.destroy_all
+Customer.destroy_all
+Shipping.destroy_all
+Store.destroy_all
 
 name_array = ['thuy duong', 'David The Penis', 'ashey pham', 'vu thuy linh', 'Dog', 'Very long name here', 
               'ho li fuk', 'lul', 'Chuthlu Da Savior', 'sum ting wong', 'le thi b', 'pham hong ngoc', 'nguyen van a', 'For Sale']
@@ -44,13 +45,16 @@ time = [Time.now, 4.weeks.ago, 1.month.ago, 2.months.ago, 6.days.from_now, 4.mon
 
 true_false = [true, false]
 
+@admin_user = User.create(name: "Admin", email: "admin@example.com", password: "123456", role: "manager")
+@seller_user = User.create(name: "Seller", email: "seller@example.com", password: "123456", role: "seller", manager_id: @admin_user.id)
+
 name_array.each do |name|
-  new_customer = Customer.create(name: name, user_id: 1, address: address_list[rand(0..8)], bank: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}")
+  new_customer = Customer.create(name: name, user_id: @admin_user.id, address: address_list[rand(0..8)], bank: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}")
   customer_array << new_customer.id
 end
 
 store_name.each do |name|
-  new_store = Store.create(name: name, user_id: 1, note: note_list[rand(0..8)])
+  new_store = Store.create(name: name, user_id: @admin_user.id, note: note_list[rand(0..8)])
   store_array << new_store.id
 end
 
@@ -69,7 +73,7 @@ end
   order = Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)], 
                order_date: time[rand(0..5)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
                web_price: price, tax: tax, shipping_us: quan, reward: (price * 0.01).round(2), total: total.round(2), total_cost: (total * 2100).round(2),
-               profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: 1, customer_id: customer_array[rand(customer_array.size) - 1],
+               profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, user_id: @admin_user.id, customer_id: customer_array[rand(customer_array.size) - 1],
                store_id: store_array[rand(store_array.size) - 1])
 
 end

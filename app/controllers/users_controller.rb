@@ -84,10 +84,37 @@ class UsersController < ApplicationController
     redirect_to setting_user_path(current_user)
   end
 
+  def remove_seller
+    @user = User.find(params[:id])
+    @user.seller.update_attributes(manager_id: nil)
+    flash[:warning] = "You are no longer sharing data with #{@user.seller.name.titleize}."
+    redirect_to user_path(current_user)
+  end
+
+  def add_seller
+    @user = User.where("email = ? AND role = ?", params[:email], "seller").first
+    if @user
+      @user.update_attributes(manager_id: params[:id])
+      flash[:success] = "You are now sharing data with your seller: #{@user.name.capitalize}."
+      redirect_to user_path(current_user)
+    else
+      flash[:danger] = "Seller email not found."
+      redirect_to user_path(current_user)
+    end
+  end
+
+  def remove_manager
+    @user = User.find(params[:id])
+    manager = @user.manager
+    @user.update_attributes(manager_id: nil)
+    flash[:warning] = "You are no longer sharing data with #{manager.name.titleize}."
+    redirect_to user_path(current_user)
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :setting_vnd)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :setting_vnd, :role)
     end
 
     # Confirms the correct user.

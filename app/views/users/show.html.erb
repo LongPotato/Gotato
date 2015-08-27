@@ -19,6 +19,51 @@
 
   <p class="p_account"><b>Name:</b>  <%= @user.name %></p>
   <p class="p_account"><b>Email:</b> <%= @user.email %></p>
+  <p class="p_account"><b>Account type:</b> <%= @user.role.capitalize %></p>
+
+<legend class="field"></legend>
+<% if current_user.role == "manager" %>
+
+  <% unless current_user.seller.nil? %>
+    <p class="p_account"><b>Associate seller:</b> <%= @user.seller.name.titleize %>
+      <%= link_to remove_seller_user_path(current_user), method: :post, class: "expand" do %>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      <% end %>
+    </p>
+  <% else %>
+  <p style="font-size: 16px;">You have no associate seller.</p>
+  <div class="row">
+    <div class="col-md-4">
+    <form accept-charset="UTF-8" action="<%= add_seller_user_path(current_user) %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <label>Enter seller email:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" name="email"/>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default">Link</button>
+        </span>
+      </div>
+    </form>
+    </div>
+  </div>
+  <% end %>
+
+<% else %>
+
+  <% unless current_user.manager.nil? %>
+    <p class="p_account"><b>Associate manager:</b> <%= @user.manager.name.titleize %>
+      <%= link_to remove_manager_user_path(current_user), method: :post, class: "expand" do %>
+        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      <% end %>
+    </p>
+  <% else %>
+    <p style="font-size: 16px;">You have no associate manager.</p>
+  <% end %>
+
+<% end %>
+<legend class="field"></legend>
+
+
   <button type="button" class="btn btn-default verticle-space">
   <i class="fa fa-lock"></i> <%= link_to "Change my password", account_password_user_path, class: "sort-header" %>
   </button><br>

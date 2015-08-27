@@ -10,9 +10,14 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_secure_password
 
+  has_one :seller, class_name: "User", foreign_key: :manager_id
+  belongs_to :manager, class_name: "User", foreign_key: :manager_id
+
   #Callback:
   before_save { self.email = email.downcase }
   before_save { self.setting_vnd = 21000 if self.setting_vnd.nil? }
+
+  ROLES = %w[manager seller]
 
   #Relation:
   has_many :orders, dependent: :destroy
