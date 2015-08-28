@@ -86,6 +86,7 @@ class UsersController < ApplicationController
 
   def remove_seller
     @user = User.find(params[:id])
+
     @user.seller.update_attributes(manager_id: nil)
     flash[:warning] = "You are no longer sharing data with #{@user.seller.name.titleize}."
     redirect_to user_path(current_user)

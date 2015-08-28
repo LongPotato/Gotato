@@ -65,12 +65,16 @@ class ReportsController < ApplicationController
       @report.total_selling = selling
       @report.revenue = (selling - total_cost).round(2)
       @report.order_sold = count
-      @report.users << current_user
+      @report.users << current_user unless @report.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        @report.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          @report.users << current_user.seller unless @report.users.find_by_id(current_user.seller.id)
+        end
       else
-        @report.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          @report.users << current_user.manager unless @report.users.find_by_id(current_user.manager.id)
+        end
       end
 
       @report.save

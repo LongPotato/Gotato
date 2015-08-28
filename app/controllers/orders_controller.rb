@@ -54,25 +54,33 @@ class OrdersController < ApplicationController
     cus_name = params[:order][:customer_attributes][:name]
     store_name = params[:order][:store_attributes][:name]
 
-    @order.users << current_user
+    @order.users << current_user unless @order.users.find_by_id(current_user.id)
 
     #Add users to order
     if current_user.role == "manager"
-      @order.users << current_user.seller if current_user.seller.present?
+      if current_user.seller.present?
+        @order.users << current_user.seller unless @order.users.find_by_id(current_user.seller.id)
+      end
     else
-      @order.users << current_user.manager if current_user.manager.present?
+      if current_user.manager.present?
+        @order.users << current_user.manager unless @order.users.find_by_id(current_user.manager.id)
+      end
     end
 
     #Add users to customers
     if customer = current_user.customers.find_by_name(cus_name.downcase)
       @order.customer_id = customer.id
 
-      customer.users << current_user
+      customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        customer.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+        end
       else
-        customer.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+        end
       end
     else
       @order.save
@@ -80,12 +88,16 @@ class OrdersController < ApplicationController
 
       customer = Customer.find_by_name(cus_name.downcase)
 
-      customer.users << current_user
+      customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        customer.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+        end
       else
-        customer.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+        end
       end
     end
 
@@ -93,12 +105,16 @@ class OrdersController < ApplicationController
     if store = current_user.stores.find_by_name(store_name.downcase)
       @order.store_id = store.id
 
-      store.users << current_user
+      store.users << current_user unless store.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        store.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+        end
       else
-        store.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+        end
       end
     else
       @order.save
@@ -106,12 +122,16 @@ class OrdersController < ApplicationController
 
       store = Store.find_by_name(store_name.downcase)
 
-      store.users << current_user
+      store.users << current_user unless store.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        store.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+        end
       else
-        store.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+        end
       end
     end
 
@@ -148,37 +168,49 @@ class OrdersController < ApplicationController
     store_name = params[:order][:store_attributes][:name]
 
 
-    @order.users << current_user
+    @order.users << current_user unless @order.users.find_by_id(current_user.id)
 
     #Add users to order
     if current_user.role == "manager"
-      @order.users << current_user.seller if current_user.seller.present?
+      if current_user.seller.present?
+        @order.users << current_user.seller unless @order.users.find_by_id(current_user.seller.id)
+      end
     else
-      @order.users << current_user.manager if current_user.manager.present?
+      if current_user.manager.present?
+        @order.users << current_user.manager unless @order.users.find_by_id(current_user.manager.id)
+      end
     end
 
     #Add users to customers
     if customer = current_user.customers.find_by_name(cus_name.downcase)
       @order.update_attributes(customer_id: customer.id)
 
-      customer.users << current_user
+      customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        customer.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+        end
       else
-        customer.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+        end
       end
     else
       @order.update_attributes(customer_attributes: {name: cus_name})
 
       customer = Customer.find_by_name(cus_name.downcase)
 
-      customer.users << current_user
+      customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        customer.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+        end
       else
-        customer.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+        end
       end
     end
 
@@ -186,12 +218,16 @@ class OrdersController < ApplicationController
     if store = current_user.stores.find_by_name(store_name.downcase)
       @order.store_id = store.id
 
-      store.users << current_user
+      store.users << current_user unless store.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        store.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+        end
       else
-        store.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+        end
       end
     else
       @order.save
@@ -199,12 +235,16 @@ class OrdersController < ApplicationController
 
       store = Store.find_by_name(store_name.downcase)
 
-      store.users << current_user
+      store.users << current_user unless store.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        store.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+        end
       else
-        store.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+        end
       end
     end
 

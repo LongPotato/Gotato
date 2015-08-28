@@ -14,13 +14,17 @@ class ShippingsController < ApplicationController
   def create
     @shipment = Shipping.new(shipment_params)
     @shipment.order_fields = params[:shipping][:order_fields]
-    @shipment.users << current_user
+    @shipment.users << current_user unless @shipment.users.find_by_id(current_user.id)
     @order_ids = params[:shipping][:order_fields].gsub(/\s+/, "").split(',')
 
     if current_user.role == "manager"
-      @shipment.users << current_user.seller if current_user.seller.present?
+      if current_user.seller.present?
+        @shipment.users << current_user.seller unless @shipment.users.find_by_id(current_user.seller.id)
+      end
     else
-      @shipment.users << current_user.manager if current_user.manager.present?
+      if current_user.manager.present?
+        @shipment.users << current_user.manager unless @shipment.users.find_by_id(current_user.manager.id)
+      end
     end
 
     if @shipment.save
@@ -63,13 +67,17 @@ class ShippingsController < ApplicationController
 
   def update
     @shipment = Shipping.find(params[:id])
-    @shipment.users << current_user
+    @shipment.users << current_user unless @shipment.users.find_by_id(current_user.id)
     @order_ids = params[:shipping][:order_fields].gsub(/\s+/, "").split(',')
 
     if current_user.role == "manager"
-      @shipment.users << current_user.seller if current_user.seller.present?
+      if current_user.seller.present?
+        @shipment.users << current_user.seller unless @shipment.users.find_by_id(current_user.seller.id)
+      end
     else
-      @shipment.users << current_user.manager if current_user.manager.present?
+      if current_user.manager.present?
+        @shipment.users << current_user.manager unless @shipment.users.find_by_id(current_user.manager.id)
+      end
     end
 
     if @shipment.update_attributes(shipment_params)
@@ -134,12 +142,16 @@ class ShippingsController < ApplicationController
     @shipment = Shipping.new(shipment_params)
     if params[:order_ids]
       @orders = params[:order_ids]
-      @shipment.users << current_user
+      @shipment.users << current_user unless @shipment.users.find_by_id(current_user.id)
 
       if current_user.role == "manager"
-        @shipment.users << current_user.seller if current_user.seller.present?
+        if current_user.seller.present?
+          @shipment.users << current_user.seller unless @shipment.users.find_by_id(current_user.seller.id)
+        end
       else
-        @shipment.users << current_user.manager if current_user.manager.present?
+        if current_user.manager.present?
+          @shipment.users << current_user.manager unless @shipment.users.find_by_id(current_user.manager.id)
+        end
       end
 
       @shipment.order_fields = @orders.join(',')
