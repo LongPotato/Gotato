@@ -241,6 +241,8 @@ class OrdersController < ApplicationController
       @order.update_attributes(total_cost: @order.calculate_total_cost.round(2))
       @order.update_attributes(profit: @order.calculate_profit.round(2))
       @order.update_attributes(remain: @order.calculate_remain.round(2))
+
+      @order.create_activity :update, owner: current_user
       flash[:success] = "Edited order ##{@order.id}"
       redirect_to user_order_path(params[:order][:user_id], @order)
     else

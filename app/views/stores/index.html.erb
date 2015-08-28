@@ -39,7 +39,7 @@
         <td><%= store.note %></td>
 
         <td><%= store.orders.count %></td>
-        <td><%= link_to "View detail", user_store_path(current_user, store.id), target: "_blank" %></td>
+        <td><%= link_to "View detail", user_store_path(current_user, store.id) %></td>
       </tr>
     <% end %>
     </tbody>

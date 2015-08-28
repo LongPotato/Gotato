@@ -68,7 +68,7 @@
           <% end %>
 
         <td><%= customer.orders.count %></td>
-        <td><%= link_to "View detail", user_customer_path(current_user, customer.id), target: "_blank" %></td>
+        <td><%= link_to "View detail", user_customer_path(current_user, customer.id) %></td>
       </tr>
     <% end %>
     </tbody>
