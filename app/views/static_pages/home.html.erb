@@ -74,15 +74,21 @@
     </div>
   </div>
 
-  <div class="recent">
-    <legend class="field">Recent activities</legend>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <%= render_activities @activities %>
+  <% if current_user.role == "seller" && current_user.manager.nil? %>
+    <div class="recent">
+      <legend class="field"></legend>
     </div>
-  </div>
+  <% else %>
+    <div class="recent">
+      <legend class="field">Recent activities</legend>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+          <%= render_activities @activities %>
+      </div>
+    </div>
+  <% end %>
 
   <%= render 'note_modal' %>
 

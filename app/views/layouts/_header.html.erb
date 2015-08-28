@@ -22,7 +22,9 @@
             <li><%= link_to "Setting", setting_user_path(current_user) %></li>
             <li class="divider"></li>
             <li>
-              <%= link_to "Log out", logout_path, method: "delete" %>
+              <%= link_to logout_path, method: "delete" do %>
+                <i class="fa fa-sign-out"></i> Log out
+              <% end %>
             </li>
           </ul>
         </li>
