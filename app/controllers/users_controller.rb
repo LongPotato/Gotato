@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in(@user)
-      flash[:success] = "Thank you for signing up, #{@user.name}."
+      flash[:info] = "Thank you for signing up, #{@user.name}."
       redirect_to root_path
     else
       render 'new'
@@ -87,6 +87,27 @@ class UsersController < ApplicationController
   def remove_seller
     @user = User.find(params[:id])
 
+    #Remove seller from all resources
+    @user.orders.each do |order|
+      order.users.delete(@user.seller)
+    end
+
+    @user.customers.each do |customer|
+      customer.users.delete(@user.seller)
+    end
+
+    @user.stores.each do |store|
+      store.users.delete(@user.seller)
+    end
+
+    @user.data.each do |datum|
+      datum.users.delete(@user.seller)
+    end
+
+    @user.shippings.each do |shipping|
+      shipping.users.delete(@user.seller)
+    end
+
     @user.seller.update_attributes(manager_id: nil)
     flash[:warning] = "You are no longer sharing data with #{@user.seller.name.titleize}."
     redirect_to user_path(current_user)
@@ -96,6 +117,28 @@ class UsersController < ApplicationController
     @user = User.where("email = ? AND role = ?", params[:email], "seller").first
     if @user
       @user.update_attributes(manager_id: params[:id])
+      
+      #Add seller to all resources
+      current_user.orders.each do |order|
+        order.users << current_user.seller
+      end
+
+      current_user.customers.each do |customer|
+        customer.users << current_user.seller
+      end
+
+      current_user.stores.each do |store|
+        store.users << current_user.seller
+      end
+
+      current_user.data.each do |datum|
+        datum.users << current_user.seller
+      end
+
+      current_user.shippings.each do |shipping|
+        shipping.users << current_user.seller
+      end
+
       flash[:success] = "You are now sharing data with your seller: #{@user.name.capitalize}."
       redirect_to user_path(current_user)
     else
@@ -107,6 +150,28 @@ class UsersController < ApplicationController
   def remove_manager
     @user = User.find(params[:id])
     manager = @user.manager
+
+    #Remove self from all resources
+    @user.orders.each do |order|
+      order.users.delete(@user)
+    end
+
+    @user.customers.each do |customer|
+      customer.users.delete(@user)
+    end
+
+    @user.stores.each do |store|
+      store.users.delete(@user)
+    end
+
+    @user.data.each do |datum|
+      datum.users.delete(@user)
+    end
+
+    @user.shippings.each do |shipping|
+      shipping.users.delete(@user)
+    end
+
     @user.update_attributes(manager_id: nil)
     flash[:warning] = "You are no longer sharing data with #{manager.name.titleize}."
     redirect_to user_path(current_user)
