@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
   end
 
   def monthly_index
-    @reports = current_user.data.order("month_record desc")
+    @reports = current_user.data.order("month_record desc").uniq
   end
 
   def show_year
@@ -65,7 +65,13 @@ class ReportsController < ApplicationController
       @report.total_selling = selling
       @report.revenue = (selling - total_cost).round(2)
       @report.order_sold = count
-      @report.user_id = current_user.id
+      @report.users << current_user
+
+      if current_user.role == "manager"
+        @report.users << current_user.seller if current_user.seller.present?
+      else
+        @report.users << current_user.manager if current_user.manager.present?
+      end
 
       @report.save
 

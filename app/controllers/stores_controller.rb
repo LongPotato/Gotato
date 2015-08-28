@@ -3,7 +3,7 @@ class StoresController < ApplicationController
   before_action :correct_user
 
   def index
-    @stores = current_user.stores.search(params[:search]).order("name asc")
+    @stores = current_user.stores.search(params[:search]).uniq.order("name asc")
   end
 
   def show

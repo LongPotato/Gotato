@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       @@time = params[:time].split(' - ')
       @from = @@time.first
       @to = @@time.second
-      all_orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).order(sort_column + " " + sort_direction)
+      all_orders = current_user.orders.where("order_date BETWEEN ? AND ?", @from, @to).uniq.order(sort_column + " " + sort_direction)
 
       @orders = apply_scopes(all_orders).order(sort_column + " " + sort_direction)
     else
@@ -54,10 +54,13 @@ class OrdersController < ApplicationController
     cus_name = params[:order][:customer_attributes][:name]
     store_name = params[:order][:store_attributes][:name]
 
+    @order.users << current_user
+
     #Add users to order
     if current_user.role == "manager"
-      @order.users << current_user
       @order.users << current_user.seller if current_user.seller.present?
+    else
+      @order.users << current_user.manager if current_user.manager.present?
     end
 
     #Add users to customers
@@ -144,10 +147,14 @@ class OrdersController < ApplicationController
     cus_name = params[:order][:customer_attributes][:name]
     store_name = params[:order][:store_attributes][:name]
 
-    #Add users to orders
+
+    @order.users << current_user
+
+    #Add users to order
     if current_user.role == "manager"
-      @order.users << current_user
       @order.users << current_user.seller if current_user.seller.present?
+    else
+      @order.users << current_user.manager if current_user.manager.present?
     end
 
     #Add users to customers

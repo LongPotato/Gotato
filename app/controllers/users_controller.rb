@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def all
-    @orders = apply_scopes(current_user.orders).order(sort_column + " " + sort_direction)
+    @orders = apply_scopes(current_user.orders).order(sort_column + " " + sort_direction).uniq
 
     respond_to do |format|
       format.html
