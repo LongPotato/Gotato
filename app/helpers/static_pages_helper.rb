@@ -18,4 +18,12 @@ module StaticPagesHelper
     end
   end
 
+  def display_name(name)
+    if current_user.name == name
+      "You"
+    else
+      name
+    end
+  end
+
 end

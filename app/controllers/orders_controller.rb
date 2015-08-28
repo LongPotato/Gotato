@@ -267,7 +267,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    @order.datum.subtract_deleted_order
+    #@order.datum.subtract_deleted_order
     @order.destroy
     flash[:danger] = "Deleted order ##{order_id}."
     redirect_back_or(user_orders_path(current_user), url[:controller], url[:action])

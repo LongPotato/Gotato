@@ -1,7 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-body">
+
   <span class="glyphicon glyphicon-plus text-muted">
-  <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
+  <%= display_name(a.owner.name) %> <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
+
   <p class="activity-text">
   <% if a.trackable %>
     Created order #<%= link_to a.trackable.id, user_order_path(current_user, a.trackable.id) %> for customer <%= link_to a.trackable.customer.name.try(:titleize), user_customer_path(current_user, a.trackable.customer_id) %>.

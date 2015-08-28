@@ -2,7 +2,14 @@ class StaticPagesController < ApplicationController
 
   def home
     if current_user
-      @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: current_user.id).limit(5).uniq
+      array_id = []
+      array_id << current_user.id
+      if current_user.role == "manager"
+        array_id << current_user.seller.id if current_user.seller.present?
+      else
+        array_id << current_user.manager.id if current_user.manager.present?
+      end
+      @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: array_id).limit(5).uniq
       @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
       @user = current_user
       unless @this_month.nil?
