@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
   end
 
   def show_year
-    @this_year = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year).order("month_record desc")
+    @this_year = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year).uniq.order("month_record desc")
     @shipment = current_user.shippings.where("ship_date BETWEEN ? AND ?", Time.now.beginning_of_year, Time.now.end_of_year).uniq
     unless @this_year.nil?
       @reports = @this_year
