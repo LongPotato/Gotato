@@ -9,7 +9,7 @@
         <div class="panel-body">
           <% unless current_user.role == "seller" && current_user.manager.nil? %>
             <%= render_activities @activities %>
-            <%= link_to "View complete log", user_report_path(current_user), method: :post %>
+            <%= link_to "View activity log", user_report_path(current_user), method: :post %>
           <% else %>
             <p class="text-center text-muted lead">You have no activity</p>
           <% end %>
@@ -150,7 +150,7 @@
             <% end %>
           <% else %>
             <% if current_user.manager.present? %>
-              <p>Seller: <%= current_user.manager.name.titleize %></p>
+              <p>Manager: <%= current_user.manager.name.titleize %></p>
             <% else %>
               <p>No manager</p>
             <% end %>
