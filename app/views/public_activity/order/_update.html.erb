@@ -1,15 +1,13 @@
-<div class="panel panel-default">
-  <div class="panel-body">
+<span class="glyphicon glyphicon-copy text-muted">
+  <%= display_name(a.owner.name) %> <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %>
+</span>
 
-  <span class="glyphicon glyphicon-copy text-muted">
-  <%= display_name(a.owner.name) %> <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
-
-  <p class="activity-text">
+<p class="activity-text">
   <% if a.trackable %>
     Updated order #<%= link_to a.trackable.id, user_order_path(current_user, a.trackable.id) %>.
   <% else %>
     Updated an order that is currently deleted.
   <% end %>
-  </p>
- </div>
-</div>
+</p>
+
+<legend></legend>

@@ -1,15 +1,13 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-    
-  <span class="glyphicon glyphicon-user text-muted">
-  <%= display_name(a.owner.name) %> <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %></span>
+<span class="glyphicon glyphicon-user text-muted">
+  <%= display_name(a.owner.name) %> <%= a.created_at.strftime('%H:%M:%S %m/%d/%Y') %>
+</span>
 
-  <p class="activity-text">
+<p class="activity-text">
   <% if a.trackable %>
     Added new customer <%= link_to a.trackable.name.try(:titleize), user_customer_path(current_user, a.trackable.id) %>.
   <% else %>
     Added a customer that is currently deleted.
   <% end %>
-  </p>
- </div>
-</div>
+</p>
+
+<legend></legend>

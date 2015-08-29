@@ -9,13 +9,17 @@ class StaticPagesController < ApplicationController
       else
         array_id << current_user.manager.id if current_user.manager.present?
       end
-      @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: array_id).limit(5).uniq
+      @activities = PublicActivity::Activity.order("created_at desc").where(owner_id: array_id).limit(10).uniq
       @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
       @user = current_user
       unless @this_month.nil?
         completed = @this_month.orders.where.not("ship_vn" => nil).received.count
         total = @this_month.order_sold
         received = @this_month.orders.where("ship_vn" => nil).received.count
+
+        @completed_display = completed
+        @pending_display = received
+        @remaining_display = total - completed - received
 
         @completed = ((completed.to_f / total) * 100)
         @received = ((received.to_f / total) * 100)
