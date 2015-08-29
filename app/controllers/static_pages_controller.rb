@@ -17,6 +17,7 @@ class StaticPagesController < ApplicationController
         total = @this_month.order_sold
         received = @this_month.orders.where("ship_vn" => nil).received.count
 
+        @total_display = total
         @completed_display = completed
         @pending_display = received
         @remaining_display = total - completed - received
