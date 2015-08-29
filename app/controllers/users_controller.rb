@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   has_scope :placed, :type => :boolean
   has_scope :received, :type => :boolean
   has_scope :not, :type => :boolean
+  has_scope :remaining, :type => :boolean
 
   def new
     @user = User.new

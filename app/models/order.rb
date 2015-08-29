@@ -20,6 +20,7 @@ class Order < ActiveRecord::Base
   scope :three_months, -> { where("order_date BETWEEN ? AND ?", 3.months.ago.beginning_of_month, Time.now.beginning_of_month) }
   scope :received, -> { where('received_us = ?', true) }
   scope :not, -> { where('received_us != ?', true) }
+  scope :remaining, -> { where('shipping_id' => nil) }
   
   #validates :user, presence: true
   validate  :picture_size

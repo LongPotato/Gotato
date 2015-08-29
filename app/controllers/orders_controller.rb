@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   has_scope :placed, :type => :boolean
   has_scope :received, :type => :boolean
   has_scope :not, :type => :boolean
+  has_scope :remaining, :type => :boolean
 
   def index
     @orders = apply_scopes(current_user.orders).this_month.uniq.order(sort_column + " " + sort_direction)

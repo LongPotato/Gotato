@@ -12,7 +12,9 @@
      <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li><%= link_to "Clear all", params.merge(:sale => nil, :placed => nil, :received => nil, :not => nil, :authenticity_token => nil), method: :get %></li>
+    <li><%= link_to "Clear all", params.merge(:remaining => nil, :sale => nil, :placed => nil, :received => nil, :not => nil, :authenticity_token => nil), method: :get %></li>
+    <li class="divider"></li>
+    <li class="<%= 'active' if params[:remaining] %>"><%= link_to "In Progress", params.merge(:remaining => true, :authenticity_token => nil), method: :get %></li>
     <li class="divider"></li>
     <li class="<%= 'active' if params[:sale] %>"><%= link_to "For Sale", params.merge(:sale => true, :authenticity_token => nil), method: :get %></li>
     <li class="<%= 'active' if params[:placed] %>"><%= link_to "Ordered", params.merge(:placed => true, :authenticity_token => nil), method: :get  %></li>
