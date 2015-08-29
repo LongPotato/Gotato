@@ -18,10 +18,14 @@
      <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li class="disabled"><%= link_to "This month", ""%></li>
-    <li>
+    <li><%= link_to "This month", user_shippings_path(current_user) %></li>
+    <li class = "
+          <%= if params[:time] == "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"
+            'disabled'
+          end %>"
+    >
       <%= link_to "Last 3 months",
-      lookup_range_user_shippings_path(current_user, :time => "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"), method: :get %>
+      user_range_orders_path(current_user, :time => "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"), method: :get %>
     </li>
     <li class="divider"></li>
     <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#timeModal"} %></li>
@@ -31,10 +35,20 @@
   </ul>
   </div>
 
-  <h5 class="text-muted pull-right">This month's shipments</h5>
+  <% unless @shipment.try(:empty?) %>
+  <h5 class="text-muted pull-right">Showing shipments from <%= @from.try(:to_date).try(:strftime, "%m/%d/%y") %> to <%= @to.try(:to_date).try(:strftime, "%m/%d/%y") %></h5>
+  <% end %>
 </div>
 
-<%= render 'shipping_table' %>
+
+<% if @shipments.try(:empty?) %>
+  <div class="row" style="margin-top: 70px;">
+    <p class="lead text-muted text-center" style="font-size: 30px;">No records found</p>
+  </div>
+<% else %>
+  <%= render 'shipping_table' %>
+<% end %>
+
 
 <!-- Modal -->
 <%= render 'time_modal' %>

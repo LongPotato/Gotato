@@ -41,6 +41,9 @@ Rails.application.routes.draw do
       collection do
         get :quick_add
         post :update_quick_add
+        get :lookup_range
+        get :lookup_shipment
+        get :all
       end
     end
     resources :customers

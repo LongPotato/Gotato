@@ -40,6 +40,8 @@ module OrdersHelper
   def redirect_back_or(default, controller, action)
     if controller == "orders" && action == "show"
       redirect_to(default)  #Return to default views when delete from a show action
+    elsif controller == "shippings" && action == "show"
+      redirect_to(default)
     else
       redirect_to(session[:saved_url] || default)
     end

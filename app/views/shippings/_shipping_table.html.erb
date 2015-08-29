@@ -1,0 +1,44 @@
+<div class="nowrap">
+<div class="full-width-div">
+<table class="table table-bordered table-hover table-align">
+    <thead>
+    <tr class="active">
+      <th width ="100"><%= sortable("id", "Ship ID") %> <%= arrow "id" %></th>
+      <th width ="200">Shipped to VN</th>
+      <th width ="300">Note</th>
+      <th width ="150">Number of Orders</th>
+      <th width ="200">Total Price</th>
+      <th width ="200">Price per Order</th>
+      <th width ="100">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @shipments.each do |shipment| %>
+      <tr>
+        <td><b><a href="<%=  user_shipping_path(current_user, shipment.id) %>" class="customer" target="_blank"><%= shipment.id %></a></b></td>
+        <td><%= shipment.ship_date.try(:strftime, "%B %d, %Y") %></td>
+        <td><%= shipment.description %></td>
+        <td><%= shipment.orders.count %></td>
+        <td>$ <%= shipment.price.to_f %></td>
+        <td>$ <%= shipment.orders.first.shipping_vn.to_f %></td>
+        <td>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><%= link_to "Edit", edit_user_shipping_path(current_user, shipment.id) %></li>
+              <li><%= link_to "Detail", user_shipping_path(current_user, shipment.id), method: :get %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Delete", user_shipping_path(current_user, shipment.id), method: :delete, data: { confirm: 'Delete this shipment will also reset all of its orders values.' }  %></li>
+            </ul>
+          </div>
+          </td>
+      </tr>
+    <% end %>
+    </tbody>
+</table>
+</div>
+</div>

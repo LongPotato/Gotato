@@ -3,7 +3,32 @@ class ShippingsController < ApplicationController
   before_action :correct_user
 
   def index
+    @shipments = current_user.shippings.this_month.uniq.order(sort_column + " " + sort_direction)
+  end
+
+  def lookup_range
+    if params[:time].present?
+      @@time = params[:time].split(' - ')
+      @from = @@time.first
+      @to = @@time.second
+      @shipments = current_user.shippings.where("ship_date BETWEEN ? AND ?", @from, @to).uniq.order(sort_column + " " + sort_direction)
+    else
+      @shipments = []
+    end
+  end
+
+  def all
     @shipments = current_user.shippings.order(sort_column + " " + sort_direction).uniq
+  end
+
+  def lookup_shipment
+    @shipment = current_user.shippings.find_by(id: params[:id])
+    if @shipment
+      redirect_to user_shipping_path(current_user, @shipment)
+    else
+      flash[:danger] = "Shipment ##{params[:id]} not found"
+      redirect_to user_shippings_path(current_user)
+    end
   end
 
   def new
@@ -122,6 +147,9 @@ class ShippingsController < ApplicationController
   end
 
   def destroy
+    url = Rails.application.routes.recognize_path(request.referrer)  #Convert the previous url into a hash of controller and action
+    store_location
+
     ship_id = params[:id]
     orders = Order.where(shipping_id: ship_id)
     orders.each do |order|
@@ -131,7 +159,7 @@ class ShippingsController < ApplicationController
     end
     Shipping.find(ship_id).destroy
     flash[:danger] = "Deleted shipment ##{params[:id]}."
-    redirect_to user_shippings_path(current_user)
+    redirect_back_or(user_shippings_path(current_user), url[:controller], url[:action])
   end
 
   def quick_add

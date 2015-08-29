@@ -18,7 +18,7 @@
      <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
-    <li class="disabled"><%= link_to "This month", ""%></li>
+    <li><%= link_to "This month", user_shippings_path(current_user)%></li>
     <li>
       <%= link_to "Last 3 months",
       lookup_range_user_shippings_path(current_user, :time => "#{3.months.ago.beginning_of_month.strftime('%Y-%m-%d')} - #{Time.now.beginning_of_month.strftime('%Y-%m-%d')}"), method: :get %>
@@ -27,11 +27,11 @@
     <li><%= link_to "Specific time", "", {'data-toggle' => "modal", 'data-target' => "#timeModal"} %></li>
     <li><%= link_to "Specific shipment", "", {'data-toggle' => "modal", 'data-target' => "#shipmentModal"} %></li>
     <li class="divider"></li>
-    <li><%= link_to "All shipments", all_user_shippings_path(current_user) %></li> 
+    <li class="disabled"><%= link_to "All shipments", all_user_shippings_path(current_user)  %></li> 
   </ul>
   </div>
 
-  <h5 class="text-muted pull-right">This month's shipments</h5>
+  <h5 class="text-muted pull-right">All shipments</h5>
 </div>
 
 <%= render 'shipping_table' %>
