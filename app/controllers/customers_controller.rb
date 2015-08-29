@@ -8,7 +8,7 @@ class CustomersController < ApplicationController
 
   def show
     @customer = current_user.customers.find(params[:id])
-    @orders = @customer.orders.order(sort_column + " " + sort_direction)
+    @orders = @customer.orders.order("id desc").last(8)
   end
 
   def edit

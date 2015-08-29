@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       patch :set_received
       collection do
         get :look_up_order
+        get :show_table
       end
     end
     resources :shippings do
@@ -50,7 +51,6 @@ Rails.application.routes.draw do
     resources :stores
     resources :data, :only => [:show]
     get 'range_orders' => 'orders#look_up_range'
-    get 'timeline' => 'orders#look_up_range'
     get 'report' => 'reports#show_report'
     post 'report' => 'reports#generate_report'
     get 'year' => 'reports#show_year'

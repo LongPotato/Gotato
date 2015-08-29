@@ -7,6 +7,7 @@
     <%= bootstrap_form_for(:password_reset, url: password_resets_path) do |f| %>
       <%= f.email_field :email %>
       <%= f.submit "Send reset link", class: "btn btn-primary" %>
+      <%= link_to "Cancel", :back, class: "btn btn-default", style: "margin-left: 5px;" %>
     <% end %>
   </div>
 </div>

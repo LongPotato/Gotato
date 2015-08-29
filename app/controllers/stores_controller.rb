@@ -8,7 +8,7 @@ class StoresController < ApplicationController
 
   def show
     @store = current_user.stores.find(params[:id])
-    @orders = @store.orders.order(sort_column + " " + sort_direction)
+    @orders = @store.orders.order("id desc").last(8)
   end
 
   def edit

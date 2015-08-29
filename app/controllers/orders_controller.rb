@@ -35,8 +35,19 @@ class OrdersController < ApplicationController
     end
   end
 
-  def show_timeline
-    @orders = @orders_timeline
+  def show_table
+    if params[:all]
+      @customer = current_user.customers.find(params[:customer_id])
+      @orders = @customer.orders.order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 15)
+    elsif params[:report]
+      @report = current_user.data.find(params[:report_id])
+      @orders = @report.orders.order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 15)
+    elsif params[:store]
+      @store = current_user.stores.find(params[:store_id])
+      @orders = @store.orders.order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 15)
+    else
+      @orders = current_user.orders.all
+    end
   end
 
   def show

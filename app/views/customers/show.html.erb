@@ -40,13 +40,17 @@
 
    <p class="p_order"><b>Member since:</b><span class="tab-space"><%= @customer.created_at.try(:strftime, "%B %d, %Y") %></p>
 
-   <legend class="field">Order history:</legend>
+   <legend class="field">Recent orders:</legend>
 
   </div>
 
   <%= render 'orders/order_table' %>
 
   <div class="col-md-6 col-md-offset-3">
+
+  <% if @customer.orders.count > 8 %>
+    <div class="text-center" style="font-size: 18px;"><%= link_to "View all orders >>", show_table_user_orders_path(current_user, :all => true, :customer_id => @customer.id), target: "_blank" %></div>
+  <% end %>
 
   <legend class="field"></legend>
 

@@ -1,0 +1,5 @@
+<%= provide(:title, 'Orders') %>
+
+<%= render 'order_table' %>
+
+<%= will_paginate @orders, renderer: BootstrapPagination::Rails %>

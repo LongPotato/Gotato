@@ -23,6 +23,7 @@ gem 'fog',                     '1.23.0'
 gem 'bootstrap-datepicker-rails'
 gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'
+gem 'will_paginate-bootstrap'
 gem "chartkick"
 
 gem 'goog_currency'
