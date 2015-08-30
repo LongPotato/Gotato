@@ -73,12 +73,33 @@
   <% else %>
     <legend></legend>
     <p style="font-size: 18px;">Your search did not match any records.</p>
-    <p style="font-size: 18px;">You can search for:</p>
+    <p style="font-size: 18px;">You can search with:</p>
     <ul style="font-size: 16px;">
       <li>Order & shipment ID.</li>
+      <li>Order's web order number.</li>
       <li>Order's description.</li>
       <li>Customer's & store's name.</li>
     </ul>
+
+    <p style="font-size: 18px;">You can do a quick navigation to the corresponding page by typing in these keywords:</p>
+    <ul class="list-inline" style="font-size: 16px;">
+      <li>new</li>
+      <li>order</li>
+      <li>quick</li>
+      <li>shipment</li>
+      <li>customer</li>
+      <li>store</li>
+      <li>report</li>
+      <li>activity</li>
+      <li>account</li>
+      <li>setting</li>
+    </ul>
+
+    <legend class="field"></legend>
+
+    <em>Enter pure number will make Gotato looks for order & shipment ID. To escape ID search, prepend your search term with the '%' sign.</em><br>
+    <em>Escape quick nagivation by also prepending your search term with the '%' sign.</em><br>
+    <em>For web order number prepend your search term with the '#' sign.</em>
   <% end %>
 
 </div>

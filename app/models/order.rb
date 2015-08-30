@@ -27,6 +27,7 @@ class Order < ActiveRecord::Base
 
   before_save :set_default
   before_save { self.description = description.downcase.strip }
+  before_save { self.web_order_id = web_order_id.strip }
 
   #get next available order
   def next

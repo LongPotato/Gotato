@@ -73,6 +73,38 @@ class UsersController < ApplicationController
       @results << @shipment if @shipment
     elsif @search_term.blank?
       @results = []
+    elsif @search_term.start_with?("#")
+      web_order = @search_term.gsub("#","").strip
+      @order = current_user.orders.find_by_web_order_id(web_order)
+      @results << @order if @order
+    elsif @search_term.start_with?("%")
+      num_search = @search_term.gsub("%","").strip
+      @orders = current_user.orders.search(num_search)
+      @results = @results + @orders if @orders
+      @customers = current_user.customers.search(num_search)
+      @results = @results + @customers if @customers
+      @stores = current_user.stores.search(num_search)
+      @results = @results + @stores if @stores
+    elsif @search_term.strip == "order"
+      redirect_to user_orders_path(current_user)
+    elsif @search_term.strip == "new"
+      redirect_to new_user_order_path(current_user)
+    elsif @search_term.strip == "quick"
+      redirect_to quick_add_user_shippings_path(current_user)
+    elsif @search_term.strip == "shipment"
+      redirect_to user_shippings_path(current_user)
+    elsif @search_term.strip == "customer"
+      redirect_to user_customers_path(current_user)
+    elsif @search_term.strip == "store"
+      redirect_to user_stores_path(current_user)
+    elsif @search_term.strip == "report"
+      redirect_to user_report_path(current_user)
+    elsif @search_term.strip == "activity"
+      redirect_to user_activities_path(current_user)
+    elsif @search_term.strip == "account"
+      redirect_to user_path(current_user)
+    elsif @search_term.strip == "setting"
+      redirect_to setting_user_path(current_user)
     else
       @orders = current_user.orders.search(@search_term)
       @results = @results + @orders if @orders
