@@ -89,6 +89,17 @@ class ReportsController < ApplicationController
     redirect_to user_report_path(current_user)
   end
 
+  def activity_log
+    @main_user = PublicActivity::Activity.order("created_at desc").where(owner_id: current_user.id).limit(50).uniq.paginate(:page => params[:user_page], :per_page => 6)
+    if current_user.role == "manager" && current_user.seller.present?
+      @linked_user = PublicActivity::Activity.order("created_at desc").where(owner_id: current_user.seller.id).limit(50).uniq.paginate(:page => params[:link_page], :per_page => 6)
+    elsif current_user.role == "seller" && current_user.manager.present?
+      @linked_user = PublicActivity::Activity.order("created_at desc").where(owner_id: current_user.manager.id).limit(50).uniq.paginate(:page => params[:link_page], :per_page => 6)
+    else
+      @linked_user = []
+    end
+  end
+
   private
 
     def check_valid_data

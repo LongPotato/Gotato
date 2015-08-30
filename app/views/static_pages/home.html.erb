@@ -9,7 +9,7 @@
         <div class="panel-body">
           <% unless current_user.role == "seller" && current_user.manager.nil? %>
             <%= render_activities @activities %>
-            <%= link_to "View activity log", user_report_path(current_user), method: :post %>
+            <%= link_to "View activity log", user_activities_path(current_user) %>
           <% else %>
             <p class="text-center text-muted lead">You have no activity</p>
           <% end %>

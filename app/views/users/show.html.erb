@@ -27,8 +27,8 @@
   <% unless current_user.seller.nil? %>
     <p class="p_account"><b>Associate seller:</b> <%= @user.seller.name.titleize %>
       <%= link_to remove_seller_user_path(current_user),
-      method: :post, class: "expand", :data => {:confirm => "This action will unlink this seller from all of your data. He will no longer be able to access your database."} do %>
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      method: :post, class: "expand", :data => {:confirm => "This action will unlink this seller from all of your data. He will no longer be able to access your database."}, style: "margin-left: 20px;" do %>
+        <i class="fa fa-user-times"></i>
       <% end %>
     </p>
   <% else %>
@@ -55,8 +55,8 @@
   <% unless current_user.manager.nil? %>
     <p class="p_account"><b>Associate manager:</b> <%= @user.manager.name.titleize %>
       <%= link_to remove_manager_user_path(current_user),
-      method: :post, class: "expand", :data => {:confirm => "This action will unlink yourself from the database. You will no longer be able to see or modify the data."} do %>
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+      method: :post, class: "expand", :data => {:confirm => "This action will unlink yourself from the database. You will no longer be able to see or modify the data."}, style: "margin-left: 20px;" do %>
+        <i class="fa fa-user-times"></i>
       <% end %>
     </p>
   <% else %>

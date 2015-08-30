@@ -1,0 +1,62 @@
+<% provide(:title, 'Activity Log') %>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+  <ul class="nav nav-tabs">
+    <li role="presentation">
+      <%= link_to "This month", user_report_path(current_user), class: "customer", method: :post %>
+    </li>
+    <li role="presentation">
+      <%= link_to user_year_path(current_user), class: "customer" do %>
+        <i class="fa fa-line-chart"></i> This year
+      <% end %>
+    </li>
+    <li role="presentation">
+      <%= link_to user_months_path(current_user), class: "customer" do %>
+        <i class="fa fa-list"></i> Monthly Index
+      <% end %>
+    </li>
+    <li role="presentation" class="active">
+      <%= link_to user_activities_path(current_user), class: "customer" do %>
+        <i class="fa fa-rss"></i> Activity Log
+      <% end %>
+    </li>
+  </ul>
+</div>
+</div>
+
+<div class="row">
+
+  <div class="col-md-5 col-md-offset-1">
+    <legend class="sale-info">My activities:</legend>
+
+    <div class="panel panel-default">
+    <div class="panel-body">
+      <%= render_activities @main_user %>
+      <%= will_paginate @main_user, :param_name => 'user_page', renderer: BootstrapPagination::Rails %>
+    </div>
+    </div>
+  </div>
+
+  <div class="col-md-5">
+    <% if current_user.role == "manager" && current_user.seller.present? %>
+      <legend class="sale-info">My seller's activities:</legend>
+    <% elsif current_user.role == "seller" && current_user.manager.present? %>
+      <legend class="sale-info">My manager's activities:</legend>
+    <% else %>
+      <legend class="sale-info">Associate's activities:</legend>
+    <% end %>
+
+    <% unless @linked_user.empty? %>
+      <div class="panel panel-default">
+      <div class="panel-body">
+        <%= render_activities @linked_user %>
+        <%= will_paginate @linked_user, :param_name => 'link_page', renderer: BootstrapPagination::Rails %>
+      </div>
+      </div>
+    <% else %>
+      <p class="lead text-muted text-center sale-info">No associate account.</p>
+    <% end %>
+  </div>
+
+</div>

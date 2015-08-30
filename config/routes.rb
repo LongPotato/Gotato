@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     resources :stores
     resources :data, :only => [:show]
     get 'range_orders' => 'orders#look_up_range'
+    get 'activities' => 'reports#activity_log'
     get 'report' => 'reports#show_report'
     post 'report' => 'reports#generate_report'
     get 'year' => 'reports#show_year'
