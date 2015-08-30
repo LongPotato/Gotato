@@ -8,6 +8,18 @@
         <li><%= link_to "Documents", documents_user_path(current_user), id: "last_nav" %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+
+        <li>
+          <form accept-charset="UTF-8" class="navbar-form" action="/users/<%= current_user.id %>/search" method="get">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="search">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+              </span>
+            </div>
+          </form>
+        </li>
+
         <li class="nav_text">
           <%= link_to user_report_path(current_user), method: :post do %>
             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Reports

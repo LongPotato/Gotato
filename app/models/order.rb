@@ -26,6 +26,7 @@ class Order < ActiveRecord::Base
   validate  :picture_size
 
   before_save :set_default
+  before_save { self.description = description.downcase.strip }
 
   #get next available order
   def next
@@ -44,6 +45,14 @@ class Order < ActiveRecord::Base
       order
     else
       self.class.last
+    end
+  end
+
+  def self.search(search)
+    if search
+      where('description LIKE ?', "%#{search}%")
+    else
+      all
     end
   end
 

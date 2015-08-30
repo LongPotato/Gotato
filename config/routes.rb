@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :users, :except => [:index, :edit] do
     member do
       get :all
+      get :search
       get :account_password
       get :setting
       get :documents

@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   include PublicActivity::StoreController
   require 'csv'
+  require 'will_paginate/array'
   protect_from_forgery with: :exception
+  include ApplicationHelper
   include SessionsHelper
   include OrdersHelper
 

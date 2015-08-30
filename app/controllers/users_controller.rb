@@ -63,6 +63,28 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def search
+    @search_term = params[:search]
+    @results = []
+    if is_number? @search_term
+      @order = current_user.orders.find_by_id(@search_term.to_i)
+      @results << @order if @order
+      @shipment = current_user.shippings.find_by_id(@search_term.to_i)
+      @results << @shipment if @shipment
+    elsif @search_term.blank?
+      @results = []
+    else
+      @orders = current_user.orders.search(@search_term)
+      @results = @results + @orders if @orders
+      @customers = current_user.customers.search(@search_term)
+      @results = @results + @customers if @customers
+      @stores = current_user.stores.search(@search_term)
+      @results = @results + @stores if @stores
+    end
+    @count = @results.count
+    @results = @results.paginate(:page => params[:page], :per_page => 15)
+  end
+
 =begin
   def set_vnd
     @user = User.find(params[:id])
