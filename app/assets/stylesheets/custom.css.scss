@@ -35,7 +35,7 @@
   font-size: 16px;
   padding-left: 25px;
   margin-left: 20px;
-  border-left: 1px solid #eaeaea;
+  /* border-left: 1px solid #eaeaea; */
 }
 
 
@@ -44,7 +44,7 @@
   font-size: 16px;
   padding-left: 25px;
   margin-left: 10px;
-  border-left: 1px solid #eaeaea;
+  /* border-left: 1px solid #eaeaea; */
 }
 
 #last_nav {
@@ -53,10 +53,14 @@
   padding-left: 25px;
   padding-right: 25px;
   margin-left: 10px;
-  border-left: 1px solid #eaeaea;
-  border-right: 1px solid #eaeaea;
+  /* border-left: 1px solid #eaeaea; */
+  /* border-right: 1px solid #eaeaea; */
 }
 
+.nav-padding {
+  padding-left: 30px;
+  padding-right: 30px;
+}
 
 .nowrap {
   white-space: nowrap;

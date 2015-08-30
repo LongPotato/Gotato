@@ -164,6 +164,25 @@
         </div>
       </div>
 
+      <legend>Smart search</legend>
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <form accept-charset="UTF-8" action="/users/<%= current_user.id %>/customers" method="get" id="customers_search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for..." name="search">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+              </span>
+            </div>
+          </form>
+
+          <legend style="margin-top: 15px;"></legend>
+          <%= link_to "Advanced search", user_path(current_user) %>
+
+        </div>
+      </div>
+
     </div>
 
 

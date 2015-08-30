@@ -30,12 +30,16 @@
   <div class="col-md-5 col-md-offset-1">
     <legend class="sale-info">My activities:</legend>
 
-    <div class="panel panel-default">
-    <div class="panel-body">
-      <%= render_activities @main_user %>
-      <%= will_paginate @main_user, :param_name => 'user_page', renderer: BootstrapPagination::Rails %>
-    </div>
-    </div>
+    <% unless @main_user.empty? %>
+      <div class="panel panel-default">
+      <div class="panel-body">
+        <%= render_activities @main_user %>
+        <%= will_paginate @main_user, :param_name => 'user_page', renderer: BootstrapPagination::Rails %>
+      </div>
+      </div>
+    <% else %>
+      <p class="lead text-muted text-center sale-info">No activity.</p>
+    <% end %>
   </div>
 
   <div class="col-md-5">
