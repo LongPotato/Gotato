@@ -3,6 +3,7 @@ class RequestsController < ApplicationController
 
   def completed
     @requests = current_user.requests.where(check: true).order("id desc").paginate(:page => params[:page], :per_page => 6)
+    @pending = current_user.requests.where(check: false).count
   end
 
   def create
