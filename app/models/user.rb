@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :customers
   has_and_belongs_to_many :shippings
   has_and_belongs_to_many :data
+  has_and_belongs_to_many :requests
 
   #Returns a random token.
   def User.new_token

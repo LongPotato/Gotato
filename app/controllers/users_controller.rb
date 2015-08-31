@@ -105,6 +105,8 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user)
     elsif @search_term.strip == "setting"
       redirect_to setting_user_path(current_user)
+    elsif @search_term.strip == "request"
+      redirect_to user_inbox_path(current_user)
     else
       @orders = current_user.orders.search(@search_term)
       @results = @results + @orders if @orders
@@ -163,6 +165,10 @@ class UsersController < ApplicationController
       shipping.users.delete(@user.seller)
     end
 
+    @user.requests.each do |request|
+      request.users.delete(@user.seller)
+    end
+
     @user.seller.update_attributes(manager_id: nil)
     flash[:warning] = "You are no longer sharing data with #{@user.seller.name.titleize}."
     redirect_to user_path(current_user)
@@ -192,6 +198,10 @@ class UsersController < ApplicationController
 
       current_user.shippings.each do |shipping|
         shipping.users << current_user.seller
+      end
+
+      current_user.requests.each do |request|
+        request.users << current_user.seller
       end
 
       flash[:success] = "You are now sharing data with your seller: #{@user.name.capitalize}."
@@ -225,6 +235,10 @@ class UsersController < ApplicationController
 
     @user.shippings.each do |shipping|
       shipping.users.delete(@user)
+    end
+
+    @user.requests.each do |request|
+      request.users.delete(@user)
     end
 
     @user.update_attributes(manager_id: nil)

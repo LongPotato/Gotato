@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include SessionsHelper
   include OrdersHelper
+  include StaticPagesHelper
 
   # Confirms a logged-in user.
     def logged_in_user

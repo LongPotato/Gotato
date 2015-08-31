@@ -22,9 +22,16 @@
 
         <li class="nav_text">
           <%= link_to user_report_path(current_user), method: :post do %>
-            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Reports
+            <i class="fa fa-flag"></i> Reports
           <% end %>
         </li>
+
+        <li class="nav_text">
+          <%= link_to user_inbox_path(current_user), method: :get do %>
+            <i class="fa fa-inbox"></i> Inbox
+          <% end %>
+        </li>
+
         <li class="dropdown">
           <a href="#" class="dropdown-toggle nav_text"  data-toggle="dropdown">
             <%= current_user.name.titleize %><b class="caret"></b>

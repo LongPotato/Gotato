@@ -1,0 +1,68 @@
+<% provide(:title, 'Inbox | Request') %>
+<%= content_for(:body_attributes) do %> data-no-turbolink <% end %>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+
+  <div class="row">
+	<div class="col-md-2" style="margin-top: 60px;">
+	  <ul class="nav nav-pills nav-stacked">
+		 <li role="presentation" class="active"><a href="#"><b>Requests</b></a></li>
+		 <li role="presentation"><a href="#"><b>Messages</b></a></li>
+	  </ul>
+	</div>
+
+	<div class="col-md-10">
+      <ul class="nav nav-tabs nav-justified">
+	    <li role="presentation" class="active"><a href="#" class: "customer" method="get"><b>Pending</b></a></li>
+	    <li role="presentation">
+	    	<%= link_to "Completed", completed_user_requests_path(current_user), class: "customer" , method: :get %>
+	    </li>
+      </ul>
+      
+      <div class="row nav-order" style="margin-top: 20px;">
+        <button class="btn btn-default" type="none" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Request</button>
+<%= form_tag perform_request_user_requests_path(current_user), :method => :patch, style: "display: inline;" do %>
+        <%= submit_tag "Mark as Completed", class: "btn btn-default" %>
+        <%= submit_tag "Delete", class: "btn btn-default" %>
+      </div>
+
+    <div class="row">
+    <div class="col-md-10 col-md-offset-1" style="margin-top: 20px;">
+    <% unless @requests.empty? %>
+      <% @requests.each do |request| %>
+
+	    <div class="panel panel-default">
+	    <div class="panel-heading"> 
+		  <span class="text-muted">
+		  <%= check_box_tag "request_ids[]", request.id %>
+		  <p class="pull-right">
+		  <%= current_user.seller.name.titleize if current_user.seller.present? %> - 
+		  <%= request.created_at.strftime('%H:%M %m/%d/%Y') %>
+	      </p><br>
+		  </span>
+		</div>
+	    <div class="panel-body">
+          <a href="<%= request.try(:url) %>" target="_blank"><%= request.try(:url) %></a><br>
+          <%= request.try(:note) %>
+	    </div>
+	    </div>
+
+	    <% end %>
+	<% else %>
+	  <p class="lead text-muted text-center">No request</p>
+	<% end %>
+	</div>
+    </div>
+
+    <%= will_paginate @requests, renderer: BootstrapPagination::Rails %>
+
+	</div>
+  </div>
+
+</div>
+</div>
+
+<% end %>
+
+<%= render 'request_modal' %>

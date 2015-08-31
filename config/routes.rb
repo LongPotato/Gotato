@@ -51,12 +51,22 @@ Rails.application.routes.draw do
     resources :customers
     resources :stores
     resources :data, :only => [:show]
+
+    resources :requests do
+      collection do
+        patch :perform_request
+        get :completed
+      end
+    end
+
     get 'range_orders' => 'orders#look_up_range'
     get 'activities' => 'reports#activity_log'
     get 'report' => 'reports#show_report'
     post 'report' => 'reports#generate_report'
     get 'year' => 'reports#show_year'
     get 'months' => 'reports#monthly_index'
+
+    get 'inbox' => 'inboxes#requests'
   end
 
   # Example of regular route:

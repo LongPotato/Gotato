@@ -166,6 +166,19 @@
 
     </div>
 
+    <div class="col-md-3">
+      <legend>Inside inbox</legend>
+
+      <div class="list-group">
+        <button type="button" class="list-group-item" style="font-size: 16px;">
+          <%= link_to user_inbox_path(current_user), class: "sort-header", style: "color: black;", method: :get do %>
+            Order requests <span class="badge pull-right"><%= @requests %></span>
+          <% end %>
+        </button>
+      </div>
+
+    </div>
+
 
   </div>
 
