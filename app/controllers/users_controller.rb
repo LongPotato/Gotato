@@ -166,7 +166,7 @@ class UsersController < ApplicationController
     end
 
     @user.requests.each do |request|
-      request.users.delete(@user.seller)
+      request.destroy
     end
 
     @user.seller.update_attributes(manager_id: nil)
@@ -200,8 +200,8 @@ class UsersController < ApplicationController
         shipping.users << current_user.seller
       end
 
-      current_user.requests.each do |request|
-        request.users << current_user.seller
+      current_user.seller.requests.each do |request|
+        request.users << current_user
       end
 
       flash[:success] = "You are now sharing data with your seller: #{@user.name.capitalize}."
@@ -238,7 +238,7 @@ class UsersController < ApplicationController
     end
 
     @user.requests.each do |request|
-      request.users.delete(@user)
+      request.destroy
     end
 
     @user.update_attributes(manager_id: nil)

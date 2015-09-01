@@ -124,9 +124,12 @@
             <ul class="dropdown-menu dropdown-menu-right">
               <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
               <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
+              <% if current_user.role == "manager" %>
               <li class=<%= order.received_us == true ? "disabled" : "" %>>
                 <%= link_to "Mark as Received", user_order_set_received_path(current_user, order.id), method: :patch %>
               </li>
+              <% end %>
+              <% if can? :destroy, Order %>
               <li class="divider"></li>
               <li>
                 <% unless order.shipping_id.nil? %>
@@ -136,6 +139,7 @@
                   <%= link_to "Delete", user_order_path(current_user, order.id), method: :delete %>
                 <% end %>
               </li>
+              <% end %>
             </ul>
           </div>
           </td>

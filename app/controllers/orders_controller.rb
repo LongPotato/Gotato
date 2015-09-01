@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  load_and_authorize_resource
+
   before_action :logged_in_user
   before_action :correct_user
 
@@ -193,69 +195,73 @@ class OrdersController < ApplicationController
       end
     end
 
-    #Add users to customers
-    if customer = current_user.customers.find_by_name(cus_name.downcase)
-      @order.update_attributes(customer_id: customer.id)
+    if cus_name.present?
+      #Add users to customers
+      if customer = current_user.customers.find_by_name(cus_name.downcase)
+        @order.update_attributes(customer_id: customer.id)
 
-      customer.users << current_user unless customer.users.find_by_id(current_user.id)
+        customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
-      if current_user.role == "manager"
-        if current_user.seller.present?
-          customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+        if current_user.role == "manager"
+          if current_user.seller.present?
+            customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+          end
+        else
+          if current_user.manager.present?
+            customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+          end
         end
       else
-        if current_user.manager.present?
-          customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
-        end
-      end
-    else
-      @order.update_attributes(customer_attributes: {name: cus_name})
+        @order.update_attributes(customer_attributes: {name: cus_name})
 
-      customer = Customer.find_by_name(cus_name.downcase)
+        customer = Customer.find_by_name(cus_name.downcase)
 
-      customer.users << current_user unless customer.users.find_by_id(current_user.id)
+        customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
-      if current_user.role == "manager"
-        if current_user.seller.present?
-          customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
-        end
-      else
-        if current_user.manager.present?
-          customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+        if current_user.role == "manager"
+          if current_user.seller.present?
+            customer.users << current_user.seller unless customer.users.find_by_id(current_user.seller.id)
+          end
+        else
+          if current_user.manager.present?
+            customer.users << current_user.manager unless customer.users.find_by_id(current_user.manager.id)
+          end
         end
       end
     end
 
-    #Add users to stores
-    if store = current_user.stores.find_by_name(store_name.downcase)
-      @order.store_id = store.id
+    if store_name.present?
+      #Add users to stores
+      if store = current_user.stores.find_by_name(store_name.downcase)
+        @order.store_id = store.id
 
-      store.users << current_user unless store.users.find_by_id(current_user.id)
+        store.users << current_user unless store.users.find_by_id(current_user.id)
 
-      if current_user.role == "manager"
-        if current_user.seller.present?
-          store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+        if current_user.role == "manager"
+          if current_user.seller.present?
+            store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+          end
+        else
+          if current_user.manager.present?
+            store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+          end
         end
       else
-        if current_user.manager.present?
-          store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
-        end
-      end
-    else
-      @order.save
-      @order.update_attributes(store_attributes: {name: store_name})
+        @order.save
+        @order.update_attributes(store_attributes: {name: store_name})
 
-      store = Store.find_by_name(store_name.downcase)
+        store = Store.find_by_name(store_name.downcase)
 
-      store.users << current_user unless store.users.find_by_id(current_user.id)
+        store.users << current_user unless store.users.find_by_id(current_user.id)
 
-      if current_user.role == "manager"
-        if current_user.seller.present?
-          store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
-        end
-      else
-        if current_user.manager.present?
-          store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+        if current_user.role == "manager"
+          if current_user.seller.present?
+            store.users << current_user.seller unless store.users.find_by_id(current_user.seller.id)
+          end
+        else
+          if current_user.manager.present?
+            store.users << current_user.manager unless store.users.find_by_id(current_user.manager.id)
+          end
         end
       end
     end

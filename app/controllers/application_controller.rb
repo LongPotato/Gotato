@@ -11,20 +11,25 @@ class ApplicationController < ActionController::Base
   include StaticPagesHelper
 
   # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
     end
+  end
 
    #Confirms the correct user.
-    def correct_user
-      @user = User.find(params[:user_id])
-      unless current_user?(@user)
-        flash[:danger] = "You don't have permission for that action."
-        redirect_to(root_url)
-      end
+  def correct_user
+    @user = User.find(params[:user_id])
+    unless current_user?(@user)
+      flash[:danger] = "You don't have permission for that action."
+      redirect_to(root_url)
     end
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:danger] = "Access denied."
+    redirect_to root_url
+  end
     
 end

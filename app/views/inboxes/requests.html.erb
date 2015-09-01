@@ -25,10 +25,16 @@
       </ul>
       
       <div class="row nav-order" style="margin-top: 20px;">
+      	<% if can? :create, Request %>
         <button class="btn btn-default" type="none" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Request</button>
+        <% end %>
 <%= form_tag perform_request_user_requests_path(current_user), :method => :patch, style: "display: inline;" do %>
+        <% if can? :update, Request %>
         <%= submit_tag "Mark as Completed", class: "btn btn-default" %>
+        <% end %>
+        <% if can? :destroy, Request %>
         <%= submit_tag "Delete", class: "btn btn-default" %>
+        <% end %>
       </div>
 
     <div class="row">

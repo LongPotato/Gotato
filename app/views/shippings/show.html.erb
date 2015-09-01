@@ -128,8 +128,10 @@
             <ul class="dropdown-menu dropdown-menu-right">
               <li><%= link_to "Edit", edit_user_order_path(current_user, order.id) %></li>
               <li><%= link_to "Detail", user_order_path(current_user, order.id) %></li>
+              <% if can? :destroy, Order %>
               <li class="divider"></li>
               <li><%= link_to "Remove", user_order_remove_path(current_user, order.id) %></li>
+              <% end %>
             </ul>
           </div>
           </td>
@@ -143,12 +145,13 @@
   <div class="col-md-6 col-md-offset-3">
 
   <legend class="field"></legend>
-
+  <% if can? :update, Shipping %>
   <%= link_to "Edit", edit_user_shipping_path(current_user, @shipment.id), class: "btn btn-lg btn-warning" %>
   <%= link_to "Delete", 
       user_shipping_path(current_user, @shipment.id),
       method: :delete, data: { confirm: 'Delete this shipment will also reset all of its orders values.'},
       class: "btn btn-lg btn-danger" %>
+  <% end %>
   <%= link_to "Cancel", :back, class: "btn btn-lg btn-default pull-right", method: :get %>
 
   </div>

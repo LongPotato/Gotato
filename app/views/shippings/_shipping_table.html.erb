@@ -29,10 +29,14 @@
             <span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
+              <% if can? :update, Shipping %>
               <li><%= link_to "Edit", edit_user_shipping_path(current_user, shipment.id) %></li>
+              <% end %>
               <li><%= link_to "Detail", user_shipping_path(current_user, shipment.id), method: :get %></li>
+              <% if can? :update, Shipping %>
               <li class="divider"></li>
               <li><%= link_to "Delete", user_shipping_path(current_user, shipment.id), method: :delete, data: { confirm: 'Delete this shipment will also reset all of its orders values.' }  %></li>
+              <% end %>
             </ul>
           </div>
           </td>

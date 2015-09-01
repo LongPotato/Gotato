@@ -16,6 +16,8 @@
         <%= s.hidden_field :user_id, :value => @user.id %>
       <% end %>
 
+   <% if current_user.role == "manager" %>
+
       <%= f.text_area :note %>
 
       <legend class="field"></legend>
@@ -62,6 +64,8 @@
 
       <%= f.text_field :shipping_vn, prepend: "$", label: "Ship VN", help: "Manually enter shipping price or generate it by adding this order to a shipment" %>
 
+   <% end %>
+   
       <legend class="field"></legend>
 
       <%= f.text_field :vnd, prepend: "VND", label: "USD to VND exchange rate", help: "Enter today exchange rate or use your predefined value in setting"  %>

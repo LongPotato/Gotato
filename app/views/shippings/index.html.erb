@@ -1,16 +1,19 @@
 <% provide(:title, 'Shipping') %>
 
 <div class="row nav-order">
+  <% if can? :create, Shipping %>
   <button type="button" class="btn btn-success">
     <span class="glyphicon glyphicon-plus-sign" id="plus-new-order" aria-hidden="true"></span>
     <b><%= link_to "New shipment", new_user_shipping_path(current_user), class: "shipment_btn" %></b>
   </button>
+  
 
   <button type="button" class="btn btn-default" id="next-btn">
     <%= link_to quick_add_user_shippings_path(current_user), class: "view-btn", method: :get do %>
       <i class="fa fa-check-square-o"></i> Quick add
     <% end %>
   </button>
+  <% end %>
 
   <div class="btn-group">
   <button class="btn btn-default dropdown-toggle view-btn" id="next-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
