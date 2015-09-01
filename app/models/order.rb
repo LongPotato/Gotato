@@ -16,7 +16,7 @@ class Order < ActiveRecord::Base
 
   scope :sale, -> { joins(:customer).where('customers.name = ?', 'for sale') }
   scope :placed, -> { joins(:customer).where('customers.name != ?', 'for sale') }
-  scope :this_month, -> { where("order_date > ?", Time.now.beginning_of_month) }
+  scope :this_month, -> { where("order_date >= ?", Time.now.beginning_of_month) }
   scope :three_months, -> { where("order_date BETWEEN ? AND ?", 3.months.ago.beginning_of_month, Time.now.beginning_of_month) }
   scope :received, -> { where('received_us = ?', true) }
   scope :not, -> { where('received_us != ?', true) }

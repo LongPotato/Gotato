@@ -9,7 +9,7 @@ class Shipping < ActiveRecord::Base
   validates :ship_date, presence: true
   validates :order_fields, presence: true
 
-  scope :this_month, -> { where("ship_date > ?", Time.now.beginning_of_month) }
+  scope :this_month, -> { where("ship_date >= ?", Time.now.beginning_of_month) }
 
   before_save :set_default
 

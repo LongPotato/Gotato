@@ -1,6 +1,5 @@
 class ShippingsController < ApplicationController
-  load_and_authorize_resource
-  
+
   before_action :logged_in_user
   before_action :correct_user
 
@@ -36,6 +35,7 @@ class ShippingsController < ApplicationController
   def new
     @shipment = Shipping.new
     @user = current_user
+    authorize! :update, Shipping
   end
 
   def create
@@ -80,6 +80,8 @@ class ShippingsController < ApplicationController
     else
       render 'new'
     end
+
+    authorize! :create, Shipping
   end
 
   def show
@@ -146,6 +148,7 @@ class ShippingsController < ApplicationController
     else
       render 'edit'
     end
+
   end
 
   def destroy
@@ -166,6 +169,7 @@ class ShippingsController < ApplicationController
 
   def quick_add
     @orders = current_user.orders.where("ship_vn" => nil).received.uniq.order(sort_column + " " + sort_direction)
+    authorize! :update, Shipping
   end
 
   def update_quick_add
@@ -213,6 +217,7 @@ class ShippingsController < ApplicationController
       flash[:danger] = "Unable to create new shipment: #{@shipment.errors.full_messages}."
       redirect_to user_shippings_path(current_user)
     end
+    authorize! :update, Shipping
   end
 
   private

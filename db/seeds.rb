@@ -42,7 +42,7 @@ address_list = ["A23-BT4 My Dinh, Tu Liem, Hanoi", "Ngo 17, Hong Ha, Hanoi", "13
 customer_array = []
 store_array = []
 
-time = [Time.now, 2.weeks.ago, 1.month.ago, 2.months.ago, 2.days.from_now, 4.months.ago]
+time = [Time.now, 2.weeks.ago, 1.month.ago, 2.months.ago, 2.days.from_now, 3.months.ago, 4.months.ago]
 
 true_false = [true, false]
 
@@ -74,7 +74,7 @@ end
   remain = vn.to_f - deposit
 
   order = Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)], 
-               order_date: time[rand(0..5)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
+               order_date: time[rand(0..6)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
                web_price: price, tax: tax, shipping_us: quan, reward: (price * 0.01).round(2), total: total.round(2), total_cost: (total * 2100).round(2),
                profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, customer_id: customer_array[rand(customer_array.size) - 1],
                store_id: store_array[rand(store_array.size) - 1])
