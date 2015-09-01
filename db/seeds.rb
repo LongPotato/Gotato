@@ -32,17 +32,18 @@ image = ["http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/9/24/14
 
 web_id = ["159", "TFE", "1460", "E342", "DS160", "123", "342", "3253", "MNOP3", "I20"]
 
-vn_price = [5000000, 14500500, 10050040, 235000, 42345500, 35030000, 1000000, 36000000, 5200000, 3421200]
+vn_price = [5900000, 14500500, 15050040, 535000, 42345500, 35030000, 1000000, 56000000, 5200000, 8421200]
 
-price_list = [3.99, 345.99, 45, 10.50, 0, 10500, 140.6, 860, 640.99, 550, 40.50, 79.99, 83.40]
+price_list = [3.99, 345.99, 45, 10.50, 15, 10500, 140.6, 860, 640.99, 550, 40.50, 79.99, 83.40]
 
 address_list = ["A23-BT4 My Dinh, Tu Liem, Hanoi", "Ngo 17, Hong Ha, Hanoi", "132 Cau Giay, Hanoi", "P.3709 Thang Long no.1", "95 Folsom Ave, Suite 600
                 San Francisco", "18 Ngo Hue, Thanh Xuan, Hanoi", "12 Nguyen Phong Sac, Q.1, HCM", "So 554 Ngo 15, Dong Khoi, Q11, HCM", ""]
 
 customer_array = []
 store_array = []
+order_array = []
 
-time = [Time.now, 2.weeks.ago, 1.month.ago, 2.months.ago, 2.days.from_now, 3.months.ago, 4.months.ago]
+time = [Time.now, 2.weeks.ago, 1.month.ago, 2.months.ago, 2.days.from_now, 3.months.ago, 4.months.ago, 5.months.ago, 6.months.ago]
 
 true_false = [true, false]
 
@@ -61,7 +62,7 @@ store_name.each do |name|
   store_array << new_store.id
 end
 
-100.times do
+200.times do
   s = rand(100)
   quan = rand(1..20)
   price = price_list[rand(0..12)]
@@ -74,14 +75,58 @@ end
   remain = vn.to_f - deposit
 
   order = Order.create(description: order_name[rand(0..9)], note: note_list[rand(0..8)], received_us: true_false[rand(0..1)], 
-               order_date: time[rand(0..6)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
+               order_date: time[rand(0..8)], web_order_id: "#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}-#{web_id[rand(0..9)]}",
                web_price: price, tax: tax, shipping_us: quan, reward: (price * 0.01).round(2), total: total.round(2), total_cost: (total * 2100).round(2),
                profit: profit.round(2), vnd: 21500, remain: remain.round(2), deposit: deposit, selling_price: vn, customer_id: customer_array[rand(customer_array.size) - 1],
                store_id: store_array[rand(store_array.size) - 1])
 
   order.users << [@admin_user, @seller_user]
+  order_array << order.id
 
 end
+
+
+20.times do
+  order_ids = []
+  valid_order_id = []
+
+  rand(3..10).times do
+    order_ids << order_array.sample
+  end
+
+  order_ids.each do |id|
+    order = Order.find(id)
+    if order.received_us == true && order.shipping_id.nil?
+      valid_order_id << order.id
+    end
+  end
+
+  shipment = Shipping.create(description: note_list[rand(0..8)], ship_date: time[rand(0..8)], price: price_list[rand(0..12)], order_fields: valid_order_id.join(','))
+
+  valid_order_id.each do |id|
+    order = Order.find(id)
+    if order.received_us == true
+      order.update_attributes(shipping_id: shipment.id)
+    end
+  end
+
+  valid_order_id.each do |id|
+    order = Order.find(id)
+    item_price = shipment.calculate_ship_vn.round(2)
+    order.update_attributes(ship_vn: shipment.ship_date)
+    order.update_attributes(shipping_vn: item_price)
+    order.update_attributes(total_cost: order.calculate_total_cost.round(2))
+    order.update_attributes(profit: order.calculate_profit.round(2))
+  end
+  shipment.users << [@admin_user, @seller_user]
+end
+
+
+20.times do
+  request = Request.create(url: image[rand(image.size) - 1], note: order_name[rand(0..9)], check: true_false[rand(0..1)])
+  request.users << [@admin_user, @seller_user]
+end
+
 
 PublicActivity.enabled = true
 
