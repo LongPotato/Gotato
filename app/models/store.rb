@@ -5,7 +5,7 @@ class Store < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_many :orders
 
-  before_save { self.name = name.downcase.strip }
+  before_save { self.name = name.try(:downcase).try(:strip) }
 
   #get next available order
   def next

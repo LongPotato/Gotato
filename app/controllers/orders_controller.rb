@@ -65,8 +65,8 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    cus_name = params[:order][:customer_attributes][:name]
-    store_name = params[:order][:store_attributes][:name]
+    cus_name = params[:order][:customer_attributes][:name] if params[:order][:customer_attributes].present?
+    store_name = params[:order][:store_attributes][:name] if params[:order][:customer_attributes].present?
 
     @order.users << current_user unless @order.users.find_by_id(current_user.id)
 
@@ -82,7 +82,7 @@ class OrdersController < ApplicationController
     end
 
     #Add users to customers
-    if customer = current_user.customers.find_by_name(cus_name.downcase)
+    if customer = current_user.customers.find_by_name(cus_name.try(:downcase))
       @order.customer_id = customer.id
 
       customer.users << current_user unless customer.users.find_by_id(current_user.id)
@@ -100,7 +100,7 @@ class OrdersController < ApplicationController
       @order.save
       @order.update_attributes(customer_attributes: {name: cus_name})
 
-      customer = Customer.find_by_name(cus_name.downcase)
+      customer = Customer.find_by_name(cus_name.try(:downcase))
 
       customer.users << current_user unless customer.users.find_by_id(current_user.id)
 
@@ -116,7 +116,7 @@ class OrdersController < ApplicationController
     end
 
     #Add users to stores
-    if store = current_user.stores.find_by_name(store_name.downcase)
+    if store = current_user.stores.find_by_name(store_name.try(:downcase))
       @order.store_id = store.id
 
       store.users << current_user unless store.users.find_by_id(current_user.id)
@@ -134,7 +134,7 @@ class OrdersController < ApplicationController
       @order.save
       @order.update_attributes(store_attributes: {name: store_name})
 
-      store = Store.find_by_name(store_name.downcase)
+      store = Store.find_by_name(store_name.try(:downcase))
 
       store.users << current_user unless store.users.find_by_id(current_user.id)
 

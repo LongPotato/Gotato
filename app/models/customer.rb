@@ -6,7 +6,7 @@ class Customer < ActiveRecord::Base
   has_many :orders
   has_many :shipping, through: :orders
 
-  before_save { self.name = name.downcase.strip }
+  before_save { self.name = name.try(:downcase).try(:strip)}
 
   #get next available order
   def next
