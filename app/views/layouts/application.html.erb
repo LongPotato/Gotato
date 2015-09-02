@@ -7,6 +7,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="initial-scale=1">
 </head>
 <body <%= yield(:body_attributes) %>>
   <%= render 'layouts/header' %>
@@ -24,5 +25,6 @@
   <%= yield %>
   </end>
   <%= render 'layouts/footer' %>
+  <div></div>
 </body>
 </html>

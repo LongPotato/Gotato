@@ -1,6 +1,15 @@
 <nav class="navbar navbar-default">
   <div class="container-fulid nav-padding">
+    <div class="navbar-header">
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     <%= link_to "gotato", root_path, id: "logo", method: :get %>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <% if logged_in? %>
       <ul class="nav navbar-nav navbar-left">
         <li><%= link_to "Orders", user_orders_path(current_user) , id: "first_nav", method: :get %></li>
@@ -56,6 +65,7 @@
           <% end %>
         </ul>
       <% end %>
+      </div>
     </ul>
   </div>
 </nav>
