@@ -1,7 +1,7 @@
 <li id="text-message">
 <div class="panel panel-default">
   <div class="panel-body">
-	  <span><b><%= display_name(message.user.name).titleize %></b>:</span> <span class="text-body"><%= message.body %></span>
+	  <span><b><%= message.user.name.titleize %></b>:</span> <span class="text-body"><%= message.body %></span>
 	  <span class="pull-right text-muted"><%= message.created_at.strftime("%H:%M") %></span>
   </div>
 </div>
