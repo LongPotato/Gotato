@@ -1,5 +1,5 @@
 <% publish_to "/messages/new" do %>
   $("#chat").append("<%= j render(@message) %>");
+  $('#textdiv').animate({scrollTop: $('#textdiv').prop("scrollHeight")}, 500);
 <% end %>
 $("#new_message")[0].reset();
-$('#textdiv').animate({scrollTop: $('#textdiv').prop("scrollHeight")}, 500);
