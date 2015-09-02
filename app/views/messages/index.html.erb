@@ -22,6 +22,7 @@
 
   <div class="col-md-8 col-md-offset-1">
     
+    <% if current_user.manager.present? || current_user.seller.present? %>
     <div id="textdiv" class="row" style="margin-top: 40px; max-height: 530px; overflow: auto;">
 	<ul id="chat">
 	  <% @messages.each do |message| %>
@@ -42,8 +43,11 @@
     </div>
 
     <%= subscribe_to "/messages/new" %>
-
+    <% else %>
+      <p class="lead text-muted text-center" style="margin-top: 60px;">Add an associate account to start chatting</p>
+    <% end %>
   </div>
+
   </div>
 
 

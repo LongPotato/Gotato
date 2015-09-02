@@ -99,6 +99,8 @@ class UsersController < ApplicationController
       redirect_to user_stores_path(current_user)
     elsif @search_term.strip == "report"
       redirect_to user_report_path(current_user)
+    elsif @search_term.strip == "message"
+      redirect_to user_messages_path(current_user)
     elsif @search_term.strip == "activity"
       redirect_to user_activities_path(current_user)
     elsif @search_term.strip == "account"
@@ -167,6 +169,10 @@ class UsersController < ApplicationController
 
     @user.requests.each do |request|
       request.destroy
+    end
+
+    @user.messages.each do |message|
+      message.destroy
     end
 
     @user.seller.update_attributes(manager_id: nil)
@@ -239,6 +245,10 @@ class UsersController < ApplicationController
 
     @user.requests.each do |request|
       request.destroy
+    end
+
+    @user.messages.each do |message|
+      message.destroy
     end
 
     @user.update_attributes(manager_id: nil)
