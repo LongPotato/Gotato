@@ -13,6 +13,7 @@ class StaticPagesController < ApplicationController
       @this_month = current_user.data.where("month_record BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now.end_of_month).first
       @user = current_user
       @requests = current_user.requests.where(check: false).count
+      @messages = current_user.messages.where("messages.user_id != ?", current_user.id).where(read: false).count
       unless @this_month.nil?
         completed = @this_month.orders.where.not("ship_vn" => nil).received.count
         total = @this_month.order_sold

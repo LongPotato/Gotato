@@ -1,5 +1,6 @@
 <% provide(:title, 'Sale Reports') %>
 
+<div class="page">
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
   <ul class="nav nav-tabs">
@@ -112,3 +113,28 @@
 
 </div>
 </div>
+</div>
+
+<div class="modal fade" id="loadingModal" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>
+        <span class="glyphicon glyphicon-time">
+        </span> Please Wait...
+      </h3>
+    </div>
+    <div class="modal-body">
+      <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  //$('#loadingModal').modal('show');
+  //CallServerFunction();
+</script>

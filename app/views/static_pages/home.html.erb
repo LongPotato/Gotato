@@ -175,6 +175,11 @@
             Order requests <span class="badge pull-right"><%= @requests %></span>
           <% end %>
         </button>
+        <button type="button" class="list-group-item" style="font-size: 16px;">
+          <%= link_to user_messages_path(current_user), class: "sort-header", style: "color: black;", method: :get do %>
+            New messages <span class="badge pull-right"><%= @messages %></span>
+          <% end %>
+        </button>
       </div>
 
     </div>

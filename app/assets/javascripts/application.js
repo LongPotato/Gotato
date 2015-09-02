@@ -17,5 +17,6 @@
 //= require bootstrap-datepicker
 //= require moment
 //= require daterangepicker
+//= require private_pub
 //= require_tree .
 //= require turbolinks

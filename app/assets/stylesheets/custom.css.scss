@@ -346,3 +346,40 @@ padding-table {
 .panel {
     overflow: auto;
 }
+
+
+#loadingModal {
+    top: 20%;
+}
+
+#page {
+    display: none;
+}
+
+#loading {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(192, 192, 192, 0.5);
+    background-image: url("http://i.stack.imgur.com/MnyxU.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#chat {
+  list-style-type: none;
+  padding-left:0;
+}
+
+#text-message {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.text-body {
+  padding-left: 15px;
+}

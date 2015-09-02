@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :shippings
   has_and_belongs_to_many :data
   has_and_belongs_to_many :requests
+  #has_many :messages, ->(user) {where("messages.sender_id = ? OR messages.recipient_id = ?", user.id, user.id)}
+  has_and_belongs_to_many :messages
 
   #Returns a random token.
   def User.new_token

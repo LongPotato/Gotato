@@ -30,6 +30,8 @@ gem "chartkick"
 gem 'goog_currency'
 gem 'whenever', :require => false
 gem 'public_activity'
+gem 'private_pub'
+gem 'thin'
 gem 'has_scope'
 gem 'pg'
 

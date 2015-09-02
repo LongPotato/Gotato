@@ -8,11 +8,15 @@
 	<div class="col-md-2" style="margin-top: 60px;">
 	  <ul class="nav nav-pills nav-stacked">
 		 <li role="presentation" class="active">
-		 	<a href="#"><b>Requests</b>
+		 	<a href="<%= user_inbox_path(current_user) %>"><b>Requests</b>
 		 		<% unless @pending == 0 %><span class="badge pull-right"><%= @pending %></span><% end %>
 		 	</a>
 		 </li>
-		 <li role="presentation"><a href="#"><b>Messages</b></a></li>
+		 <li role="presentation">
+		 	<a href="<%= user_messages_path(current_user) %>"><b>Messages</b>
+		 		<% unless @messages.count == 0 %><span class="badge pull-right"><%= @messages.count %></span><% end %>
+		 	</a>
+		 </li>
 	  </ul>
 	</div>
 

@@ -75,8 +75,8 @@ class UsersController < ApplicationController
       @results = []
     elsif @search_term.start_with?("#")
       web_order = @search_term.gsub("#","").strip
-      @order = current_user.orders.find_by_web_order_id(web_order)
-      @results << @order if @order
+      @orders = current_user.orders.where("web_order_id = ? ", web_order)
+      @results = @results + @orders if @orders
     elsif @search_term.start_with?("%")
       num_search = @search_term.gsub("%","").strip
       @orders = current_user.orders.search(num_search)

@@ -4,6 +4,7 @@ class RequestsController < ApplicationController
   def completed
     @requests = current_user.requests.where(check: true).order("id desc").paginate(:page => params[:page], :per_page => 6)
     @pending = current_user.requests.where(check: false).count
+    @messages = current_user.messages.where("messages.user_id != ?", current_user.id).where(read: false)
   end
 
   def create

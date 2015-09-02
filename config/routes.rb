@@ -59,6 +59,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :messages
+
     get 'range_orders' => 'orders#look_up_range'
     get 'activities' => 'reports#activity_log'
     get 'report' => 'reports#show_report'
