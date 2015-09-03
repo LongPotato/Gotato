@@ -22,6 +22,8 @@ class MessagesController < ApplicationController
       associate_id = current_user.manager
     end
     @message.update_attributes(user_id: current_user.id)
+    @message.update_attributes(created_at: Time.now)
+    @message.save
     @message.users << [current_user, associate_id]
   end
 
