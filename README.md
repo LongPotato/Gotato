@@ -25,7 +25,7 @@ Demo accounts:
 ##Highlighted Features:
 
 * Authorization: Different types of accounts have different types of permissions to access the database.
-* Activity Feed: Users with same database can see each other activities.
+* Activity Feed: Users within the same database can see each other activities.
 * Automatic Report Generation.
 * Smart Search.
 * Instant Messaging System.
