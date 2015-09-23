@@ -28,6 +28,7 @@ Demo accounts:
 * Activity Feed: Users within the same database can see each other activities.
 * Automatic Report Generation.
 * Smart Search.
+* Mailing System.
 * Instant Messaging System.
 
 ##Screenshots:
