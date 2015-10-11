@@ -17,11 +17,11 @@ Demo accounts:
 
 ##How does Gotato work?
 
-Gotato ends the depedence on various applications to manage sale data.
+Gotato ends the depedence on various applications to manage sales data.
 
-This is a program that I wrote to a specific group of people, a rereseller team.
+This is a program that I wrote for a specific group of people, a rereseller team.
 
-This reseller team used to use Excel for handling files, Skype for communicating and Facebook Messenger for placing orders. Now with Gotato, they can do all of that in one place, from managing sales data, receiving orders to chatting right within their web browser.
+This reseller team used to use Excel for handling files, Skype for communicating and Facebook Messenger for placing orders. Now with Gotato, they can do all of that in one place, from managing sales data, receiving orders to having a chat right within their web browser.
 
 ##Highlighted Features:
 
