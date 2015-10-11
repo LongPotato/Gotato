@@ -17,10 +17,11 @@ Demo accounts:
 
 ##How does Gotato work?
 
-1. User with seller account submits a new order request.
-2. User with a manager account purchases the requested item and creates a new order record.
-3. Manager user ships the order to seller and update the shipping cost.
-4. Manager and seller view sales reports and communicate within the system.
+Gotato ends the depedence on various applications to manage sale data.
+
+This is a program that I wrote to a specific group of people, a rereseller team.
+
+This reseller team used to use Excel for handling files, Skype for communicating and Facebook Messenger for placing orders. Now with Gotato, they can do all of that in one place, from managing sales data, receiving orders to chatting right within their web browser.
 
 ##Highlighted Features:
 
