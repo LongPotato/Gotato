@@ -1,4 +1,4 @@
-#Gotato
+# Gotato
 
 Gotato is an online sales database, built for online resellers to manage sales data.
 
@@ -15,7 +15,7 @@ Demo accounts:
     123456
 ```
 
-##How does Gotato work?
+## How does Gotato work?
 
 Gotato ends the depedence on various applications to manage sales data.
 
@@ -32,7 +32,7 @@ This reseller team used to use Excel for handling files, Skype for communicating
 * Mailing System.
 * Instant Messaging System.
 
-##Screenshots:
+## Screenshots:
 
 ![1](https://raw.githubusercontent.com/LongPotato/Gotato/master/app/assets/images/sc1.jpg)
 
@@ -42,7 +42,7 @@ This reseller team used to use Excel for handling files, Skype for communicating
 
 ![4](https://raw.githubusercontent.com/LongPotato/Gotato/master/app/assets/images/sc2.jpg)
 
-##Setup:
+## Setup:
 
 Want to contribute or try it out on your local machine?
 
