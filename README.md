@@ -23,7 +23,7 @@ This is a program that I wrote for a specific group of people, a rereseller team
 
 This reseller team used to use Excel for handling files, Skype for communicating and Facebook Messenger for placing orders. Now with Gotato, they can do all of that in one place, from managing sales data, receiving orders to having a chat right within their web browser.
 
-##Highlighted Features:
+## Highlighted Features:
 
 * Authorization: Different types of accounts have different types of permissions to access the database.
 * Activity Feed: Users within the same database can see each other activities.
